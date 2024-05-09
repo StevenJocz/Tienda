@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  font-family: "Roboto", sans-serif;
+
+  /* background */
+  --bg-menu: #091314;
+  --bg-blanco: #fff;
+  --bg-gris-claro: #f5f7fa;
+  --bg-gris-oscuro: #efefef;
+  --bg-negro-opacidad: #0000004a;
+  --bg-menu-opacidad: #252b3600;
+  --bg-modal-scroll: #a1a1a1;
+  --bg-unac: #2A5783;
+  --bg-unac-hover: #2a57834d;
+
+
+  /* text */
+  --text-blanco: #fff;
+  --text-negro-opacidad: #0000003e;
+  --text-gris-opacidad: #3535355b;
+  --text-azul-opacidad: #2050aba7;
+  --text-menu-opacidad: #252b36;
+  --text-menu:  #424242fa;
+  --text-unac: #2A5783;
+
+
+  /* border */
+  --border-negroClaro: #2f2e2e26;
+  --border-menu-opacidad: #252b361b;
+
+
+  /* box-shadow */
+  --box-shadow-claro: #ccc6c62d;
+
+
+
+  --text-color-blanco: #fff;
+  --tex-color-blancoGris: #d8d8d8;
+  --text-color-azulClaro: #62d2e0;
+  --text-color-amarilloClaro: #fffbd8;
+  --text-color-naraja: #ff9673;
+  --text-color-purpura: #847ffd;
+  --text-color-verde: #52cc92;
+
+  --bg-color-Gris-Claro: #d4d3d38c;
+  --bg-color-Gris-Oscuro: #d4d3d322;
+  --bg-color-Gris-OscuroM: #17303296;
+  --bg-color-Gris-OscuroMTR: #ffffff21;
+
+  --bg-color-fondo: #17303296;
+  --bg-color-contentModal: #091314;
+  --bg-color-fondoModal: #000000ba;
+
+  --btn-color-inshover: #56748d;
+  --btn-color-ins: #56748da8;
+
+  --btn-color-mashover: #00c6ab;
+  --btn-color-mas: #00c6aba8;
+
+}
+
+body {
+  overflow: hidden;
+}
+.roboto-thin {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}

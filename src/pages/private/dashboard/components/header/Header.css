@@ -1,0 +1,86 @@
+.Header {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.Header_Iconos {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.Header_Iconos .icono {
+    font-size: 20px;
+    margin-right: 10px;
+    color: #0303039f;
+    padding: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+.Header_Iconos .icono:nth-child(1)::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #1677ff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.Header_Iconos .icono:nth-child(2)::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #23cb8d;
+    position: absolute;
+    top: 0;
+    right: 0;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+
+}
+
+.Header_Iconos .icono:hover {
+    background-color: #def8fa;
+}
+
+.Header_Perfil {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.Header_Perfil:hover {
+    background-color: #def8fa;
+}
+
+.Header_Perfil img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.Header_Perfil h2 {
+    font-family: "Neue Plak Extended Bold", serif;
+    color: #0303039f;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 100%;
+    margin-left: 10px;
+}

@@ -1,0 +1,90 @@
+.Card {
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid #2f2e2e1a;
+    margin-top: 20px;
+    padding: 15px;
+}
+
+.Card h3 {
+    font-family: "Neue Plak Extended Bold", serif;
+    color: #0303039f;
+    font-size: 17px;
+    font-style: normal;
+}
+
+.Card div {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.Card div p {
+    font-family: "Neue Plak Regular", serif;
+    color: #000000;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 900;
+}
+
+.Card div button {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    padding: 3px 10px;
+    margin-top: 10px;
+    color: rgb(22, 119, 255);
+    background-color: rgb(230, 244, 255);
+    border-color: rgb(105, 177, 255);
+    border: 1px solid rgb(22, 119, 255);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.Card .Tipo {
+    color: rgb(250, 173, 20);
+    background-color: rgb(255, 251, 230);
+    border-color: rgb(255, 214, 102);
+}
+
+.Card .TipoNegativo {
+    color: rgb(173, 1, 1);
+    background-color: rgba(255, 124, 124, 0.453);
+    border-color: rgb(255, 102, 102);
+}
+
+.Card .TipoPositivo {
+    color: rgb(1, 173, 10);
+    background-color: rgba(124, 255, 157, 0.453);
+    border-color: rgb(102, 255, 122);
+}
+
+.Card div button .icono {
+    margin-right: 10px;
+}
+
+.Card div button .iconoDos {
+    margin-right: 10px;
+    transform: rotate(70deg);
+    -webkit-transform: rotate(70deg);
+    -moz-transform: rotate(70deg);
+    -ms-transform: rotate(70deg);
+    -o-transform: rotate(70deg);
+}
+
+.Card p {
+    font-family: "Neue Plak Regular", serif;
+    color: #0303039f;
+    font-size: 14px;
+    font-style: normal;
+    margin-top: 10px;
+}
+
+.Card span {
+    color: rgb(22, 119, 255);
+    font-weight: 700;
+    margin: 0 5px;
+}

@@ -1,0 +1,138 @@
+.Loader {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+}
+
+.Loader p {
+    position: absolute;
+    top: 48.5%;
+    color: #2B5983;
+    font-family: "Neue Plak Regular", serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 800;
+    letter-spacing: 0.32px;
+    animation: textanimate 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    -webkit-animation: textanimate 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+@keyframes textanimate {
+    0% {
+        color: #2b5883a3;
+    }
+
+    100% {
+        color: #2B5983;
+    }
+}
+
+.Loader_circulo {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.Loader_circulo div {
+    animation: Loader_circulo 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 40px 40px;
+    -webkit-animation: Loader_circulo 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.Loader_circulo div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #1a354f;
+    margin: -4px 0 0 -4px;
+}
+
+.Loader_circulo div:nth-child(1) {
+    animation-delay: -0.036s;
+}
+
+.Loader_circulo div:nth-child(1):after {
+    top: 63px;
+    left: 63px;
+}
+
+.Loader_circulo div:nth-child(2) {
+    animation-delay: -0.072s;
+}
+
+.Loader_circulo div:nth-child(2):after {
+    top: 68px;
+    left: 56px;
+}
+
+.Loader_circulo div:nth-child(3) {
+    animation-delay: -0.108s;
+}
+
+.Loader_circulo div:nth-child(3):after {
+    top: 71px;
+    left: 48px;
+}
+
+.Loader_circulo div:nth-child(4) {
+    animation-delay: -0.144s;
+}
+
+.Loader_circulo div:nth-child(4):after {
+    top: 72px;
+    left: 40px;
+}
+
+.Loader_circulo div:nth-child(5) {
+    animation-delay: -0.18s;
+}
+
+.Loader_circulo div:nth-child(5):after {
+    top: 71px;
+    left: 32px;
+}
+
+.Loader_circulo div:nth-child(6) {
+    animation-delay: -0.216s;
+}
+
+.Loader_circulo div:nth-child(6):after {
+    top: 68px;
+    left: 24px;
+}
+
+.Loader_circulo div:nth-child(7) {
+    animation-delay: -0.252s;
+}
+
+.Loader_circulo div:nth-child(7):after {
+    top: 63px;
+    left: 17px;
+}
+
+.Loader_circulo div:nth-child(8) {
+    animation-delay: -0.288s;
+}
+
+.Loader_circulo div:nth-child(8):after {
+    top: 56px;
+    left: 12px;
+}
+
+@keyframes Loader_circulo {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

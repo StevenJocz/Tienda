@@ -1,0 +1,195 @@
+.Notification {
+    width: 100%;
+    min-width: 250px;
+    max-width: 380px;
+    position: absolute;
+    top: 62px;
+    right: 250px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(38, 38, 38);
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.09);
+    -moz-box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.09);
+    box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.09);
+    animation: subirDesdeAbajo 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-animation: subirDesdeAbajo 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+}
+
+@keyframes subirDesdeAbajo {
+    from {
+        transform: translateY(50%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.Notification button {
+    background: none;
+    border: none;
+    color: #1677ff;
+    font-family: "Neue Plak Extended Bold", serif;
+    font-size: 11px;
+    font-style: normal;
+    cursor: pointer;
+}
+
+.Notification_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #2f2e2e1a;
+
+}
+
+.Notification_header h3 {
+    font-family: "Neue Plak Extended Bold", serif;
+    color: #0303039f;
+    font-size: 15px;
+    font-style: normal;
+}
+
+.Notification_content {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.Notification_content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.Notification_content::-webkit-scrollbar-thumb {
+    background-color: #00000076;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.Notification_content::-webkit-scrollbar-track {
+    background-color: #252b3600;
+}
+
+.Notification_content-items {
+    display: flex;
+    padding: 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #2f2e2e1a;
+}
+
+.Notification_Nuevas {
+    background-color: #56748d17;
+}
+
+.Notification_content-items-photo {
+    width: 10%;
+}
+
+.Notification_content-items-photo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.Notification_content-items-content {
+    width: 90%;
+    margin-left: 20px;
+}
+
+.Notification_content-items-content h2 {
+    font-family: "Neue Plak Extended Bold", serif;
+    font-size: 15px;
+}
+
+.Notification_content-items-content p {
+    font-family: "Neue Plak Regular", serif;
+    font-size: 14px;
+}
+
+.Notification_content-items-content-tipo {
+    display: flex;
+    margin-top: 5px;
+}
+
+.Notification_content-items-content-tipo div {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    background-color: #1677ff53;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Notification_content-items-content-tipo div .icono {
+    font-size: 12px;
+    color: #fff;
+}
+
+.Notification_registro div {
+    background-color: #16ffaa98;
+}
+
+.Notification_grupal div {
+    background-color: #bcdf1198;
+}
+
+.Notification_correo div {
+    background-color: #02834f98;
+}
+
+.Notification_correo  span {
+    color: #013420;
+    font-weight: 800;
+}
+
+.Notification_content-items-time {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    justify-content: right;
+}
+
+.Notification_content-items-time p {
+    color: #959595;
+    font-size: 10px;
+}
+
+.Notification_content-items-time .icono {
+    font-size: 7px;
+    margin-right: 5px;
+    background-color: #9c9c9c53;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    padding: 5px;
+    color: #000000;
+}
+
+.Notification_footer {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #2f2e2e1a;
+}

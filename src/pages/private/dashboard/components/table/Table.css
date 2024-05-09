@@ -1,0 +1,156 @@
+.DynamicTable table {
+    margin-top: 2%;
+    color: #bbf77f3d;
+}
+
+.DynamicTable .icono, .TableAsistencia .icono {
+    font-size: 18px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.DynamicTable .iconoEdit {
+    color: #10b575;
+    padding: 5px;
+}
+
+.DynamicTable .iconoEdit:hover {
+    color: #057449;
+    background-color: #10b57634;
+}
+
+.DynamicTable .iconoConfig {
+    color: #b58110;
+    padding: 5px;
+}
+
+.DynamicTable .iconoConfig:hover {
+    color: #745805;
+    background-color: #b5b51034;
+}
+
+
+.DynamicTable .iconoVer, .TableAsistencia .iconoVer {
+    color: #10b5b2;
+    padding: 5px;
+}
+
+.DynamicTable .iconoVer:hover, .TableAsistencia .iconoVer:hover {
+    color: #05746d;
+    background-color: #10b5aa34;
+}
+
+
+.DynamicTable .iconoLista {
+    color: #1026b5;
+    padding: 5px;
+}
+
+.DynamicTable .iconoLista:hover {
+    color: #054274;
+    background-color: #1310b534;
+}
+
+.DynamicTable .iconoTrash {
+    color: #b51010;
+    padding: 5px;
+}
+
+.DynamicTable .iconoTrash:hover {
+    color: #740505;
+    background-color: #b5101034;
+}
+
+
+.DynamicTable .iconoAprobar, .TableAsistencia .iconoAprobar {
+    color: #47b510;
+    padding: 5px;
+}
+
+.DynamicTable .iconoAprobar:hover, .TableAsistencia .iconoAprobar:hover {
+    color: #1f7405;
+    background-color: #3fb51034;
+}
+
+
+
+.DynamicTable_acciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.DynamicTable_acciones .iconos{
+    font-size: 30px;
+    color: #5a5a5a7e;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.DynamicTable_acciones .DynamicTable_acciones-botones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.DynamicTable .imgTable {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+}
+
+.DynamicTable .TotalRegistros span {
+    font-family: "Neue Plak Regular", serif;
+    color: #696969;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 10px;
+}
+.DynamicTable .TotalRegistros  {
+    color: #660796;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 20px 10px -10px 20px;
+}
+
+.divTableImagen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divTableImagenAsis {
+    justify-content: left;
+}
+
+.divTableImagen div {
+    text-align: left;
+}
+
+.divTableImagen div p {
+    font-size: 12px;
+}
+
+.divTableImagen .imgTable {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    margin-right: 10px;
+}
+
+.TableAsistencia {
+    width: 100%;
+}
+
+.TableAsistencia .DynamicTable_acciones {
+    margin-bottom: 20px;
+}

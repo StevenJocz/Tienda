@@ -1,0 +1,25 @@
+.Garantia {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 5%;
+}
+
+.Garantia_Content {
+    display: flex;
+    align-items: center;
+}
+
+.Garantia_Content .icono {
+    font-size: 50px;
+    color: var(--text-unac);
+    margin-right: 10px;
+    opacity: 0.5;
+}
+
+.Garantia_Content--text p {
+    font-size: 15px;
+    opacity: 0.5;
+}

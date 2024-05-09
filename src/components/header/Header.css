@@ -1,0 +1,92 @@
+.Header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Header_Content {
+    width: 95%;
+    height: 100vh;
+    background: rgb(217, 217, 217);
+    background: linear-gradient(90deg, rgba(217, 217, 217, 1) 0%, rgba(217, 217, 217, 0.363) 79%);
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    padding: 15% 5% 5% 10%;
+    position: relative;
+}
+
+
+.Header_Content--text h3 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-family: "Roboto", sans-serif;
+}
+
+.Header_Content--text h2 {
+    font-size: 6em;
+    margin-top: -15px;
+    font-family: "Roboto", sans-serif;
+    
+}
+
+.Header_Content--text h1 {
+    font-size: 12em;
+    text-transform: uppercase;
+    color: var(--text-blanco);
+    font-family: "Roboto", sans-serif;
+    margin-top: -20px;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    z-index: 1000;
+}
+
+.Header_Content--description {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-top: 20%;
+}
+
+.Header_Content--description button {
+    width: 350px;
+    height: 60px;
+    font-size: 20px;
+    background-color: var( --bg-unac);
+    border: none;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    padding: 10px 10px;
+    color: var(--text-blanco);
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    cursor: pointer;
+}
+
+.Header_Content--description div {
+    text-align: right;
+    width: 300px;
+}
+
+.Header_Content--description div p {
+    color: var(--text-gris-opacidad);
+}
+
+.Header_Content img {
+    width: 800px;
+    position: absolute;
+    top: 10%;
+    left: 35%;
+    transform: rotate(10deg);
+    -webkit-transform: rotate(10deg);
+    -moz-transform: rotate(10deg);
+    -ms-transform: rotate(10deg);
+    -o-transform: rotate(10deg);
+}

@@ -1,0 +1,40 @@
+.Informativo {
+    width: 90%;
+    height: 350px;
+    margin: 0 5%;
+    margin-top: 5%;
+    border-radius: 30px;
+    background-color: var(--bg-unac);
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    overflow: hidden;
+}
+
+.Informativo img {
+    width: 40%;
+}
+
+.Informativo_Text h2 {
+    font-size: 45px;
+    color: #7ecae898;
+    text-transform: uppercase;
+}
+
+.Informativo_Text h3 {
+    font-size: 30px;
+    color: var(--text-blanco);
+    text-transform: uppercase;
+}
+
+.Informativo_Text p {
+    font-size: 18px;
+    color: var(--text-blanco);
+    opacity: 0.7;
+    margin-top: 20px;
+    font-weight: 100;
+}
