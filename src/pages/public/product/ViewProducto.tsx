@@ -34,7 +34,7 @@ const ViewProducto = () => {
     };
 
     const handleGuia = () => {
-        
+
         setGuia(!guia);
     };
 
@@ -309,9 +309,9 @@ const ViewProducto = () => {
                     )}
 
                 </div>
+                {guia && <Guia  onClose={() =>setGuia(false)}/>}
+                <Productos />
             </div>
-            {guia && <Guia />}
-            <Productos />
         </div>
     )
 }
