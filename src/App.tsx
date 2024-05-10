@@ -12,6 +12,7 @@ import { Loader } from './components/loader';
 import Dashboard from './pages/private/dashboard/Dashboard';
 import { Home } from './pages/public/home';
 import { ViewProducto } from './pages/public/product';
+import { CartProvider } from './context/CartContext';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         {isLoading ? (
           <Loader />
         ) : (
+          <CartProvider>
           <Provider store={Store}>
             <BrowserRouter>
               <RoutesWithNotFound>
@@ -48,6 +50,7 @@ function App() {
               </RoutesWithNotFound>
             </BrowserRouter>
           </Provider>
+          </CartProvider>
         )}
       </Suspense>
     </>

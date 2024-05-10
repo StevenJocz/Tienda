@@ -2,6 +2,7 @@ import './ShoppingCart.css'
 import { IonIcon } from '@ionic/react';
 import { Tooltip } from '@mui/material';
 import { closeOutline, cartSharp, addOutline, removeOutline, trashOutline } from "ionicons/icons";
+import { useCartContext } from '../../../context/CartContext';
 
 interface Props {
     onClose: () => void;
@@ -9,40 +10,51 @@ interface Props {
 
 
 const ShoppingCart: React.FC<Props> = (props) => {
+    const { cartItems } = useCartContext();
 
-    const data = [
-        {
-            "id": 1,
-            "cantidad": 1,
-            "valor": 8250,
-            "nombre": "Cable del controlador de la consola de juegos",
-            "src": "https://tennis.vtexassets.com/arquivos/ids/2414705-800-auto?v=638496787580270000&width=800&height=auto&aspect=true",
-            "color": "#ff0000",
-            "nombreColor": "Rojo",
-            "talla": "XS"
-        },
-        {
-            "id": 2,
-            "cantidad": 2,
-            "valor": 35050,
-            "nombre": "Chaleco con detalles de brillo negro para mujer",
-            "src": "https://tennis.vtexassets.com/arquivos/ids/2414989-500-auto?v=638496788126130000&width=500&height=auto&aspect=true",
-            "color": "#ffff00",
-            "nombreColor": "Amarillo",
-            "talla": "L"
-        }
-        ,
-        {
-            "id": 3,
-            "cantidad": 2,
-            "valor": 35050,
-            "nombre": "Chaleco con detalles de brillo negro para mujer",
-            "src": "https://tennis.vtexassets.com/arquivos/ids/2414989-500-auto?v=638496788126130000&width=500&height=auto&aspect=true",
-            "color": "#ffff00",
-            "nombreColor": "Amarillo",
-            "talla": "L"
-        }
-    ]
+    // const data = [
+    //     {
+    //         "id": 1,
+    //         "cantidad": 1,
+    //         "valor": 8250,
+    //         "nombre": "Cable del controlador de la consola de juegos",
+    //         "src": "https://tennis.vtexassets.com/arquivos/ids/2414705-800-auto?v=638496787580270000&width=800&height=auto&aspect=true",
+    //         "color": "#ff0000",
+    //         "nombreColor": "Rojo",
+    //         "talla": "XS"
+    //     },
+    //     {
+    //         "id": 2,
+    //         "cantidad": 2,
+    //         "valor": 35050,
+    //         "nombre": "Chaleco con detalles de brillo negro para mujer",
+    //         "src": "https://tennis.vtexassets.com/arquivos/ids/2414989-500-auto?v=638496788126130000&width=500&height=auto&aspect=true",
+    //         "color": "#ffff00",
+    //         "nombreColor": "Amarillo",
+    //         "talla": "L"
+    //     } ,
+    //     {
+    //         "id": 3,
+    //         "cantidad": 2,
+    //         "valor": 35050,
+    //         "nombre": "Chaleco con detalles de brillo negro para mujer",
+    //         "src": "https://tennis.vtexassets.com/arquivos/ids/2414989-500-auto?v=638496788126130000&width=500&height=auto&aspect=true",
+    //         "color": "#ffff00",
+    //         "nombreColor": "Amarillo",
+    //         "talla": "L"
+    //     }
+    //     ,
+    //     {
+    //         "id": 4,
+    //         "cantidad": 2,
+    //         "valor": 35050,
+    //         "nombre": "Chaleco con detalles de brillo negro para mujer",
+    //         "src": "https://tennis.vtexassets.com/arquivos/ids/2414989-500-auto?v=638496788126130000&width=500&height=auto&aspect=true",
+    //         "color": "#ffff00",
+    //         "nombreColor": "Amarillo",
+    //         "talla": "L"
+    //     }
+    // ]
 
 
     return (
@@ -66,7 +78,7 @@ const ShoppingCart: React.FC<Props> = (props) => {
                         </div>
                     </div>
                     <div className='ShoppingCart_Producto'>
-                        {data.map((producto, index) => (
+                        {cartItems.map((producto, index) => (
                             <div className='ShoppingCart_Producto--Content' key={index}>
                                 <div className='ShoppingCart_Producto--Content--imagen'>
                                     <img src={producto.src} alt={producto.nombre} />

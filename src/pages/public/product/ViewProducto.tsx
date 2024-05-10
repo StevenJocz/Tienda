@@ -8,6 +8,7 @@ import { alarmOutline, addOutline, removeOutline, heartOutline, logoFacebook, lo
 import { ConteoRegresivo } from '../../../utilities';
 import { Guia } from '../../../components/giuaTallas';
 import { Productos } from '../../../components/productos';
+import { useCartContext } from '../../../context/CartContext';
 
 
 const ViewProducto = () => {
@@ -15,9 +16,15 @@ const ViewProducto = () => {
     const [imagenSeleccionada, setImagenSeleccionada] = useState<number | null>(null);
     const [color, setColor] = useState('');
     const [tallaSeleccionada, setTallaSeleccionada] = useState('');
+    const [precio, setPrecio] = useState(25400);
+    const [nombre, setNombre] = useState('Cable del controlador de la consola de juegos');
     const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
     const [menu, setMenu] = useState(1);
     const [guia, setGuia] = useState(false);
+    const { addToCart } = useCartContext();
+    const idProducto = location.pathname.split("/")[2];
+    const [mensajeTalla, setMensajeTalla] = useState('');
+    const [mensajeCantidad, setMensajeCantidad] = useState('');
 
     const handleSelectImage = (url: string, index: number, color: string) => {
         setImagen(url);
@@ -167,6 +174,34 @@ const ViewProducto = () => {
         }
     }, []);
 
+    const haddleAddCart = () => {
+
+        if (tallaSeleccionada == '' || cantidadSeleccionada == 0) {
+            if (tallaSeleccionada == '') {
+                setMensajeTalla('Seleccione una opción');
+            }
+            if (cantidadSeleccionada == 0) {
+                setMensajeCantidad('Agregue la cantidad');
+            }
+
+        } else {
+            setMensajeTalla('');
+            setMensajeCantidad('');
+
+            addToCart({
+                id: parseInt(idProducto),
+                cantidad: cantidadSeleccionada,
+                valor: precio,
+                nombre: nombre,
+                src: imagen,
+                color: color,
+                nombreColor: color,
+                talla: tallaSeleccionada
+            });
+        }
+
+    }
+
     return (
         <div className='Home'>
             <div className='Home_nav'>
@@ -232,7 +267,7 @@ const ViewProducto = () => {
 
                         </div>
                         <div className='Producto_main--info-Colores'>
-                            <h4>Talla: <span>{tallaSeleccionada}</span></h4>
+                            <h4>Talla: <span className={mensajeTalla != '' && tallaSeleccionada == '' ? "Producto_main--info-Colores--spanRojo" : ""}>{tallaSeleccionada || mensajeTalla}</span></h4>
                             <div className='Talla--Contenedor'>
                                 {talla.map((talla, index) => (
                                     <div
@@ -251,7 +286,7 @@ const ViewProducto = () => {
                                 <h4>{cantidadSeleccionada}</h4>
                                 <IonIcon className='icono' icon={addOutline} onClick={() => handleSelectCantidad(1)} />
                             </div>
-                            <div className='Producto_main--acciones-add'>
+                            <div className='Producto_main--acciones-add' onClick={haddleAddCart}>
                                 <span>Añadir al carrito </span>
                             </div>
                             <Tooltip title='Añadir a la lista de deseos' placement="top" disableInteractive >
@@ -260,7 +295,8 @@ const ViewProducto = () => {
                                 </div>
                             </Tooltip>
                         </div>
-                        <div className='Producto_main--Compra'>
+                        <p> <span className={mensajeCantidad != '' ? "Producto_main--info-Colores--spanRojo" : ""}>{mensajeCantidad}</span></p>
+                        <div className='Producto_main--Compra' >
                             <span>Realizar compra</span>
                         </div>
                         <div className='Producto_main--menu'>
@@ -293,23 +329,17 @@ const ViewProducto = () => {
                     {menu == 1 ? (
                         <div className='Producto_Descripcion-info'>
                             <strong>AJUSTE DE COMBATE</strong>
-                            <p>
-                                Apuesta por el deporte este verano con esta camiseta vintage con cuello en V a rayas azul marino y blanco de Abercrombie & Fitch. Perfecto para combinar con zapatillas vaqueras y blancas para un estilo deportivo. Se adapta a un UK 8-10, el modelo que se muestra es un UK 8 y 5'5. !!
-
+                            <p> Apuesta por el deporte este verano con esta camiseta vintage con cuello en V a rayas azul marino y blanco de Abercrombie & Fitch. Perfecto para combinar con zapatillas vaqueras y blancas para un estilo deportivo. Se adapta a un UK 8-10, el modelo que se muestra es un UK 8 y 5'5. !!
                                 La tipografía es el trabajo de tipógrafos, compositores, tipógrafos, diseñadores gráficos, directores de arte, artistas de manga, artistas de cómics, artistas de graffiti y, ahora, cualquiera que organice palabras, letras, números y símbolos para su publicación, exhibición o distribución, desde trabajadores administrativos y escritores de boletines informativos hasta cualquier persona que autopublique materiales.
-
-                                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+                                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
+                            </p>
                         </div>
                     ) : (
-
                         <div className='Producto_Descripcion-info'>
-
                         </div>
-
                     )}
-
                 </div>
-                {guia && <Guia  onClose={() =>setGuia(false)}/>}
+                {guia && <Guia onClose={() => setGuia(false)} />}
                 <Productos />
             </div>
         </div>

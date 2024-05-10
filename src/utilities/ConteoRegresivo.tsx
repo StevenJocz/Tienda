@@ -55,7 +55,6 @@ const ConteoRegresivo = ({ targetDate }: { targetDate: Date }) => {
                     <h6>segundos</h6>
                 </div>
             </div>
-
         </div>
     );
 };

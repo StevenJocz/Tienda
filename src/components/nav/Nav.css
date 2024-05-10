@@ -46,6 +46,34 @@
     justify-content: right;
 }
 
+.Menu_right--icono {
+    position: relative;
+}
+
+.Menu_right--icono div {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: -12px;
+    right: -5px;
+    background-color: rgb(228, 76, 76);
+    border-radius: 100% 100% 100% 5px;
+    -webkit-border-radius: 100% 100% 100% 5px;
+    -moz-border-radius: 100% 100% 100% 5px;
+    -ms-border-radius: 100% 100% 100% 5px;
+    -o-border-radius: 100% 100% 100% 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Menu_right--icono div p {
+    font-size: 13px;
+    padding: 5px;
+    color: #fff;
+    font-weight: 500;
+}
+
 .Menu_right p {
     font-weight: 100;
     cursor: pointer;

@@ -3,12 +3,13 @@ import { IonIcon } from '@ionic/react';
 import { notificationsOutline, cartOutline, searchOutline, personOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import ShoppingCart from '../cart/shoppingCart/ShoppingCart';
+import { useCartContext } from '../../context/CartContext';
 
 
 const Nav = () => {
     const [shoppingCart, setShoppingCart] = useState(false);
+    const { cartItems } = useCartContext();
 
-    
     const handleShoppingCart = () => {
         setShoppingCart(!shoppingCart);
     };
@@ -26,13 +27,19 @@ const Nav = () => {
                 <p>¿NECESITAS AYUDA?</p>
                 <IonIcon className='icono' icon={searchOutline} />
                 <IonIcon className='icono' icon={notificationsOutline} />
-                <IonIcon className='icono' icon={cartOutline} onClick={handleShoppingCart}/>
+                <div className='Menu_right--icono' onClick={handleShoppingCart} >
+                    <IonIcon className='icono' icon={cartOutline} />
+                    {cartItems.length > 0 && <div>
+                        <p>{cartItems.length}</p>
+                    </div>}
+                </div>
+
                 <button>
                     <IonIcon className='icono' icon={personOutline} />
                     Iniciar
                 </button>
             </div>
-            {shoppingCart && <ShoppingCart  onClose={() =>setShoppingCart(false)}/>}
+            {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} />}
         </div>
     )
 }
