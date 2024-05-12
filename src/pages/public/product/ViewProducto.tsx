@@ -2,38 +2,47 @@ import { useEffect, useState } from 'react';
 import { Nav } from '../../../components/nav'
 import './ViewProducto.css'
 import Rating from '@mui/material/Rating';
-import { LinearProgress, Tooltip, linearProgressClasses, styled } from '@mui/material';
+import { Alert, LinearProgress, Snackbar, Tooltip, linearProgressClasses, styled } from '@mui/material';
 import { IonIcon } from '@ionic/react';
 import { alarmOutline, addOutline, removeOutline, heartOutline, logoFacebook, logoInstagram, logoWhatsapp } from 'ionicons/icons';
 import { ConteoRegresivo } from '../../../utilities';
 import { Guia } from '../../../components/giuaTallas';
 import { Productos } from '../../../components/productos';
 import { useCartContext } from '../../../context/CartContext';
+import ShoppingCart from '../../../components/cart/shoppingCart/ShoppingCart';
 
 
 const ViewProducto = () => {
+    const { addToCart, getLastSavedId } = useCartContext();
+    const [aplicaDescuento, setAplicaDescuento] = useState(false);
     const [imagen, setImagen] = useState('');
     const [imagenSeleccionada, setImagenSeleccionada] = useState<number | null>(null);
     const [color, setColor] = useState('');
     const [tallaSeleccionada, setTallaSeleccionada] = useState('');
-    const [precio, setPrecio] = useState(25400);
-    const [nombre, setNombre] = useState('Cable del controlador de la consola de juegos');
+    const [precio, setPrecio] = useState(0);
+    const [precioFinal, setPrecioFinal] = useState(0);
+    const [nombre] = useState('Cable del controlador de la consola de juegos');
     const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
     const [menu, setMenu] = useState(1);
     const [guia, setGuia] = useState(false);
-    const { addToCart } = useCartContext();
     const idProducto = location.pathname.split("/")[2];
     const [mensajeTalla, setMensajeTalla] = useState('');
     const [mensajeCantidad, setMensajeCantidad] = useState('');
+    const [mensajeAddProducto, setMensajeAddProducto] = useState<string | void>('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [shoppingCart, setShoppingCart] = useState(false);
+    const [fechaDescuento] = useState('2024-06-11T19:21:59');
 
     const handleSelectImage = (url: string, index: number, color: string) => {
         setImagen(url);
         setImagenSeleccionada(index);
         setColor(color);
+        handleCalcularPrecio();
     };
 
     const handleSelectTalla = (talla: string) => {
         setTallaSeleccionada(talla);
+        handleCalcularPrecio();
     };
 
     const handleMenu = (opcion: number) => {
@@ -41,7 +50,6 @@ const ViewProducto = () => {
     };
 
     const handleGuia = () => {
-
         setGuia(!guia);
     };
 
@@ -58,8 +66,7 @@ const ViewProducto = () => {
         setCantidadSeleccionada(cantidad);
     };
 
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 1);
+    const targetDate = new Date(fechaDescuento);
 
     const BorderLinearProgress = styled(LinearProgress)(({ theme, value = 0 }) => ({
         height: 12,
@@ -89,79 +96,92 @@ const ViewProducto = () => {
             "nombre": "Imagen 1",
             "src": "https://tennis.vtexassets.com/arquivos/ids/2414705-800-auto?v=638496787580270000&width=800&height=auto&aspect=true",
             "color": "#ff0000",
-            "nombreColor": "Rojo"
+            "nombreColor": "Rojo",
+            "valorPorcentaje": "10",
         },
         {
             "id": 2,
             "nombre": "Imagen 2",
             "src": "https://tennis.vtexassets.com/arquivos/ids/2266246-800-auto?v=638279851734600000&width=800&height=auto&aspect=true",
             "color": "#00ff00",
-            "nombreColor": "Verde"
+            "nombreColor": "Verde",
+            "valorPorcentaje": "20",
         },
         {
             "id": 3,
             "nombre": "Imagen 3",
             "src": "https://tennis.vtexassets.com/arquivos/ids/2414989-500-auto?v=638496788126130000&width=500&height=auto&aspect=true",
             "color": "#0000ff",
-            "nombreColor": "Azul"
+            "nombreColor": "Azul",
+            "valorPorcentaje": "10",
         },
         {
             "id": 4,
             "nombre": "Imagen 4",
             "src": "https://tennis.vtexassets.com/arquivos/ids/2416881-800-auto?v=638497717634200000&width=800&height=auto&aspect=true",
             "color": "#ffff00",
-            "nombreColor": "Amarillo"
+            "nombreColor": "Amarillo",
+            "valorPorcentaje": "10",
         },
         {
             "id": 5,
             "nombre": "Imagen 1",
             "src": "https://tennis.vtexassets.com/arquivos/ids/2414705-800-auto?v=638496787580270000&width=800&height=auto&aspect=true",
             "color": "#ff0000",
-            "nombreColor": "Rojo"
+            "nombreColor": "Rojo",
+            "valorPorcentaje": "10",
         },
         {
             "id": 6,
             "nombre": "Imagen 2",
             "src": "https://tennis.vtexassets.com/arquivos/ids/2266246-800-auto?v=638279851734600000&width=800&height=auto&aspect=true",
-            "color": "#00ff00",
-            "nombreColor": "Verde"
+            "color": "#fff",
+            "nombreColor": "Blanco",
+            "valorPorcentaje": "10",
         },
         {
             "id": 7,
             "nombre": "Imagen 3",
             "src": "https://tennis.vtexassets.com/arquivos/ids/2414989-500-auto?v=638496788126130000&width=500&height=auto&aspect=true",
             "color": "#0000ff",
-            "nombreColor": "Azul"
+            "nombreColor": "Azul",
+            "valorPorcentaje": "20",
         },
         {
             "id": 8,
             "nombre": "Imagen 4",
             "src": "https://tennis.vtexassets.com/arquivos/ids/2416881-800-auto?v=638497717634200000&width=800&height=auto&aspect=true",
             "color": "#ffff00",
-            "nombreColor": "Amarillo"
+            "nombreColor": "Amarillo",
+            "valorPorcentaje": "10",
         }
     ]
 
     const talla = [
         {
             "id": 1,
-            "nombre": "XS"
+            "nombre": "XS",
+            "valorPorcentaje": "10",
         },
         {
             "id": 2,
-            "nombre": "S"
+            "nombre": "S",
+            "valorPorcentaje": "15",
         },
         {
             "id": 3,
-            "nombre": "M"
+            "nombre": "M",
+            "valorPorcentaje": "20",
         },
         {
             "id": 4,
-            "nombre": "L"
+            "nombre": "L",
+            "valorPorcentaje": "1",
         },
         {
             "id": 5,
-            "nombre": "XL"
+            "nombre": "XL",
+            "valorPorcentaje": "2",
         }
 
     ]
@@ -173,6 +193,10 @@ const ViewProducto = () => {
             setColor(data[0].nombreColor);
         }
     }, []);
+
+    useEffect(() => {
+        handleCalcularPrecio();
+    }, [imagenSeleccionada, tallaSeleccionada]);
 
     const haddleAddCart = () => {
 
@@ -187,9 +211,10 @@ const ViewProducto = () => {
         } else {
             setMensajeTalla('');
             setMensajeCantidad('');
-
-            addToCart({
-                id: parseInt(idProducto),
+            const id = getLastSavedId();
+            const mensaje = addToCart({
+                id: id + 1,
+                idProducto: parseInt(idProducto),
                 cantidad: cantidadSeleccionada,
                 valor: precio,
                 nombre: nombre,
@@ -198,9 +223,54 @@ const ViewProducto = () => {
                 nombreColor: color,
                 talla: tallaSeleccionada
             });
+
+            setMensajeAddProducto(mensaje);
+            setShoppingCart(true)
+            setOpenSnackbar(true);
+        }
+    }
+
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
+    };
+
+    const handleCalcularPrecio = () => {
+        // Definir el precio base y el porcentaje de descuento
+        let precioBase = 20000;
+        let descuento = 20;
+
+        // Obtener la fecha y hora actuales
+        const fechaActual = new Date();
+
+        // Definir la fecha y hora límite para el descuento (por ejemplo, el 31 de diciembre de 2024 a las 23:59:59)
+        const fechaLimite = new Date(fechaDescuento);
+        // Verificar si la fecha actual está antes de la fecha límite para aplicar el descuento
+        if (fechaActual <= fechaLimite) {
+            descuento = descuento;
+            setAplicaDescuento(true);
+        } else {
+            descuento = 0
+            setAplicaDescuento(false);
         }
 
-    }
+        // Obtener el porcentaje de color y talla seleccionados
+        const colorSeleccionado = data.find(item => item.id === imagenSeleccionada);
+        const porcentajeColor = colorSeleccionado ? parseInt(colorSeleccionado.valorPorcentaje) : 0;
+        const porcentajeTalla = talla.find(item => item.nombre === tallaSeleccionada);
+        const porcentajeTallaValue = porcentajeTalla ? parseInt(porcentajeTalla.valorPorcentaje) : 0;
+
+        // Calcular el precio final sin descuento
+        const precioFinalSinDescuento = precioBase * (1 + (porcentajeColor + porcentajeTallaValue) / 100);
+
+        // Calcular el precio final con descuento
+        const precioConDescuento = precioFinalSinDescuento * (1 - descuento / 100);
+
+        // Establecer los precios en el estado
+        setPrecioFinal(precioFinalSinDescuento);
+        setPrecio(precioConDescuento);
+    };
+
+
 
     return (
         <div className='Home'>
@@ -229,7 +299,7 @@ const ViewProducto = () => {
                         <div className="Producto_main--info-Header">
                             <h2>Cable del controlador de la consola de juegos</h2>
                             <div>
-                                <h4>$8,250 <span>$9,900</span></h4>
+                                <h4>${precio.toLocaleString()}{aplicaDescuento && <span>${precioFinal.toLocaleString()}</span>}</h4>
                                 <p>En stock</p>
                             </div>
                         </div>
@@ -242,22 +312,28 @@ const ViewProducto = () => {
                             <h4>¡APURARTE! SOLO QUEDAN <span>16</span> EN STOCK.</h4>
                             <BorderLinearProgress variant="determinate" value={10} />
                         </div>
-                        <div className='Producto_main--info-oferta'>
-                            <p><IonIcon className='icono' icon={alarmOutline} />¡Apúrate! La oferta termina en</p>
-                            <ConteoRegresivo targetDate={targetDate} />
-                        </div>
+                        {aplicaDescuento &&
+                            <div className='Producto_main--info-oferta'>
+                                <p><IonIcon className='icono' icon={alarmOutline} />¡Apúrate! La oferta termina en</p>
+                                <ConteoRegresivo targetDate={targetDate} />
+                            </div>
+                        }
+
                         <div className='Producto_main--info-Colores'>
                             <h4>Color: <span>{color}</span></h4>
                             <div className='Colores--Contenedor'>
-                                {data.map((color, index) => (
-                                    <Tooltip title={color.nombreColor} placement="top" disableInteractive key={index}>
+                                {data.filter((colorItem, index) => {
+                                    // Filtra solo los elementos con colores diferentes a los ya seleccionados
+                                    return data.findIndex((item) => item.color === colorItem.color) === index;
+                                }).map((colores, index) => (
+                                    <Tooltip title={colores.nombreColor} placement="top" disableInteractive key={index}>
                                         <div
-                                            className={`Colores--Contenedor-item ${color.id === imagenSeleccionada ? 'item-borde' : ''}`}
-                                            onClick={() => handleSelectImage(color.src, color.id, color.nombreColor)}
+                                            className={`Colores--Contenedor-item ${colores.nombreColor == color ? 'item-borde' : ''}`}
+                                            onClick={() => handleSelectImage(colores.src, colores.id, colores.nombreColor)}
                                         >
                                             <div
                                                 className='Colores--Contenedor-item-content'
-                                                style={{ backgroundColor: color.color }}
+                                                style={{ backgroundColor: colores.color }}
                                             >
                                             </div>
                                         </div>
@@ -286,9 +362,9 @@ const ViewProducto = () => {
                                 <h4>{cantidadSeleccionada}</h4>
                                 <IonIcon className='icono' icon={addOutline} onClick={() => handleSelectCantidad(1)} />
                             </div>
-                            <div className='Producto_main--acciones-add' onClick={haddleAddCart}>
+                            {/* <div className='Producto_main--acciones-add' >
                                 <span>Añadir al carrito </span>
-                            </div>
+                            </div> */}
                             <Tooltip title='Añadir a la lista de deseos' placement="top" disableInteractive >
                                 <div className='Producto_main--acciones-addDeseos'>
                                     <IonIcon className='icono' icon={heartOutline} />
@@ -296,8 +372,8 @@ const ViewProducto = () => {
                             </Tooltip>
                         </div>
                         <p> <span className={mensajeCantidad != '' ? "Producto_main--info-Colores--spanRojo" : ""}>{mensajeCantidad}</span></p>
-                        <div className='Producto_main--Compra' >
-                            <span>Realizar compra</span>
+                        <div className='Producto_main--Compra' onClick={haddleAddCart} >
+                            <span>Añadir al carrito </span>
                         </div>
                         <div className='Producto_main--menu'>
                             <ul>
@@ -342,6 +418,23 @@ const ViewProducto = () => {
                 {guia && <Guia onClose={() => setGuia(false)} />}
                 <Productos />
             </div>
+            {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} />}
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={1500}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+                <Alert
+                    onClose={handleCloseSnackbar}
+                    severity="success"
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    <p>{typeof mensajeAddProducto === 'string' && (<span>{mensajeAddProducto}</span>)}</p>
+
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

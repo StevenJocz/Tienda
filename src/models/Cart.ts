@@ -1,5 +1,6 @@
 export interface ShoppingCart {
     id: number;
+    idProducto: number;
     cantidad: number;
     valor: number;
     nombre: string;

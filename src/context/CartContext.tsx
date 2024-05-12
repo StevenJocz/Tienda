@@ -1,12 +1,16 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ShoppingCart } from '../models/Cart';
+import { clearLocalStorage, persistLocalStorage } from '../utilities';
 
-
+// Define la interfaz para el contexto del carrito
 interface CartContextProps {
     cartItems: ShoppingCart[];
     addToCart: (item: ShoppingCart) => void;
+    getLastSavedId: () => number;
     removeFromCart: (itemId: number) => void;
     clearCart: () => void;
+    getTotalCartValue: () => number;
+    updateCartItemQuantity: (productId: number, newQuantity: number) => void;
 }
 
 // Crea el contexto
@@ -26,9 +30,71 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Estado para almacenar los elementos del carrito
     const [cartItems, setCartItems] = useState<ShoppingCart[]>([]);
 
-    // Función para agregar un elemento al carrito
+
+    // Cargar datos del carrito desde localStorage al cargar el componente
+    useEffect(() => {
+        const savedCart = localStorage.getItem('cartItems');
+        if (savedCart) {
+            setCartItems(JSON.parse(savedCart));
+        }
+    }, []);
+
+    // Actualizar localStorage cada vez que cambie el carrito
+    useEffect(() => {
+        if (cartItems.length > 0) {
+            persistLocalStorage('cartItems', cartItems);
+        } else {
+            clearLocalStorage('cartItems'); 
+        }
+    }, [cartItems]);
+
+    // Función para obtener el último ID guardado en el carrito
+    const getLastSavedId = () => {
+        if (cartItems.length === 0) {
+            return 0;
+        } else {
+            return cartItems.reduce((maxId, item) => (item.id > maxId ? item.id : maxId), 0);
+        }
+    };
+
+    // Función para agregar un elemento al carrito o actualizar la cantidad si ya existe
     const addToCart = (item: ShoppingCart) => {
-        setCartItems(prevItems => [...prevItems, item]);
+        const existingItemIndex = cartItems.findIndex(existingItem =>
+            existingItem.idProducto === item.idProducto &&
+            existingItem.color === item.color &&
+            existingItem.talla === item.talla
+        );
+
+        let message = '';
+
+        if (existingItemIndex !== -1) {
+            // Si el producto ya existe en el carrito, actualiza la cantidad
+            setCartItems(prevItems => {
+                const updatedCartItems = [...prevItems];
+                updatedCartItems[existingItemIndex].cantidad += item.cantidad;
+                return updatedCartItems;
+            });
+            message = 'La cantidad del producto se ha actualizado en el carrito.';
+        } else {
+            // Si el producto no existe en el carrito, agrégalo
+            setCartItems(prevItems => [...prevItems, item]);
+            message = 'El producto se ha añadido al carrito.';
+        }
+
+        return message;
+    };
+
+    // Función para actualizar la cantidad de un producto en el carrito
+    const updateCartItemQuantity = (productId: number, newQuantity: number) => {
+        setCartItems(prevItems => {
+            return prevItems.map(item => {
+                if (item.id === productId) {
+                    // Si encontramos el producto, actualizamos su cantidad
+                    return { ...item, cantidad: newQuantity };
+                }
+                return item;
+            });
+        });
     };
 
     // Función para eliminar un elemento del carrito
@@ -41,12 +107,21 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setCartItems([]);
     };
 
+    // Función para obtener el valor total de todos los productos en el carrito
+    const getTotalCartValue = () => {
+        // Utilizamos el método reduce para sumar los valores de todos los productos en el carrito
+        return cartItems.reduce((total, item) => total + item.valor * item.cantidad, 0);
+    };
+
     // Objeto de contexto
     const contextValue: CartContextProps = {
         cartItems,
         addToCart,
+        getLastSavedId,
         removeFromCart,
-        clearCart
+        clearCart,
+        getTotalCartValue,
+        updateCartItemQuantity
     };
 
     // Renderiza el proveedor del contexto con los hijos proporcionados

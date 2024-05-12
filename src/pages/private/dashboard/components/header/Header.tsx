@@ -26,7 +26,7 @@ const Header = () => {
 
 
   return (
-    <div className='Header'>
+    <div className='Header_Dashboard'>
       <div className="Header_Iconos">
         <IonIcon className='icono' icon={notificationsOutline} onClick={handleNotification} />
         <IonIcon className='icono' icon={mailOutline} onClick={handleMail} />

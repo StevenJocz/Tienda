@@ -33,6 +33,7 @@
 .Nav ul::-webkit-scrollbar-track {
     background-color: #252b3600;
 }
+
 .Nav_List .Nav_List_Content {
     position: relative;
     list-style: none;

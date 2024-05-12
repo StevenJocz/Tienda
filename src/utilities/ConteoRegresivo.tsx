@@ -1,7 +1,10 @@
-
 import { useState, useEffect } from 'react';
 
-const ConteoRegresivo = ({ targetDate }: { targetDate: Date }) => {
+interface ConteoRegresivoProps {
+    targetDate: Date;
+}
+
+const ConteoRegresivo: React.FC<ConteoRegresivoProps> = ({ targetDate }) => {
     const calculateTimeLeft = () => {
         const difference = targetDate.getTime() - new Date().getTime();
         let timeLeft: { days: number; hours: number; minutes: number; seconds: number } = {

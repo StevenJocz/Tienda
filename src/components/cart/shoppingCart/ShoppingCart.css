@@ -8,6 +8,8 @@
     z-index: 1000;
     display: flex;
     justify-content: right;
+    z-index: 10001;
+    backdrop-filter: blur(3px);
 }
 
 .ShoppingCart--cerrar {
@@ -50,7 +52,9 @@
 }
 
 .ShoppingCart_Content--body--indicador p span {
-    color: rgb(254, 7, 7);
+    color: green;
+    font-weight: 700;
+    margin: 0 5px;
 }
 
 .ShoppingCart_Content--body--indicador p strong {
@@ -76,15 +80,14 @@
 .indicador div {
     background-size: 40px;
     animation: 5s linear infinite bar-progress;
-    width: 98%;
     height: 9px;
     background-image: url(../../../assets/img/svg.png);
-    background-color: rgb(3, 192, 3);
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    -webkit-animation: 5s linear infinite bar-progress;
 }
 
 @keyframes bar-progress {
@@ -98,9 +101,13 @@
 }
 
 .indicador .icono {
-    color: rgb(3, 192, 3);
-    font-size: 35px;
-    margin-left: -10px;
+    font-size: 20px;
+    margin-left: 5px;
+    transform: rotate(40deg);
+    -webkit-transform: rotate(40deg);
+    -moz-transform: rotate(40deg);
+    -ms-transform: rotate(40deg);
+    -o-transform: rotate(40deg);
 }
 
 .ShoppingCart_Producto {
@@ -154,6 +161,10 @@
     padding: 0 10px;
 }
 
+.ShoppingCart_Producto--Content--Info a {
+    text-decoration: none;
+}
+
 .ShoppingCart_Producto--Content--Info h3 {
     font-size: 14px;
     line-height: 20px;
@@ -205,22 +216,22 @@
     color: firebrick;
 }
 
-.ShoppingCart_Subtotal {
+.ShoppingCart_Footer {
     width: 100%;
     padding: 0 10px;
     padding-top: 10px;
     border-top: 1px solid var(--border-negroClaro);
 }
 
-.ShoppingCart_Subtotal--Encabezado {
+.ShoppingCart_Encabezado {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.ShoppingCart_Subtotal--body button:nth-child(1) {
+.ShoppingCart_Botones button:nth-child(1) {
     width: 100%;
-    height: 30px;
+    height: 40px;
     background-color: var(--bg-unac);
     display: flex;
     align-items: center;
@@ -228,14 +239,47 @@
     margin-top: 20px;
     color: var(--text-blanco);
     border: none;
+    cursor: pointer;
 }
 
-.ShoppingCart_Subtotal--body button:nth-child(2) {
+.ShoppingCart_Botones button:nth-child(2) {
     width: 100%;
-    height: 30px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 5px;
     color: #000000;
+    cursor: pointer;
+    background-color: #ffffff;
+    border: solid 1px var(--bg-menu);
+}
+
+.ShoppingCart_Producto-null {
+    text-align: center;
+    margin-top: 40%;
+}
+
+.ShoppingCart_Producto-null .icono{
+    font-size: 80px;
+    opacity: 0.5;
+}
+
+.ShoppingCart_Producto-null p {
+    font-size: 20px;
+    opacity: 0.5;
+}
+
+.ShoppingCart_Producto-null button {
+    width: 80%;
+    height: 50px;
+    background-color: var(--bg-unac);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10%;
+    margin-top: 20px;
+    color: var(--text-blanco);
+    border: none;
+    cursor: pointer;
 }

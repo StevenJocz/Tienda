@@ -11,7 +11,7 @@ const Rutas = () => {
         <RoutesWithNotFound>
             {usuario.tipoUsuario == 1 ? (
                 <>
-                    <Route path="/" element={<div>Usuario</div>} />
+                    <Route path="/" element={<div>Home</div>} />
                 </>
             ) : (
                 <>

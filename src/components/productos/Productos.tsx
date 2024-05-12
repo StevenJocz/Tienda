@@ -1,134 +1,123 @@
 import './Productos.css'
 import { IonIcon } from '@ionic/react';
-import { bookmarkOutline } from 'ionicons/icons';
-
+import { heartOutline } from 'ionicons/icons';
+import { Link } from 'react-router-dom';
 
 const Productos = () => {
+    const producto = [
+        {
+            "id": 1,
+            "nombre": "Camiseta negra manga corta para mujer",
+            "categorias": "Ropa",
+            "imagenes": [
+                {
+                    "imagenUno": "https://tennis.vtexassets.com/arquivos/ids/2414705-800-auto?v=638496787580270000&width=800&height=auto&aspect=true",
+                    "imagenDos": "https://tennis.vtexassets.com/arquivos/ids/2414709-500-auto?v=638496787586830000&width=500&height=auto&aspect=true"
+                }
+            ],
+            "Bitdescuento": true,
+            "descuento": "20",
+            "nuevo": true,
+        },
+        {
+            "id": 2,
+            "nombre": "Polo azul con raqueta malla para hombre",
+            "categorias": "Ropa",
+            "imagenes": [
+                {
+                    "imagenUno": "https://tennis.vtexassets.com/arquivos/ids/2329426-800-auto?v=638465804564770000&width=800&height=auto&aspect=true",
+                    "imagenDos": "https://tennis.vtexassets.com/arquivos/ids/2329429-800-auto?v=638465804577500000&width=800&height=auto&aspect=true"
+                }
+            ],
+            "Bitdescuento": false,
+            "descuento": "0",
+            "nuevo": true,
+        }
+        ,
+        {
+            "id": 3,
+            "nombre": "Camiseta blanco manga corta para hombre",
+            "categorias": "Ropa",
+            "imagenes": [
+                {
+                    "imagenUno": "https://tennis.vtexassets.com/arquivos/ids/2418481-800-auto?v=638501164074900000&width=800&height=auto&aspect=true",
+                    "imagenDos": "https://tennis.vtexassets.com/arquivos/ids/2418486-800-auto?v=638501164086200000&width=800&height=auto&aspect=true"
+                }
+            ],
+            "Bitdescuento": false,
+            "descuento": "0",
+            "nuevo": false,
+        }
+        ,
+        {
+            "id": 4,
+            "nombre": "Camiseta café con escote bandeja para mujer",
+            "categorias": "Ropa",
+            "imagenes": [
+                {
+                    "imagenUno": "https://tennis.vtexassets.com/arquivos/ids/2420950-800-auto?v=638502956262200000&width=800&height=auto&aspect=true",
+                    "imagenDos": "https://tennis.vtexassets.com/arquivos/ids/2420958-800-auto?v=638502956274700000&width=800&height=auto&aspect=true"
+                }
+            ],
+            "Bitdescuento": false,
+            "descuento": "0",
+            "nuevo": false,
+        }
+        ,
+        {
+            "id": 5,
+            "nombre": "Camiseta negra estampada en frente para hombre",
+            "categorias": "Ropa",
+            "imagenes": [
+                {
+                    "imagenUno": "https://tennis.vtexassets.com/arquivos/ids/2416876-800-auto?v=638497717613370000&width=800&height=auto&aspect=true",
+                    "imagenDos": "https://tennis.vtexassets.com/arquivos/ids/2417137-800-auto?v=638497757842600000&width=800&height=auto&aspect=true"
+                }
+            ],
+            "Bitdescuento": false,
+            "descuento": "0",
+            "nuevo": false,
+        }
+    ];
+
     return (
         <div className='Productos'>
             <h1>Productos más vendidos</h1>
             <p>Explora nuestros favoritos: los productos más populares de la temporada.</p>
             <div className='Productos_Content'>
-                <div className='Productos_Card'>
-                    <div className='Productos_Card--img'>
-                        <h5>En oferta</h5>
-                        <h6>Nuevo</h6>
-                        <img className='Productos_Card--img-Uno' src="https://tennis.vtexassets.com/arquivos/ids/2414705-800-auto?v=638496787580270000&width=800&height=auto&aspect=true" alt="" />
-                        <img className='Productos_Card--img-Dos' src="https://tennis.vtexassets.com/arquivos/ids/2414709-500-auto?v=638496787586830000&width=500&height=auto&aspect=true" alt="" />
-                    </div>
-                    <div className='Productos_Card--info'>
-                        <h3>Cable del controlador de la consola de juegos</h3>
-                        <h5>Ropa</h5>
-                        <div className='Productos_Card--info-valor'>
-                            <h3>20%</h3>
-                            <h4>$8,250</h4>
-                            <h5>$9,900</h5>
+                {producto.map((producto, index) => (
+                    <div className='Productos_Card' key={index}>
+                        <Link to={`/Producto/${producto.id}/${encodeURIComponent(producto.nombre.toLowerCase().replace(/ /g, '-'))}`}>
+                            <div className='Productos_Card--img'>
+                                {producto.Bitdescuento &&
+                                    <h5>En oferta</h5>
+                                }
+                                {producto.nuevo &&
+                                    <h6>Nuevo</h6>
+                                }
+                                {producto.imagenes.map((imagen, imgIndex) => (
+                                    <>
+                                        <img className='Productos_Card--img-Uno' src={imagen.imagenUno} alt={`Imagen ${imgIndex}`} />
+                                        <img className='Productos_Card--img-Dos' src={imagen.imagenDos} alt={`Imagen ${imgIndex}`} />
+                                    </>
+                                ))}
+                                {producto.Bitdescuento &&
+                                    <h3>{producto.descuento}% de descuento</h3>
+                                }
+                            </div>
+                        </Link>
+                        <div className='Productos_Card--info'>
+                            <Link to={'/Producto/1'}>
+                                <h3>{producto.nombre}</h3>
+                            </Link>
+                            <div className='Productos_Card--info-valor'>
+                                <h5>{producto.categorias}</h5>
+                                <IonIcon className='icono' icon={heartOutline} />
+                            </div>
                         </div>
-                        <div className='Productos_Card--info-add'>
-                            <button>Agregar al carrito</button>
-                            <IonIcon className='icono' icon={bookmarkOutline} />
-                        </div>
-
                     </div>
-                </div>
-                <div className='Productos_Card'>
-                    <div className='Productos_Card--img'>
-                        <h6>Nuevo</h6>
-                        <img src="https://tennis.vtexassets.com/arquivos/ids/2266246-800-auto?v=638279851734600000&width=800&height=auto&aspect=true" alt="" />
-                    </div>
-                    <div className='Productos_Card--info'>
-                        <h3>Cable del controlador de la consola de juegos</h3>
-                        <h5>Ropa</h5>
-                        <div className='Productos_Card--info-valor'>
-                            <h3>2%</h3>
-                            <h4>$8,250</h4>
-                            <h5>$9,900</h5>
-                        </div>
-                        <div className='Productos_Card--info-add'>
-                            <button>Agregar al carrito</button>
-                            <IonIcon className='icono' icon={bookmarkOutline} />
-                        </div>
-
-                    </div>
-                </div>
-                <div className='Productos_Card'>
-                    <div className='Productos_Card--img'>
-                        <img src="https://tennis.vtexassets.com/arquivos/ids/2414989-500-auto?v=638496788126130000&width=500&height=auto&aspect=true" alt="" />
-                    </div>
-                    <div className='Productos_Card--info'>
-                        <h3>Cable del controlador de la consola de juegos</h3>
-                        <h5>Ropa</h5>
-                        <div className='Productos_Card--info-valor'>
-                            <h4>$8,250</h4>
-                            <h5>$9,900</h5>
-                        </div>
-                        <div className='Productos_Card--info-add'>
-                            <button>Agregar al carrito</button>
-                            <IonIcon className='icono' icon={bookmarkOutline} />
-                        </div>
-
-                    </div>
-                </div>
-                <div className='Productos_Card'>
-                    <div className='Productos_Card--img'>
-                        <h5>En oferta</h5>
-                        <img src="https://tennis.vtexassets.com/arquivos/ids/2416881-800-auto?v=638497717634200000&width=800&height=auto&aspect=true" alt="" />
-                    </div>
-                    <div className='Productos_Card--info'>
-                        <h3>Cable del controlador de la consola de juegos</h3>
-                        <h5>Ropa</h5>
-                        <div className='Productos_Card--info-valor'>
-                            <h3>20%</h3>
-                            <h4>$8,250</h4>
-                            <h5>$9,900</h5>
-                        </div>
-                        <div className='Productos_Card--info-add'>
-                            <button>Agregar al carrito</button>
-                            <IonIcon className='icono' icon={bookmarkOutline} />
-                        </div>
-
-                    </div>
-                </div>
-                <div className='Productos_Card'>
-                    <div className='Productos_Card--img'>
-                        <img src="https://tennis.vtexassets.com/arquivos/ids/2417146-800-auto?v=638498420221300000&width=800&height=auto&aspect=true" alt="" />
-                    </div>
-                    <div className='Productos_Card--info'>
-                        <h3>Cable del controlador de la consola de juegos</h3>
-                        <h5>Ropa</h5>
-                        <div className='Productos_Card--info-valor'>
-                            <h3>20%</h3>
-                            <h4>$8,250</h4>
-                            <h5>$9,900</h5>
-                        </div>
-                        <div className='Productos_Card--info-add'>
-                            <button>Agregar al carrito</button>
-                            <IonIcon className='icono' icon={bookmarkOutline} />
-                        </div>
-
-                    </div>
-                </div>
-                <div className='Productos_Card'>
-                    <div className='Productos_Card--img'>
-                        <img src="https://tennis.vtexassets.com/arquivos/ids/2308252-800-auto?v=638386811258370000&width=800&height=auto&aspect=true" alt="" />
-                    </div>
-                    <div className='Productos_Card--info'>
-                        <h3>Cable del controlador de la consola de juegos</h3>
-                        <h5>Ropa</h5>
-                        <div className='Productos_Card--info-valor'>
-                            <h3>20%</h3>
-                            <h4>$8,250</h4>
-                            <h5>$9,900</h5>
-                        </div>
-                        <div className='Productos_Card--info-add'>
-                            <button>Agregar al carrito</button>
-                            <IonIcon className='icono' icon={bookmarkOutline} />
-                        </div>
-
-                    </div>
-                </div>
+                ))}
             </div>
-
         </div>
     )
 }

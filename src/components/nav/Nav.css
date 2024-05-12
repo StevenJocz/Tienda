@@ -26,6 +26,11 @@
     list-style: none;
 }
 
+.Menu_left ul a  {
+    text-decoration: none;
+    color: var(--text-menu);
+}
+
 .Menu_left ul li {
     display: flex;
     align-items: center;
@@ -56,7 +61,7 @@
     position: absolute;
     top: -12px;
     right: -5px;
-    background-color: rgb(228, 76, 76);
+    background-color: #2A5783;
     border-radius: 100% 100% 100% 5px;
     -webkit-border-radius: 100% 100% 100% 5px;
     -moz-border-radius: 100% 100% 100% 5px;

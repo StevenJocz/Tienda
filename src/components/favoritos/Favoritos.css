@@ -1,0 +1,77 @@
+.Favoritos {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #00000096;
+    z-index: 1000;
+    display: flex;
+    justify-content: right;
+    z-index: 10001;
+    backdrop-filter: blur(3px);
+}
+
+.Favoritos--cerrar {
+    width: 50%;
+    height: 100vh;
+}
+
+.Favoritos_Content {
+    width: 50%;
+    height: 100vh;
+    background-color: #ffffff;
+}
+
+.Favoritos_Content--Encabezado {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.Favoritos_Content--Encabezado .icono {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.Favoritos_Content--body {
+    width: 100%;
+    padding: 10px;
+}
+
+.Favoritos_Producto {
+    width: 100%;
+    max-height: 90vh;
+    padding: 20px 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.Favoritos_Producto::-webkit-scrollbar {
+    width: 3px;
+}
+
+.Favoritos_Producto::-webkit-scrollbar-thumb {
+    background-color: #00000069;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.Favoritos_Producto::-webkit-scrollbar-track {
+    background-color: #262b3400;
+}
+
+.Favoritos_Producto .iconoRemove {
+    cursor: pointer;
+    color: firebrick;
+}
