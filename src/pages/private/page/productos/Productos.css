@@ -1,0 +1,212 @@
+.Productos {
+    width: 100%;
+    position: relative;
+}
+
+.Productos h2 {
+    color: #252b36;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+
+.AddProductos_Encabezado {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 3% 0;
+}
+
+.AddProductos_Encabezado h2 {
+    color: #252b36;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.AddProductos_Encabezado div {
+    display: flex;
+}
+
+.AddProductos_Encabezado div button {
+    margin: 0 5px;
+}
+
+.AddProductos_Formulario {
+    width: 100%;
+    display: flex;
+}
+
+.AddProductos_Formulario_left {
+    width: 65%;
+}
+
+.AddProductos_Formulario_right {
+    width: 35%;
+}
+
+.AddCursos_Formulario-content {
+    width: 100%;
+    background-color: #ffffff;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #57575731;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.input_Tooltip {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+
+.input_fecha .Pickers {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.input_Tooltip .icono {
+    font-size: 20px;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #1187f585;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.AddProductos_Formulario_input .tox .tox-statusbar__right-container,
+.AddProductos_Formulario_input .tox .tox-statusbar__path {
+    display: none;
+}
+
+.AddProductos_Formulario_input .tox .tox-toolbar__primary,
+.AddProductos_Formulario_input .tox .tox-editor-header,
+.AddProductos_Formulario_input .tox .tox-toolbar-overlord,
+.AddProductos_Formulario_input .tox:not(.tox-tinymce-inline) .tox-editor-header,
+.AddProductos_Formulario_input .tox-tinymce,
+.AddProductos_Formulario_input .tox-editor-container .tox-statusbar {
+    background-color: #f5f7fa;
+    border: none;
+    margin-bottom: 5px;
+    box-shadow: none;
+}
+
+.AddProductos_Formulario_input .tox-edit-area {
+    border: 1px solid #00000028;
+    border-radius: 4px;
+}
+
+.AddCursos_Formulario-content h4,
+.Formulario-imagenes--add--body h4 {
+    margin-bottom: 15px;
+    background-color: var(--bg-gris-claro);
+    padding: 10px;
+    color: #000000d7;
+}
+
+.AddCursos_Formulario-imagenes {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.AddCursos_Formulario-imagenes--add {
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #57575731;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+
+
+.AddCursos_Formulario-imagenes-encabezado {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.AddCursos_Formulario-imagenes .icono {
+    font-size: 20px;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #1187f585;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.Formulario-imagenes--add--cerrar {
+    display: flex;
+    justify-content: right;
+}
+
+.Formulario-imagenes--add--cerrar .icono {
+    font-size: 20px;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #00000069;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.AddProductos_Formulario_input {
+    width: 100%;
+}
+
+.AddImagenes_Formulario_input {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.Formulario_Table {
+    margin-top: 20px;
+}
+
+.Formulario_Table .css-asvefe,
+.Formulario_Table .TotalRegistros {
+    display: none;
+}
+
+.AddImagenes_Formulario--dropzone {
+    width: 100%;
+    height: 150px;
+    border: 2px dashed #d8e2ef;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.AddImagenes_Formulario--dropzone .icono {
+    font-size: 2em;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.AddImagenes_Formulario--dropzone span {
+    color: rgb(41, 162, 199);
+    
+}

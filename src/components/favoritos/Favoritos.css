@@ -13,12 +13,12 @@
 }
 
 .Favoritos--cerrar {
-    width: 50%;
+    width: 60%;
     height: 100vh;
 }
 
 .Favoritos_Content {
-    width: 50%;
+    width: 40%;
     height: 100vh;
     background-color: #ffffff;
 }
@@ -74,4 +74,5 @@
 .Favoritos_Producto .iconoRemove {
     cursor: pointer;
     color: firebrick;
+    font-size: 25px;
 }

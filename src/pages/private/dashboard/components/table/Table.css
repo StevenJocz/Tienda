@@ -105,17 +105,18 @@
 }
 
 .DynamicTable .TotalRegistros span {
-    font-family: "Neue Plak Regular", serif;
     color: #696969;
     font-size: 18px;
     font-weight: 500;
     margin-right: 10px;
+    text-align: left;
 }
 .DynamicTable .TotalRegistros  {
-    color: #660796;
+    color: #2A5783;
     font-size: 18px;
     font-weight: 700;
     margin: 20px 10px -10px 20px;
+    text-align: left;
 }
 
 .divTableImagen {

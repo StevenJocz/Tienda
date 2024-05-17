@@ -8,9 +8,9 @@ import TableRow from '@mui/material/TableRow';
 import { useState } from 'react';
 import { Button, InputAdornment, Pagination, TextField, Tooltip } from '@mui/material';
 import { IonIcon } from '@ionic/react';
-import { trashOutline, createOutline, searchOutline, downloadOutline,constructOutline, addOutline, peopleOutline, eyeOutline, thumbsUpOutline, checkmarkDoneOutline } from 'ionicons/icons';
+import { trashOutline, createOutline, searchOutline, downloadOutline, constructOutline, addOutline, peopleOutline, eyeOutline, thumbsUpOutline, checkmarkDoneOutline } from 'ionicons/icons';
 import './Table.css';
-import { services } from '../../../../models';
+import { services } from '../../../../../models';
 
 
 interface Contacto {
@@ -65,6 +65,7 @@ interface Props {
     mostrarRegistro?: (id: number) => void;
     mostrarLista?: (id: number) => void;
     mostrarConfiguracion?: (id: number) => void;
+    eliminarRegistro?: (id: number) => void;
     verBotonBuscador?: boolean;
     verBotonRegistro?: boolean;
     verBotonVer?: boolean;
@@ -78,7 +79,7 @@ interface Props {
 
 }
 
-const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro, mostrarConfiguracion, verBotonConfigurar,verBotonVer, verBotonEliminar, verBotonEditar, verBotonBuscador, verBotonExportar, mostrarLista, verListaEstudiantes, botonEstado, verAsistencias }) => {
+const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro, mostrarConfiguracion,eliminarRegistro, verBotonConfigurar, verBotonVer, verBotonEliminar, verBotonEditar, verBotonBuscador, verBotonExportar, mostrarLista, verListaEstudiantes, botonEstado, verAsistencias }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [page, setPage] = useState(0);
     const rowsPerPage = 10;
@@ -129,6 +130,12 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
         }
     };
 
+    const DeleteRegistro = (id: number) => {
+        if (eliminarRegistro) {
+            eliminarRegistro(id);
+        }
+    };
+
 
     const renderActive = (isActive: boolean) => {
         if (isActive) {
@@ -157,6 +164,35 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
             );
         }
     };
+
+    const renderAplicaDescuento = (boolean: boolean) => {
+        if (boolean) {
+            return (
+                <div style={{
+                    color: '#52c41a',
+                    backgroundColor: '#bbf77f3d',
+                    borderColor: 'rgb(149, 222, 100)',
+                    width: '100%',
+                    padding: '0 20px'
+                }}>
+                    Si
+                </div>
+            );
+        } else {
+            return (
+                <div style={{
+                    color: 'rgb(255, 77, 79)',
+                    backgroundColor: 'rgb(255, 241, 240)',
+                    borderColor: 'rgb(255, 163, 158)',
+                    width: '100%',
+                    padding: '0 20px'
+                }}>
+                    No
+                </div>
+            );
+        }
+    };
+
 
     const renderEstado = (Estado: string) => {
         if (Estado == 'Aprobado' || Estado == 'Pagado') {
@@ -330,7 +366,9 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                                         cellContent = renderRol(row[column]);
                                     } else if (column === 'activo') {
                                         cellContent = renderActive(row[column]);
-                                    } else {
+                                    } else if (column === 'aplica_descuento') {
+                                        cellContent = renderAplicaDescuento(row[column]);
+                                    }else {
                                         cellContent = row[column];
                                     }
                                     return (
@@ -363,7 +401,7 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                                     )}
                                     {verBotonEliminar && (
                                         <Tooltip title="Eliminar" disableInteractive>
-                                            <IonIcon className='icono iconoTrash' icon={trashOutline} />
+                                            <IonIcon className='icono iconoTrash' icon={trashOutline} onClick={() => DeleteRegistro(row.id)}/>
                                         </Tooltip>
                                     )}
                                     {verAsistencias && (

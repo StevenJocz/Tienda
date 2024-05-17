@@ -1,0 +1,596 @@
+import './Productos.css'
+import { IonIcon } from '@ionic/react';
+import { Alert, Button, Checkbox, MenuItem, Snackbar, Switch, Tooltip, SelectChangeEvent, Select, ListItemText, InputLabel, Box, OutlinedInput, Chip } from '@mui/material';
+import { ErrorMessage, Form, Formik, FormikValues } from 'formik';
+import { useTheme } from '@mui/material/styles';
+import { saveOutline, closeOutline, paperPlaneOutline, arrowBackOutline, helpCircleOutline, imageOutline, bodyOutline, cloudUploadOutline } from 'ionicons/icons';
+import { useEffect, useRef, useState } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
+import { MenuProps, StyledFormControl, StyledTextField, getStyles } from '../../../../utilities/SelectProps';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { Talla } from '../../../../models/Productos';
+import { Table } from '../../dashboard/components/table';
+
+interface Props {
+  mostrarRegistro: () => void;
+  actualizarDatos?: () => void;
+  idProducto: number;
+}
+
+const AddProductos: React.FC<Props> = (props) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+  const [msg, setMsg] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const theme = useTheme();
+  const [Tallas, setTalla] = useState<Talla[]>([]);
+  const [porcentajeTalla, setPorcentajeTalla] = useState('');
+  const [nombreTalla, setNombreTalla] = useState('');
+  const [verAddImagen, setVerAddImagen] = useState(false);
+
+  const precioBase = 20000;
+  const handleChange = (event: SelectChangeEvent<string[]>) => {
+    setSelectedValues(event.target.value as string[]);
+  };
+
+
+  const handleTalla = () => {
+
+    const exists = Tallas.some((talla) => talla.nombre === nombreTalla);
+    if (exists) {
+      alert('Ya existe una talla con ese nombre');
+      return;
+    }
+
+    if (nombreTalla == '') {
+      alert('Por favor, seleccione la talla');
+      return;
+    }
+
+    const maxId = Tallas.length > 0 ? Math.max(...Tallas.map(talla => talla.id)) : 0;
+    const porcentajeDescuento = porcentajeTalla == '' ? parseFloat('0') : parseFloat(porcentajeTalla);
+    const descuento = precioBase * (porcentajeDescuento / 100);
+    const precioFinal = precioBase + descuento;
+
+    const objTalla: Talla = {
+      id: maxId + 1,
+      nombre: nombreTalla,
+      porcentaje: porcentajeTalla || '0',
+      valor: precioFinal
+    }
+    setTalla([...Tallas, objTalla])
+    setPorcentajeTalla('0');
+    setNombreTalla('');
+  };
+
+
+  const handleDeleteTalla = (id: number) => {
+    const updatedTallas = Tallas.filter(talla => talla.id !== id);
+    setTalla(updatedTallas);
+  }
+
+
+  const handleVerAddImagen = () => {
+    setVerAddImagen(!verAddImagen);
+  }
+
+  const [selectedImage, setSelectedImage] = useState<string>('');
+
+  const handleTextareaDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+
+    if (files) {
+      const imageFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+
+      if (imageFiles.length > 0) {
+        const imageUrl = URL.createObjectURL(imageFiles[0]);
+        setSelectedImage(imageUrl);
+      }
+    }
+  };
+
+  const options = [
+    { value: '0', label: 'Tag uno' },
+    { value: '1', label: 'Tag dos' },
+    { value: '2', label: 'Tag tres' },
+    { value: '3', label: 'Tag cuatro' },
+  ];
+
+  const handleClick = () => {
+    if (submitButtonRef.current) {
+      submitButtonRef.current.click();
+    }
+  };
+
+
+  const handleRegistrar = async (values: FormikValues) => {
+    setIsSubmitting(true);
+    try {
+
+
+      setOpenSnackbar(true);
+      setMsg('');
+
+    } catch (error) {
+      setMsg('Estamos presentando inconvenientes. Por favor, vuelva a intentarlo más tarde.');
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+
+    setIsSubmitting(false);
+    if (props.actualizarDatos) {
+      props.actualizarDatos();
+    }
+    props.mostrarRegistro();
+  };
+
+  return (
+    <div className='AddProductos'>
+      <div className='AddProductos_Encabezado'>
+        {props.idProducto == 0 ? (
+          <h3> Crear producto</h3>
+        ) : (
+          <h3> Actualizar producto</h3>
+        )}
+        <div>
+          {props.idProducto == 0 ? (
+            <Button
+              onClick={props.mostrarRegistro}
+              variant="outlined"
+              size="small"
+              startIcon={<IonIcon className='' icon={closeOutline} />}
+            >
+              Cancelar
+            </Button>
+          ) : (
+            <Button
+              onClick={props.mostrarRegistro}
+              variant="outlined"
+              size="small"
+              startIcon={<IonIcon className='' icon={arrowBackOutline} />}
+            >
+              Volver a la lista
+            </Button>
+          )}
+          <Button
+            type="submit"
+            variant="contained"
+            size="small"
+            startIcon={isSubmitting == true ? (<IonIcon className='' icon={paperPlaneOutline} />) : (<IonIcon className='' icon={saveOutline} />)}
+            disabled={isSubmitting}
+            onClick={handleClick}
+          >
+            {props.idProducto == 0 ? (
+              isSubmitting == true ? ('Registrando...') : ('Registrar')
+            ) : (
+              isSubmitting == true ? ('Actualizando...') : ('Actualizar')
+            )}
+          </Button>
+        </div>
+      </div>
+      <div className='AddProductos_Body'>
+        <Formik
+          enableReinitialize={true}
+          initialValues={{
+            id: 0,
+            activo: false,
+            nombre: '',
+            descripcion: '',
+            preciobase: precioBase,
+            porcentajeDescuento: '',
+            precioFinal: '',
+            fechaDescuento: null,
+            talla: '',
+            porcentajeTalla: 0,
+
+          }}
+          validate={(valor) => {
+
+            let errors: any = {};
+
+            if (!valor.id) {
+              errors.id = 'Introduce un código para el tipo de documento';
+            }
+
+            return errors;
+          }}
+          onSubmit={handleRegistrar}
+        >
+          {({ errors, values, setFieldValue }) => {
+
+            useEffect(() => {
+              const calculatePrecioFinal = () => {
+                const precioBase = values.preciobase || 0;
+                const porcentajeDescuento = parseFloat(values.porcentajeDescuento) || 0;
+                const descuento = precioBase * (porcentajeDescuento / 100);
+                const precioFinal = precioBase - descuento;
+                setFieldValue('precioFinal', precioFinal.toFixed(0));
+              };
+
+              calculatePrecioFinal();
+            }, [values.preciobase, values.porcentajeDescuento, setFieldValue]);
+
+            return (
+              <Form>
+                <div className='AddProductos_Formulario'>
+                  <div className='AddProductos_Formulario_left'>
+                    <div className='AddProductos_Formulario_input'>
+
+                      <StyledTextField
+                        select
+                        label="Seleccione inventario de SION"
+                        size="small"
+                        variant="outlined"
+
+                      >
+                        <MenuItem value={'1'}>
+                          41789 - Producto 1
+                        </MenuItem>
+
+                      </StyledTextField>
+
+                    </div>
+                    <div className='AddProductos_Formulario_input'>
+                      <StyledTextField
+                        name='titulo'
+                        label="Nombre del producto"
+                        variant="outlined"
+                        size="small"
+                        color="secondary"
+                        placeholder='Introduce el nombre del producto'
+                        value={values.nombre}
+                        onChange={(e) => setFieldValue('nombre', e.target.value)}
+                      />
+                      <ErrorMessage name='nombre' component={() => <p className='Error'>{errors.nombre}</p>} />
+                    </div>
+                    <div className='AddProductos_Formulario_input'>
+                      <StyledTextField
+                        name='titulo'
+                        label="Descripción corta del producto"
+                        variant="outlined"
+                        size="small"
+                        multiline
+                        rows={6}
+                        color="secondary"
+                        placeholder="Escribe una breve descripción del producto aquí..."
+                        value={values.nombre}
+                        onChange={(e) => setFieldValue('nombre', e.target.value)}
+                      />
+                    </div>
+                    <div className="AddProductos_Formulario_input">
+                      <h4>Descripción</h4>
+                      <Editor
+                        value={values.descripcion}
+                        onEditorChange={(content) => setFieldValue('descripcion', content)}
+                        apiKey='tuezbpkp2ehsxvmrxtl2szjjtayo5yx9fm90xwbjrpbvopkv'
+                        init={{
+                          height: 350,
+                          content_style: "font-size: 16px; font-family: 'Roboto', sans-serif;",
+                          menubar: false,
+                          plugins: [
+                            'lists'
+                          ],
+                          toolbar: 'undo redo formatselect bold italic underline strikethrough alignleft aligncenter alignright bullist'
+                        }}
+                      />
+                    </div>
+                    <div className='AddProductos_Formulario_input'>
+                      <h4>Imagenes</h4>
+                      <div className='AddCursos_Formulario-imagenes'>
+                        {verAddImagen &&
+                          <div className='AddCursos_Formulario-imagenes--add'>
+                            <div className='Formulario-imagenes--add--cerrar'>
+                              <IonIcon className='icono' icon={closeOutline} onClick={handleVerAddImagen} />
+                            </div>
+                            <div className='Formulario-imagenes--add--body'>
+                              <h4>Add imagen</h4>
+                              <div className='AddProductos_Formulario_input'>
+                                <StyledTextField
+                                  name='titulo'
+                                  label="Nombre de la imagen"
+                                  variant="outlined"
+                                  size="small"
+                                  color="secondary"
+                                  placeholder='Introduce el nombre de la imagen'
+                                  value={values.nombre}
+                                  onChange={(e) => setFieldValue('nombre', e.target.value)}
+                                />
+                              </div>
+                              <div className='AddImagenes_Formulario_input'>
+                                <div className='AddProductos_Formulario_input'>
+                                  <StyledTextField
+                                    name='titulo'
+                                    label="Nombre color"
+                                    variant="outlined"
+                                    size="small"
+                                    color="secondary"
+                                    placeholder='Introduce el nombre del color'
+                                    value={values.nombre}
+                                    onChange={(e) => setFieldValue('nombre', e.target.value)}
+                                  />
+                                </div>
+                                <div className='AddProductos_Formulario_input'>
+                                  <StyledTextField
+                                    name='titulo'
+                                    type='color'
+                                    variant="outlined"
+                                    size="small"
+                                    color="secondary"
+                                  />
+                                </div>
+                                <div className='AddProductos_Formulario_input'>
+                                  <StyledTextField
+                                    name='titulo'
+                                    label="Porcentaje mas de valor"
+                                    variant="outlined"
+                                    size="small"
+                                    color="secondary"
+                                    placeholder='0'
+                                    value={values.nombre}
+                                    onChange={(e) => setFieldValue('nombre', e.target.value)}
+                                  />
+                                </div>
+                              </div>
+                              <div className='AddImagenes_Formulario_input'>
+                                <div className="AddImagenes_Formulario--dropzone" onDrop={handleTextareaDrop} onDragOver={(e) => e.preventDefault()}  >
+                                  <IonIcon className='icono' icon={cloudUploadOutline} />
+                                  <p>Arrastra una imagen aquí o</p>
+                                  <span>Selecciona</span>
+                                </div>
+                                {selectedImage && <img src={selectedImage} alt="" />}
+                              </div>
+                            </div>
+                          </div>
+                        }
+                        <div className='AddCursos_Formulario-imagenes-encabezado'>
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            color="success"
+                            startIcon={<IonIcon className='' icon={imageOutline} />}
+                            onClick={handleVerAddImagen}
+                          >
+                            Agregar imagenes
+
+                          </Button>
+                          <Tooltip title="Precio regular del producto" placement="top" disableInteractive >
+                            <IonIcon className='icono' icon={helpCircleOutline} />
+                          </Tooltip>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div className='AddProductos_Formulario_right'>
+                    <div className='AddCursos_Formulario-content'>
+                      <div className='AddProductos_Formulario_input'>
+                        <Switch
+                          checked={values.activo}
+                          onChange={() => setFieldValue('activo', !values.activo)}
+                          color="secondary"
+                        />
+                        <label className={values.activo ? 'Activo' : ''}>{values.activo ? 'Activo' : 'Inactivo'}</label>
+
+                      </div>
+                    </div>
+                    <div className='AddCursos_Formulario-content'>
+                      <h4>Organizar</h4>
+                      <div className="AddProductos_Formulario_input">
+                        <StyledTextField
+                          select
+                          label="Seleccione Categoria"
+                          size="small"
+                          variant="outlined"
+                        >
+                          <MenuItem value={'1'}>
+                            Ropa
+                          </MenuItem>
+                          <MenuItem value={'1'}>
+                            Estudio
+                          </MenuItem>
+                          <MenuItem value={'1'}>
+                            TIEMPO LIBRE
+                          </MenuItem>
+                        </StyledTextField>
+                      </div>
+                      <div className="AddProductos_Formulario_input">
+                        <StyledFormControl variant="outlined" size="small">
+                          <InputLabel id="multi-select-label">Agregue tag</InputLabel>
+                          <Select
+                            labelId="multi-select-label"
+                            id="multi-select"
+                            multiple
+                            value={selectedValues}
+                            onChange={handleChange}
+                            input={<OutlinedInput id="select-multiple-chip" label="Agregue tab" />}
+                            renderValue={(selected) => (
+                              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                {selected.map((value) => (
+                                  <Chip key={value} label={options.find(option => option.value === value)?.label} />
+                                ))}
+                              </Box>
+                            )}
+                            MenuProps={MenuProps}
+                          >
+                            {options.map((option) => (
+                              <MenuItem
+                                key={option.value}
+                                value={option.value}
+                                style={getStyles(option.value, selectedValues, theme)}
+                              >
+                                <Checkbox checked={selectedValues.indexOf(option.value) > -1} />
+                                <ListItemText primary={option.label} />
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </StyledFormControl>
+                      </div>
+                    </div>
+                    <div className='AddCursos_Formulario-content'>
+                      <h4>Precio</h4>
+                      <div className='AddProductos_Formulario_input input_Tooltip'>
+                        <StyledTextField
+                          name='preciobase: '
+                          label="Precio base"
+                          variant="outlined"
+                          size="small"
+                          type='number'
+                          color="secondary"
+                          placeholder="000.000"
+                          value={values.preciobase}
+                          onChange={(e) => setFieldValue('preciobase', e.target.value)}
+                        />
+                        <Tooltip title="Precio regular del producto" placement="top" disableInteractive >
+                          <IonIcon className='icono' icon={helpCircleOutline} />
+                        </Tooltip>
+                      </div>
+                      <div className='AddProductos_Formulario_input'>
+                        <StyledTextField
+                          name='porcentajeDescuento'
+                          label="Descuento en porcentaje"
+                          variant="outlined"
+                          size="small"
+                          type='number'
+                          color="secondary"
+                          placeholder="0"
+                          value={values.porcentajeDescuento}
+                          onChange={(e) => setFieldValue('porcentajeDescuento', e.target.value)}
+                        />
+                      </div>
+                      <div className='AddProductos_Formulario_input input_fecha'>
+                        <ErrorMessage name='fechaFin' component={() => <p className='Error'>{errors.fechaDescuento}</p>} />
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DemoContainer components={['DatePicker']}>
+                            <DatePicker
+                              className='Pickers'
+                              label="FECHA FIN"
+                              value={values.fechaDescuento}
+                              onChange={(date) => setFieldValue('fechaFin', date)}
+                            />
+                          </DemoContainer>
+                        </LocalizationProvider>
+                      </div>
+                      <div className='AddProductos_Formulario_input input_Tooltip'>
+                        <StyledTextField
+                          name='precioFinal'
+                          label="Precio final"
+                          variant="outlined"
+                          size="small"
+                          type='number'
+                          color="secondary"
+                          placeholder="0"
+                          value={values.precioFinal}
+                          onChange={(e) => setFieldValue('precioFinal', e.target.value)}
+                        />
+                        <Tooltip title="Precio final del producto" placement="top" disableInteractive >
+                          <IonIcon className='icono' icon={helpCircleOutline} />
+                        </Tooltip>
+                      </div>
+                    </div>
+                    <div className='AddCursos_Formulario-content'>
+                      <h4>Agregar tallas</h4>
+                      <div className='AddProductos_Formulario_input '>
+                        <StyledTextField
+                          select
+                          label="Seleccione la talla"
+                          size="small"
+                          variant="outlined"
+                          value={nombreTalla}
+                          onChange={(e) => setNombreTalla(e.target.value)}
+                        >
+
+                          <MenuItem value={'XS'}>
+                            XS
+                          </MenuItem>
+                          <MenuItem value={'S'}>
+                            S
+                          </MenuItem>
+                          <MenuItem value={'M'}>
+                            M
+                          </MenuItem>
+                          <MenuItem value={'L'}>
+                            L
+                          </MenuItem>
+                          <MenuItem value={'XL'}>
+                            XL
+                          </MenuItem>
+                        </StyledTextField>
+                        <div className='AddProductos_Formulario_input'>
+                          <StyledTextField
+                            name='porcentajeTalla'
+                            label="Porcentaje mas del valor"
+                            variant="outlined"
+                            size="small"
+                            type='number'
+                            color="secondary"
+                            placeholder="0"
+                            value={porcentajeTalla}
+                            onChange={(e) => setPorcentajeTalla(e.target.value)}
+                          />
+                        </div>
+                        <Button
+                          variant="outlined"
+                          size="small"
+                          color="success"
+                          startIcon={<IonIcon className='' icon={bodyOutline} />}
+                          onClick={handleTalla}
+                        >
+                          Agregar
+                        </Button>
+                      </div>
+                      <div className='AddProductos_Formulario_input Formulario_Table'>
+                        {Tallas.length > 0 && (
+                          <Table
+                            data={Tallas}
+                            verBotonEliminar={true}
+                            eliminarRegistro={handleDeleteTalla}
+                          />)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  style={{ display: 'none' }}
+                  ref={submitButtonRef}
+                >
+                  enviar
+                </button>
+                <i className='mensaje'>{msg}</i>
+              </Form>
+            );
+          }}
+        </Formik>
+      </div>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          {props.idProducto == 0 ? (
+            "¡Categoría guardada exitosamente!"
+          ) : (
+            "¡Categoría actualizada exitosamente!"
+          )}
+        </Alert>
+      </Snackbar>
+    </div>
+  )
+}
+
+export default AddProductos

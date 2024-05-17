@@ -10,6 +10,7 @@ import { Guia } from '../../../components/giuaTallas';
 import { Productos } from '../../../components/productos';
 import { useCartContext } from '../../../context/CartContext';
 import ShoppingCart from '../../../components/cart/shoppingCart/ShoppingCart';
+import { Talla } from '../../../models/Productos';
 
 
 const ViewProducto = () => {
@@ -31,7 +32,7 @@ const ViewProducto = () => {
     const [mensajeAddProducto, setMensajeAddProducto] = useState<string | void>('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [shoppingCart, setShoppingCart] = useState(false);
-    const [fechaDescuento] = useState('2024-06-11T19:21:59');
+    const [fechaDescuento] = useState('2024-05-16T18:06:59');
 
     const handleSelectImage = (url: string, index: number, color: string) => {
         setImagen(url);
@@ -157,34 +158,33 @@ const ViewProducto = () => {
         }
     ]
 
-    const talla = [
+    const talla: Talla[] = [
         {
-            "id": 1,
-            "nombre": "XS",
-            "valorPorcentaje": "10",
+            id: 1,
+            nombre: "XS",
+            porcentaje: "10",
         },
         {
-            "id": 2,
-            "nombre": "S",
-            "valorPorcentaje": "15",
+            id: 2,
+            nombre: "S",
+            porcentaje: "15",
         },
         {
-            "id": 3,
-            "nombre": "M",
-            "valorPorcentaje": "20",
+            id: 3,
+            nombre: "M",
+            porcentaje: "20",
         },
         {
-            "id": 4,
-            "nombre": "L",
-            "valorPorcentaje": "1",
+            id: 4,
+            nombre: "L",
+            porcentaje: "1",
         },
         {
-            "id": 5,
-            "nombre": "XL",
-            "valorPorcentaje": "2",
+            id: 5,
+            nombre: "XL",
+            porcentaje: "2",
         }
-
-    ]
+    ];
 
     useEffect(() => {
         if (data !== null && data.length >= 0) {
@@ -257,7 +257,7 @@ const ViewProducto = () => {
         const colorSeleccionado = data.find(item => item.id === imagenSeleccionada);
         const porcentajeColor = colorSeleccionado ? parseInt(colorSeleccionado.valorPorcentaje) : 0;
         const porcentajeTalla = talla.find(item => item.nombre === tallaSeleccionada);
-        const porcentajeTallaValue = porcentajeTalla ? parseInt(porcentajeTalla.valorPorcentaje) : 0;
+        const porcentajeTallaValue = porcentajeTalla ? parseInt(porcentajeTalla.porcentaje) : 0;
 
         // Calcular el precio final sin descuento
         const precioFinalSinDescuento = precioBase * (1 + (porcentajeColor + porcentajeTallaValue) / 100);

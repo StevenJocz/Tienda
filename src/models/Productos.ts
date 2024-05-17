@@ -12,3 +12,10 @@ export interface Imagen {
     imagenUno: string;
     imagenDos: string;
 }
+
+export interface Talla {
+    id: number;
+    nombre: string;
+    porcentaje: string;
+    valor?: number;
+}

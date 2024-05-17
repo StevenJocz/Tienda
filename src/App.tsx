@@ -42,6 +42,7 @@ function App() {
                 <Route path="/Private" element={<Navigate to={PrivateRoutes.private} />} />
                 <Route path={`${PublicRoutes.public}`} element={<Home />} />
                 <Route path={`${PublicRoutes.public}/Producto/:view/*`} element={<ViewProducto />} />
+                <Route path={`${PrivateRoutes.private}/*`} element={<Dashboard />} />
                 <Route element={<AuthGuard privateValidation={true} />}>
                   <Route element={<RoleGuard />}>
                     <Route path={`${PrivateRoutes.private}/*`} element={<Dashboard />} />
