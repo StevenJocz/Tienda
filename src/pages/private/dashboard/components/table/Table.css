@@ -53,6 +53,7 @@
 
 .DynamicTable .iconoTrash {
     color: #b51010;
+    background-color: #ffffff00;
     padding: 5px;
 }
 
@@ -102,6 +103,16 @@
     -moz-border-radius: 100%;
     -ms-border-radius: 100%;
     -o-border-radius: 100%;
+}
+
+.DynamicTable .imgTable64 {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 }
 
 .DynamicTable .TotalRegistros span {

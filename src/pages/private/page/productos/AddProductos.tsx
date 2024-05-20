@@ -11,7 +11,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { Talla } from '../../../../models/Productos';
+import { AddProducto, ImagenData, Talla } from '../../../../models/Productos';
 import { Table } from '../../dashboard/components/table';
 
 interface Props {
@@ -79,20 +79,109 @@ const AddProductos: React.FC<Props> = (props) => {
   }
 
   const [selectedImage, setSelectedImage] = useState<string>('');
+  const [selectedImageBase64, setSelectedImageBase64] = useState<string>('');
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleTextareaDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    const files = event.dataTransfer.files;
+    setIsDragging(false);
 
+    const files = event.dataTransfer.files;
     if (files) {
       const imageFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
-
       if (imageFiles.length > 0) {
         const imageUrl = URL.createObjectURL(imageFiles[0]);
         setSelectedImage(imageUrl);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target) {
+            const base64Image = e.target.result as string;
+            setSelectedImageBase64(base64Image);
+          }
+        };
+        reader.readAsDataURL(files[0]);
       }
     }
   };
+
+  const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const imageUrl = URL.createObjectURL(files[0]);
+      setSelectedImage(imageUrl);
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target) {
+          const base64Image = e.target.result as string;
+          setSelectedImageBase64(base64Image);
+        }
+      };
+      reader.readAsDataURL(files[0]);
+    }
+  };
+
+  const handleClickImagen = () => {
+    fileInputRef.current?.click();
+  };
+
+  const [jsonImagenes, setJsonImagenes] = useState<ImagenData[]>([]);
+  const [currentImagen, setCurrentImagen] = useState({
+    nombreImagen: '',
+    nombreColor: '',
+    color: '',
+    porcentajeValor: ''
+  });
+
+  const handleChangeImagen = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCurrentImagen(prevValues => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleSaveImagen = () => {
+    const maxId = jsonImagenes.length > 0 ? Math.max(...jsonImagenes.map(imagen => imagen.id)) : 0;
+    const newImage: ImagenData = {
+      id: maxId + 1,
+      imagen: selectedImageBase64,
+      nombreImagen: currentImagen.nombreImagen,
+      nombreColor: currentImagen.nombreColor,
+      color: currentImagen.color,
+      porcentajeValor: currentImagen.porcentajeValor,
+    };
+
+    setJsonImagenes([...jsonImagenes, newImage]);
+
+
+    // Reset current image data
+    setCurrentImagen({
+      nombreImagen: '',
+      nombreColor: '',
+      color: '',
+      porcentajeValor: ''
+    });
+    setSelectedImage('');
+    setSelectedImageBase64('');
+  };
+
+  const handleDeleteImagen = (id: number) => {
+    const updatedImagen = jsonImagenes.filter(imagen => imagen.id !== id);
+    setJsonImagenes(updatedImagen);
+  }
+
 
   const options = [
     { value: '0', label: 'Tag uno' },
@@ -113,6 +202,26 @@ const AddProductos: React.FC<Props> = (props) => {
     try {
 
 
+      const Addproducto: AddProducto = {
+        id: 0,
+        idProducto: values.idProducto,
+        activo: values.activo,
+        nombre: values.nombre,
+        descripcionCorta: values.descripcionCorta,
+        descripcion: values.descripcion,
+        preciobase: values.preciobase,
+        porcentajeDescuento: values.porcentajeDescuento,
+        precioFinal: values.precioFinal,
+        fechaDescuento: values.fechaDescuento,
+        categoría: values.categoría,
+        tag: selectedValues,
+        tallas: Tallas,
+        imagenes: jsonImagenes,
+    };
+
+
+
+      console.log(Addproducto)
       setOpenSnackbar(true);
       setMsg('');
 
@@ -181,23 +290,31 @@ const AddProductos: React.FC<Props> = (props) => {
           enableReinitialize={true}
           initialValues={{
             id: 0,
+            idProducto: '',
             activo: false,
             nombre: '',
+            descripcionCorta: '',
             descripcion: '',
             preciobase: precioBase,
             porcentajeDescuento: '',
             precioFinal: '',
             fechaDescuento: null,
-            talla: '',
-            porcentajeTalla: 0,
+            categoría: '',
 
           }}
           validate={(valor) => {
 
             let errors: any = {};
 
-            if (!valor.id) {
-              errors.id = 'Introduce un código para el tipo de documento';
+            if (!valor.nombre) {
+              errors.nombre = 'Campo Obligatorio';
+            }
+
+            if (!valor.descripcionCorta) {
+              errors.descripcionCorta = 'Campo Obligatorio';
+            }
+            if (!valor.categoría) {
+              errors.categoría = 'Campo Obligatorio';
             }
 
             return errors;
@@ -223,20 +340,25 @@ const AddProductos: React.FC<Props> = (props) => {
                 <div className='AddProductos_Formulario'>
                   <div className='AddProductos_Formulario_left'>
                     <div className='AddProductos_Formulario_input'>
-
                       <StyledTextField
                         select
                         label="Seleccione inventario de SION"
                         size="small"
                         variant="outlined"
-
+                        value={values.idProducto}
+                        onChange={(e) => setFieldValue('idProducto', e.target.value)}
                       >
                         <MenuItem value={'1'}>
-                          41789 - Producto 1
+                          41790 - Producto 1
                         </MenuItem>
-
+                        <MenuItem value={'2'}>
+                          41791 - Producto 2
+                        </MenuItem>
+                        <MenuItem value={'3'}>
+                          41792 - Producto 2
+                        </MenuItem>
                       </StyledTextField>
-
+                      <ErrorMessage name='idProducto' component={() => <p className='Error'>{errors.idProducto}</p>} />
                     </div>
                     <div className='AddProductos_Formulario_input'>
                       <StyledTextField
@@ -261,9 +383,10 @@ const AddProductos: React.FC<Props> = (props) => {
                         rows={6}
                         color="secondary"
                         placeholder="Escribe una breve descripción del producto aquí..."
-                        value={values.nombre}
-                        onChange={(e) => setFieldValue('nombre', e.target.value)}
+                        value={values.descripcionCorta}
+                        onChange={(e) => setFieldValue('descripcionCorta', e.target.value)}
                       />
+                      <ErrorMessage name='descripcionCorta' component={() => <p className='Error'>{errors.descripcionCorta}</p>} />
                     </div>
                     <div className="AddProductos_Formulario_input">
                       <h4>Descripción</h4>
@@ -294,58 +417,88 @@ const AddProductos: React.FC<Props> = (props) => {
                               <h4>Add imagen</h4>
                               <div className='AddProductos_Formulario_input'>
                                 <StyledTextField
-                                  name='titulo'
+                                  name='nombreImagen'
                                   label="Nombre de la imagen"
                                   variant="outlined"
                                   size="small"
                                   color="secondary"
                                   placeholder='Introduce el nombre de la imagen'
-                                  value={values.nombre}
-                                  onChange={(e) => setFieldValue('nombre', e.target.value)}
+                                  value={currentImagen.nombreImagen}
+                                  onChange={handleChangeImagen}
                                 />
                               </div>
                               <div className='AddImagenes_Formulario_input'>
                                 <div className='AddProductos_Formulario_input'>
                                   <StyledTextField
-                                    name='titulo'
+                                    name='nombreColor'
                                     label="Nombre color"
                                     variant="outlined"
                                     size="small"
                                     color="secondary"
                                     placeholder='Introduce el nombre del color'
-                                    value={values.nombre}
-                                    onChange={(e) => setFieldValue('nombre', e.target.value)}
+                                    value={currentImagen.nombreColor}
+                                    onChange={handleChangeImagen}
                                   />
                                 </div>
                                 <div className='AddProductos_Formulario_input'>
                                   <StyledTextField
-                                    name='titulo'
+                                    name='color'
                                     type='color'
                                     variant="outlined"
                                     size="small"
                                     color="secondary"
+                                    value={currentImagen.color}
+                                    onChange={handleChangeImagen}
                                   />
                                 </div>
                                 <div className='AddProductos_Formulario_input'>
                                   <StyledTextField
-                                    name='titulo'
-                                    label="Porcentaje mas de valor"
+                                    name='porcentajeValor'
+                                    label="Porcentaje más de valor"
                                     variant="outlined"
                                     size="small"
                                     color="secondary"
                                     placeholder='0'
-                                    value={values.nombre}
-                                    onChange={(e) => setFieldValue('nombre', e.target.value)}
+                                    value={currentImagen.porcentajeValor}
+                                    onChange={handleChangeImagen}
                                   />
                                 </div>
                               </div>
                               <div className='AddImagenes_Formulario_input'>
-                                <div className="AddImagenes_Formulario--dropzone" onDrop={handleTextareaDrop} onDragOver={(e) => e.preventDefault()}  >
+                                <div
+                                  className={`AddImagenes_Formulario--dropzone ${isDragging ? 'dragging' : ''}`}
+                                  onDrop={handleTextareaDrop}
+                                  onDragOver={(e) => e.preventDefault()}
+                                  onDragEnter={handleDragEnter}
+                                  onDragLeave={handleDragLeave}
+                                  onClick={handleClickImagen}
+                                >
                                   <IonIcon className='icono' icon={cloudUploadOutline} />
                                   <p>Arrastra una imagen aquí o</p>
                                   <span>Selecciona</span>
+                                  <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    style={{ display: 'none' }}
+                                    onChange={handleFileChange}
+                                    accept="image/*"
+                                  />
                                 </div>
-                                {selectedImage && <img src={selectedImage} alt="" />}
+                              </div>
+                              <div className='AddImagenes_Formulario_input--imagen'>
+                                {selectedImage && (
+                                  <>
+                                    <img src={selectedImage} alt="selected" />
+                                    <Button
+                                      variant="outlined"
+                                      size="small"
+                                      startIcon={<IonIcon icon={saveOutline} />}
+                                      onClick={handleSaveImagen}
+                                    >
+                                      Guardar imagen
+                                    </Button>
+                                  </>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -364,6 +517,15 @@ const AddProductos: React.FC<Props> = (props) => {
                           <Tooltip title="Precio regular del producto" placement="top" disableInteractive >
                             <IonIcon className='icono' icon={helpCircleOutline} />
                           </Tooltip>
+                        </div>
+                        <div>
+
+                          {jsonImagenes.length > 0 && (
+                            <Table
+                              data={jsonImagenes}
+                              verBotonEliminar={true}
+                              eliminarRegistro={handleDeleteImagen}
+                            />)}
                         </div>
                       </div>
                     </div>
@@ -389,6 +551,8 @@ const AddProductos: React.FC<Props> = (props) => {
                           label="Seleccione Categoria"
                           size="small"
                           variant="outlined"
+                          value={values.categoría}
+                          onChange={(e) => setFieldValue('categoría', e.target.value)}
                         >
                           <MenuItem value={'1'}>
                             Ropa
@@ -403,7 +567,7 @@ const AddProductos: React.FC<Props> = (props) => {
                       </div>
                       <div className="AddProductos_Formulario_input">
                         <StyledFormControl variant="outlined" size="small">
-                          <InputLabel id="multi-select-label">Agregue tag</InputLabel>
+                          <InputLabel id="multi-select-label">Seleccionar tag</InputLabel>
                           <Select
                             labelId="multi-select-label"
                             id="multi-select"
@@ -473,7 +637,7 @@ const AddProductos: React.FC<Props> = (props) => {
                               className='Pickers'
                               label="FECHA FIN"
                               value={values.fechaDescuento}
-                              onChange={(date) => setFieldValue('fechaFin', date)}
+                              onChange={(date) => setFieldValue('fechaDescuento', date)}
                             />
                           </DemoContainer>
                         </LocalizationProvider>

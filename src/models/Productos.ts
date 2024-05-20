@@ -19,3 +19,29 @@ export interface Talla {
     porcentaje: string;
     valor?: number;
 }
+
+export interface ImagenData {
+    id: number;
+    imagen: string;
+    nombreImagen: string;
+    nombreColor: string;
+    color: string;
+    porcentajeValor: string;
+}
+
+export interface AddProducto {
+    id: number;
+    idProducto: string;
+    activo: boolean;
+    nombre: string;
+    descripcionCorta: string;
+    descripcion: string;
+    preciobase: number;
+    porcentajeDescuento: string;
+    precioFinal: string;
+    fechaDescuento: string;
+    categoría: string;
+    tag: {};
+    tallas: {};
+    imagenes: {};
+}

@@ -30,7 +30,7 @@ const Nav = () => {
                 <img src="http://tienda.unac.edu.co/wp-content/uploads/cropped-LOGO_UNAC-1.webp" alt="" />
                 <ul>
                     <Link to={'/'}> <li className="">Home</li></Link>
-                    <li className="">Shop</li>
+                    <Link to={'/Shop/0/TodasCategorias'}> <li className="">Shop</li></Link>
                     <li className="">Nosotros</li>
                 </ul>
             </div>

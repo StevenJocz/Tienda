@@ -9,8 +9,8 @@
 .Header_Content {
     width: 95%;
     height: 100vh;
-    background: rgb(217, 217, 217);
-    background: linear-gradient(90deg, rgba(217, 217, 217, 1) 0%, rgba(217, 217, 217, 0.363) 79%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgb(173, 173, 173) 82%);
     border-radius: 30px;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
@@ -23,19 +23,21 @@
 
 .Header_Content--text h3 {
     font-size: 2.5em;
-    margin-bottom: 10px;
+    color: var(--text-blanco);
     font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    margin-bottom: 5px;
 }
 
 .Header_Content--text h2 {
     font-size: 6em;
     margin-top: -15px;
     font-family: "Roboto", sans-serif;
-    
+    color: #fafafa94;
 }
 
 .Header_Content--text h1 {
-    font-size: 12em;
+    font-size: 170px;
     text-transform: uppercase;
     color: var(--text-blanco);
     font-family: "Roboto", sans-serif;
@@ -57,7 +59,7 @@
     width: 350px;
     height: 60px;
     font-size: 20px;
-    background-color: var( --bg-unac);
+    background-color: var(--bg-unac);
     border: none;
     border-radius: 30px;
     -webkit-border-radius: 30px;

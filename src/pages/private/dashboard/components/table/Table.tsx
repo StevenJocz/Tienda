@@ -194,6 +194,22 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
     };
 
 
+    const renderColor = (color: string) => {
+        return (
+            <div style={{
+                backgroundColor: color,
+                color: color,
+                width: '15px',
+                padding: '15px',
+                borderRadius: '50%',
+                height: '15px',
+            }}>
+                x
+            </div>
+        );
+    };
+
+
     const renderEstado = (Estado: string) => {
         if (Estado == 'Aprobado' || Estado == 'Pagado') {
             return (
@@ -352,6 +368,8 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                                     // Dependiendo del nombre de la columna, asignamos contenido a la variable cellContent
                                     if (column === 'foto') {
                                         cellContent = <img className='imgTable' src={`${services.url}/${row[column]}`} alt="Foto de perfil" />;
+                                    }else if (column === 'imagen') {
+                                        cellContent = <img className='imgTable64' src={`${row[column]}`} alt="Foto" />;
                                     } else if (column === 'Usuario') {
                                         cellContent = (
                                             <div>
@@ -368,7 +386,11 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                                         cellContent = renderActive(row[column]);
                                     } else if (column === 'aplica_descuento') {
                                         cellContent = renderAplicaDescuento(row[column]);
-                                    }else {
+                                    }
+                                    else if (column === 'color') {
+                                        cellContent = renderColor(row[column]);
+                                    }
+                                    else {
                                         cellContent = row[column];
                                     }
                                     return (

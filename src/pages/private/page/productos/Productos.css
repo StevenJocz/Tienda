@@ -115,6 +115,7 @@
 .AddCursos_Formulario-imagenes {
     width: 100%;
     margin-top: 20px;
+    margin-bottom: 100px;
 }
 
 .AddCursos_Formulario-imagenes--add {
@@ -166,6 +167,7 @@
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+    margin-bottom: 10px;
 }
 
 .AddProductos_Formulario_input {
@@ -198,6 +200,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    transition: border-color 0.3s, background-color 0.3s;
 }
 
 .AddImagenes_Formulario--dropzone .icono {
@@ -208,5 +211,26 @@
 
 .AddImagenes_Formulario--dropzone span {
     color: rgb(41, 162, 199);
-    
+}
+
+.AddImagenes_Formulario--dropzone.dragging {
+    border-color: #41a5f1;
+    background-color: #f0f8ff;
+}
+
+.AddImagenes_Formulario_input--imagen {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.AddImagenes_Formulario_input--imagen img{
+    width: 30%;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 }

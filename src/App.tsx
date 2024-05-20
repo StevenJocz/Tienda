@@ -13,6 +13,7 @@ import Dashboard from './pages/private/dashboard/Dashboard';
 import { Home } from './pages/public/home';
 import { ViewProducto } from './pages/public/product';
 import { CartProvider } from './context/CartContext';
+import { Shop } from './pages/private/page/shop';
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/Private" element={<Navigate to={PrivateRoutes.private} />} />
                 <Route path={`${PublicRoutes.public}`} element={<Home />} />
                 <Route path={`${PublicRoutes.public}/Producto/:view/*`} element={<ViewProducto />} />
+                <Route path={`${PublicRoutes.public}/Shop/:view/*`} element={<Shop />} />
                 <Route path={`${PrivateRoutes.private}/*`} element={<Dashboard />} />
                 <Route element={<AuthGuard privateValidation={true} />}>
                   <Route element={<RoleGuard />}>
