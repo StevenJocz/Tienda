@@ -13,7 +13,7 @@ import Dashboard from './pages/private/dashboard/Dashboard';
 import { Home } from './pages/public/home';
 import { ViewProducto } from './pages/public/product';
 import { CartProvider } from './context/CartContext';
-import { Shop } from './pages/private/page/shop';
+import { Shop } from './pages/public/shop';
 
 function App() {
 

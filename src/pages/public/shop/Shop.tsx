@@ -1,10 +1,10 @@
 
-import { Nav } from '../../../../components/nav'
-import img1 from '../../../../assets/img/imagen1.png'
+import { Nav } from '../../../components/nav'
+import img1 from '../../../assets/img/imagen1.png'
 import './Shop.css'
 import { useEffect, useState } from 'react';
 import { Slider, Switch } from '@mui/material';
-import { Productos } from '../../../../components/productos';
+import { Productos } from '../../../components/productos';
 import { Link, useLocation } from 'react-router-dom';
 
 

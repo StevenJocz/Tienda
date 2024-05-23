@@ -4,4 +4,5 @@ export const PublicRoutes = {
 
 export const PrivateRoutes = {
     private: 'Dashboard'
+    , private2: 'Dashboard2'
 };

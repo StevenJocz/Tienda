@@ -5,16 +5,18 @@ import RoutesWithNotFound from '../../../../../utilities/RoutesWithNotFound';
 import { AppStore } from '../../../../../redux/Store';
 import { Home } from '../../../page/home';
 import { Productos } from '../../../page/productos';
+import { Configuracion } from '../../../page/configuracion';
 
 const Rutas = () => {
     const usuario = useSelector((store: AppStore) => store.user);
 
     return (
         <RoutesWithNotFound>
-            {usuario.tipoUsuario == 1 ? (
+            {usuario.tipoUsuario == 0 ? (
                 <>
                     <Route path="/" element={<Home/>} />
                     <Route path="/Productos" element={<Productos/>} />
+                    <Route path="/Configuracion/*" element={<Configuracion/>} />
                 </>
             ) : (
                 <>

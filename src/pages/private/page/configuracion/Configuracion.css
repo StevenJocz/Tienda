@@ -1,0 +1,161 @@
+.Configuracion {
+    position: relative;
+}
+
+.Configuracion h2 {
+    margin: 3% 0;
+    color: #252b36;
+    font-family: "Roboto", sans-serif;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.Configuracion_menu ul {
+    text-align: left;
+    list-style: none;
+}
+
+.Configuracion_menu ul a {
+    text-decoration: none;
+    color: #091314;
+}
+
+.Configuracion_menu ul li {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.Configuracion_menu ul li .icono {
+    margin-right: 10px;
+}
+
+
+.Configuracion_menu ul li:hover {
+    background-color: #edecec;
+}
+
+.Configuracion_menu ul .LiActive {
+    background-color: #091314;
+    color: #ffffff;
+}
+
+.Configuracion_menu ul .LiActive:hover {
+    background-color: #091314;
+}
+
+.Configuracion_menu .Activo {
+    color: #c10ade;
+    font-weight: 700;
+}
+
+.Configuracion_Content {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #57575731;
+    background-color: #ffffff;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+    margin-bottom: 20px;
+}
+
+.Configuracion_Formulario {
+    width: 100%;
+}
+
+.Configuracion_Formulario h4 {
+    font-size: 20px;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+
+.Configuracion_Modal {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0;
+    background-color: #151515c0;
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.Configuracion_Modal-Content {
+    width: 60%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.Configuracion_Modal_Encabezado {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Configuracion_Modal_Encabezado button {
+    margin: 0 5px;
+}
+
+.Configuracion_Body {
+    width: 100%;
+}
+
+.Configuracion_Formuario-input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.Configuracion_Formuario-input p, .Configuracion_Body .Error {
+    margin: -17px 0 0 10px;
+    color: #ff0808;
+    font-style: italic;
+    font-size: 12px;
+}
+
+
+.Configuracion_Formuario-check {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.Configuracion_Formuario-check p {
+    font-weight: 700;
+}
+
+.Configuracion_Formuario-imagen {
+    width: 100%;
+    display: flex;
+}
+
+.Configuracion_Formuario-imagen .Configuracion_Formuario-imagen-Cargar {
+    width: 80%;
+    display: flex;
+    align-items: center;
+}
+
+.Configuracion_Formuario-imagen-view {
+    width: 20%;
+    margin-left: 10px;
+}
+
+.Configuracion_Formuario-imagen-view img {
+    width: 100%;
+}

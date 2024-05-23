@@ -131,13 +131,13 @@ text-decoration: none;
 }
 
 .Shop_body--filter-Categoria ul a li:hover {
-    background-color: #f5d716;
+    background-color:#f5b52b;
     color: #2A5783;
     font-weight: 500;
 }
 
 .Shop_body--filter-Categoria ul a .active {
-    background-color: #f5d716;
+    background-color: #fabe3c;
     color: #2A5783;
     font-weight: 500;
 }

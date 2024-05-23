@@ -1,61 +1,52 @@
-import './Categorias.css'
-import img1 from '../../assets/img/imagen1.png'
-import img2 from '../../assets/img/imagen3.png'
-import img3 from '../../assets/img/imagen4.png'
-import img4 from '../../assets/img/imagen2.png'
-import img5 from '../../assets/img/imagen5.png'
+import './Categorias.css';
+import { useEffect, useState } from 'react';
+import { api } from '../../services';
+import { Categoria } from '../../models/categoria';
+import { services } from '../../models';
 
 const Categorias = () => {
+    const [categoria, setCategoria] = useState<Categoria[] | null>(null);
+    const Imagenes_URL = services.url;
+
+    useEffect(() => {
+        handleGetCategorias();
+    }, []);
+
+    const handleGetCategorias = () => {
+        // Solicitud GET
+        api.get<any>('Categoria/Get_Categoria', { accion: 2 }).then((response) => {
+            setCategoria(response.data);
+        });
+    };
+
+    // Divide la matriz en submatrices de 3 elementos
+    const chunkArray = (array: Categoria[], size: number): Categoria[][] => {
+        const result: Categoria[][] = [];
+        for (let i = 0; i < array.length; i += size) {
+            result.push(array.slice(i, i + size));
+        }
+        return result;
+    };
+
+    const categoriasChunks = categoria ? chunkArray(categoria, 3) : [];
+
     return (
         <div className='Categorias'>
-            <div className="Categorias_Content--Dos">
-                <div className="">
-                    <h3>Beats Solo</h3>
-                    <h2>Wireless</h2>
-                    <h1>Estudio</h1>
-                    <button>Ver categoría</button>
-                    <img src={img1} alt="" />
+            {categoriasChunks.map((chunk, chunkIndex) => (
+                <div key={chunkIndex} className={`Categorias_Content--${chunkIndex % 2 === 0 ? 'Dos' : 'Uno'}`}>
+                    {chunk.map((cat, index) => (
+                        <div className="" key={index}>
+                            <h3>{cat.titulo}</h3>
+                            <h2>{cat.descripcion}</h2>
+                            <h1>{cat.nombre}</h1>
+                            <button>Ver categoría</button>
+                            <img src={Imagenes_URL + '/' + cat.imagen} alt="" />
+                        </div>
+                    ))}
                 </div>
-                <div className="">
-                    <h3>Beats Solo</h3>
-                    <h2>Wireless</h2>
-                    <h1>Tiempo libre</h1>
-                    <button>Ver categoría</button>
-                    <img src={img2} alt="" />
-                </div>
-                <div className="">
-                    <h3>Beats Solo</h3>
-                    <h2>Wireless</h2>
-                    <h1>Ropa</h1>
-                    <button>Ver categoría</button>
-                    <img src={img3} alt="" />
-                </div>
-            </div>
-            <div className="Categorias_Content--Uno">
-                <div className="">
-                    <h3>Beats Solo</h3>
-                    <h2>Wireless</h2>
-                    <h1>Tegnología</h1>
-                    <button>Ver categoría</button>
-                    <img src={img4} alt="" />
-                </div>
-                <div className="">
-                    <h3>Beats Solo</h3>
-                    <h2>Wireless</h2>
-                    <h1>Papeleria</h1>
-                    <button>Ver categoría</button>
-                    <img src={img5} alt="" />
-                </div>
-                <div className="">
-                    <h3>Beats Solo</h3>
-                    <h2>Wireless</h2>
-                    <h1>Accesorios</h1>
-                    <button>Ver categoría</button>
-                    <img src={img2} alt="" />
-                </div>
-            </div>
+            ))}
         </div>
-    )
-}
+    );
+};
 
-export default Categorias
+export default Categorias;

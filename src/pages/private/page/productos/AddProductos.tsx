@@ -13,6 +13,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AddProducto, ImagenData, Talla } from '../../../../models/Productos';
 import { Table } from '../../dashboard/components/table';
+import { Categoria } from '../../../../models/categoria';
+import { api } from '../../../../services';
 
 interface Props {
   mostrarRegistro: () => void;
@@ -31,8 +33,26 @@ const AddProductos: React.FC<Props> = (props) => {
   const [porcentajeTalla, setPorcentajeTalla] = useState('');
   const [nombreTalla, setNombreTalla] = useState('');
   const [verAddImagen, setVerAddImagen] = useState(false);
+  const [categoria, setCategoria] = useState<Categoria[] | null>(null);
 
   const precioBase = 20000;
+
+
+  useEffect(() => {
+    hadleGetCategorias();
+    if (props.idProducto > 0) {
+    }
+  }, []);
+
+
+  const hadleGetCategorias = () => {
+    // Solicitud GET
+    api.get<any>('Categoria/Get_Categoria', { accion: 2 }).then((response) => {
+      setCategoria(response.data);
+    });
+  };
+
+
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     setSelectedValues(event.target.value as string[]);
   };
@@ -217,7 +237,7 @@ const AddProductos: React.FC<Props> = (props) => {
         tag: selectedValues,
         tallas: Tallas,
         imagenes: jsonImagenes,
-    };
+      };
 
 
 
@@ -376,7 +396,7 @@ const AddProductos: React.FC<Props> = (props) => {
                     <div className='AddProductos_Formulario_input'>
                       <StyledTextField
                         name='titulo'
-                        label="Descripción corta del producto"
+                        label="Descripción del producto"
                         variant="outlined"
                         size="small"
                         multiline
@@ -389,7 +409,7 @@ const AddProductos: React.FC<Props> = (props) => {
                       <ErrorMessage name='descripcionCorta' component={() => <p className='Error'>{errors.descripcionCorta}</p>} />
                     </div>
                     <div className="AddProductos_Formulario_input">
-                      <h4>Descripción</h4>
+                      <h4>Información del producto</h4>
                       <Editor
                         value={values.descripcion}
                         onEditorChange={(content) => setFieldValue('descripcion', content)}
@@ -554,15 +574,11 @@ const AddProductos: React.FC<Props> = (props) => {
                           value={values.categoría}
                           onChange={(e) => setFieldValue('categoría', e.target.value)}
                         >
-                          <MenuItem value={'1'}>
-                            Ropa
-                          </MenuItem>
-                          <MenuItem value={'1'}>
-                            Estudio
-                          </MenuItem>
-                          <MenuItem value={'1'}>
-                            TIEMPO LIBRE
-                          </MenuItem>
+                          {categoria && categoria.map((option) => (
+                            <MenuItem key={option.idCategoria} value={option.idCategoria}>
+                              {option.nombre}
+                            </MenuItem>
+                          ))}
                         </StyledTextField>
                       </div>
                       <div className="AddProductos_Formulario_input">

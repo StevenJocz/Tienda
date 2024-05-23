@@ -32,7 +32,7 @@ const ViewProducto = () => {
     const [mensajeAddProducto, setMensajeAddProducto] = useState<string | void>('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [shoppingCart, setShoppingCart] = useState(false);
-    const [fechaDescuento] = useState('2024-05-16T18:06:59');
+    const [fechaDescuento] = useState('2024-05-22T18:06:59');
 
     const handleSelectImage = (url: string, index: number, color: string) => {
         setImagen(url);
