@@ -32,7 +32,7 @@ export interface ImagenData {
 export interface AddProducto {
     id: number;
     idInventario: string;
-    Idcategoria: string;
+    idcategoria: string;
     nombre: string;
     descripcion: string;
     informacion: string;
