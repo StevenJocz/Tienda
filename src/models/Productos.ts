@@ -31,17 +31,25 @@ export interface ImagenData {
 
 export interface AddProducto {
     id: number;
-    idProducto: string;
+    idInventario: string;
     activo: boolean;
     nombre: string;
-    descripcionCorta: string;
     descripcion: string;
+    informacion: string;
     preciobase: number;
     porcentajeDescuento: string;
     precioFinal: string;
     fechaDescuento: string;
-    categoría: string;
+    Idcategoria: string;
     tag: {};
     tallas: {};
     imagenes: {};
+}
+
+export interface InventarioSION {
+    idInventario: number;
+    codigo: string;
+    nombre: string;
+    precio: number;
+
 }

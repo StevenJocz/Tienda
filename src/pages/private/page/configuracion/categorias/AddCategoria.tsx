@@ -22,6 +22,7 @@ const AddCategoria: React.FC<Props> = (props) => {
     const [data, setData] = useState<Categoria>();
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const Imagenes_URL = services.url; 
+    
     const StyledTextField = styled(TextField)({
         width: '100%',
         background: '#fff',

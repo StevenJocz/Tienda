@@ -2,6 +2,24 @@
     position: relative;
 }
 
+.Configuracion_Content-Img {
+    width: 100%;
+    display: inline;
+    justify-content: center;
+}
+
+.Configuracion_Content-Img p {
+    font-size: 15px;
+    font-style: italic;
+    opacity: 0.7;
+
+}
+
+.Configuracion_Content-Img img {
+    width: 50%;
+    margin: 0 25%;
+}
+
 .Configuracion h2 {
     margin: 3% 0;
     color: #252b36;

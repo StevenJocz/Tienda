@@ -1,14 +1,17 @@
 import { Breadcrumbs, Grid, Typography } from '@mui/material'
 import './Configuracion.css'
-import { Link, Route } from 'react-router-dom'
-import { useState } from 'react';
+import { Link, Route, useLocation } from 'react-router-dom'
 import { IonIcon } from '@ionic/react';
-import { layersOutline} from 'ionicons/icons';
+import { layersOutline, bookmarkOutline } from 'ionicons/icons';
 import { RoutesWithNotFound } from '../../../../utilities';
 import { Categorias } from './categorias';
+import Tag from './tag/Tag';
+import img from '../../../../assets/img/configuracion.png'
 
 const Configuracion = () => {
-    const [menuConfiguracion, setMenuConfiguracion] = useState(1);
+    const location = useLocation();
+    const ruta = location.pathname.split("/")[3];
+
     return (
         <div className='Configuracion'>
             <Breadcrumbs aria-label="breadcrumb" className="LinkBread">
@@ -24,20 +27,18 @@ const Configuracion = () => {
                         <ul>
                             <Link to='/Dashboard/Configuracion/Categorias'>
                                 <li
-                                    className={`${menuConfiguracion == 3 ? 'LiActive' : ''}`}
-                                    onClick={() => setMenuConfiguracion(3)}
+                                    className={`${ruta == 'Categorias' ? 'LiActive' : ''}`}
                                 >
                                     <IonIcon className='icono' icon={layersOutline} />
                                     Categorías
                                 </li>
                             </Link>
-                            <Link to='/Dashboard/Configuracion/TipoCursos'>
+                            <Link to='/Dashboard/Configuracion/Tag'>
                                 <li
-                                    className={`${menuConfiguracion == 4 ? 'LiActive' : ''}`}
-                                    onClick={() => setMenuConfiguracion(4)}
+                                    className={`${ruta == 'Tag' ? 'LiActive' : ''}`}
                                 >
-                                    <IonIcon className='icono' icon={layersOutline} />
-                                    Modalidad
+                                    <IonIcon className='icono' icon={bookmarkOutline} />
+                                    Tags
                                 </li>
                             </Link>
                         </ul>
@@ -46,8 +47,13 @@ const Configuracion = () => {
                 <Grid item xs={9}>
                     <div className='Configuracion_Content'>
                         <RoutesWithNotFound>
-                            <Route path="/" element={<div>Configuración inicio</div>} />
-                            <Route path="/Categorias" element={<Categorias/>} />
+                            <Route path="/" element={
+                                <div className='Configuracion_Content-Img'>
+                                    <p>En esta sección, puedes personalizar y ajustar los aspectos clave de tu tienda virtual. Configura opciones como las categorías, los tag, entre otras opciones. ¡Asegúrate de revisar y guardar tus cambios para ofrecer la mejor experiencia a tus clientes!</p>
+                                    <img src={img} alt="" />
+                                </div>} />
+                            <Route path="/Categorias" element={<Categorias />} />
+                            <Route path="/Tag" element={<Tag />} />
                         </RoutesWithNotFound>
                     </div>
                 </Grid>

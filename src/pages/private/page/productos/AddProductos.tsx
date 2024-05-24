@@ -11,10 +11,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AddProducto, ImagenData, Talla } from '../../../../models/Productos';
+import { AddProducto, ImagenData, InventarioSION, Talla } from '../../../../models/Productos';
 import { Table } from '../../dashboard/components/table';
 import { Categoria } from '../../../../models/categoria';
 import { api } from '../../../../services';
+import { Tag } from '../../../../models/tag';
 
 interface Props {
   mostrarRegistro: () => void;
@@ -33,17 +34,19 @@ const AddProductos: React.FC<Props> = (props) => {
   const [porcentajeTalla, setPorcentajeTalla] = useState('');
   const [nombreTalla, setNombreTalla] = useState('');
   const [verAddImagen, setVerAddImagen] = useState(false);
+  const [inventario, setInventario] = useState<InventarioSION[] | null>(null);
   const [categoria, setCategoria] = useState<Categoria[] | null>(null);
+  const [tag, setTag] = useState<Tag[] | null>(null);
 
   const precioBase = 20000;
 
-
   useEffect(() => {
     hadleGetCategorias();
+    hadleGetTag();
+    hadleGetInventarioSion();
     if (props.idProducto > 0) {
     }
   }, []);
-
 
   const hadleGetCategorias = () => {
     // Solicitud GET
@@ -52,20 +55,30 @@ const AddProductos: React.FC<Props> = (props) => {
     });
   };
 
+  const hadleGetTag = () => {
+    // Solicitud GET
+    api.get<any>('tag/Get_Tag', { accion: 2 }).then((response) => {
+      setTag(response.data);
+    });
+  };
+
+  const hadleGetInventarioSion = () => {
+    // Solicitud GET
+    api.get<any>('Producto/Get_Inventario').then((response) => {
+      setInventario(response.data);
+    });
+  };
 
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     setSelectedValues(event.target.value as string[]);
   };
 
-
   const handleTalla = () => {
-
     const exists = Tallas.some((talla) => talla.nombre === nombreTalla);
     if (exists) {
       alert('Ya existe una talla con ese nombre');
       return;
     }
-
     if (nombreTalla == '') {
       alert('Por favor, seleccione la talla');
       return;
@@ -87,12 +100,10 @@ const AddProductos: React.FC<Props> = (props) => {
     setNombreTalla('');
   };
 
-
   const handleDeleteTalla = (id: number) => {
     const updatedTallas = Tallas.filter(talla => talla.id !== id);
     setTalla(updatedTallas);
   }
-
 
   const handleVerAddImagen = () => {
     setVerAddImagen(!verAddImagen);
@@ -202,38 +213,27 @@ const AddProductos: React.FC<Props> = (props) => {
     setJsonImagenes(updatedImagen);
   }
 
-
-  const options = [
-    { value: '0', label: 'Tag uno' },
-    { value: '1', label: 'Tag dos' },
-    { value: '2', label: 'Tag tres' },
-    { value: '3', label: 'Tag cuatro' },
-  ];
-
   const handleClick = () => {
     if (submitButtonRef.current) {
       submitButtonRef.current.click();
     }
   };
 
-
   const handleRegistrar = async (values: FormikValues) => {
     setIsSubmitting(true);
     try {
-
-
       const Addproducto: AddProducto = {
         id: 0,
-        idProducto: values.idProducto,
+        idInventario: values.idInventario,
         activo: values.activo,
         nombre: values.nombre,
-        descripcionCorta: values.descripcionCorta,
-        descripcion: values.descripcion,
+        descripcion: values.descripcionCorta,
+        informacion: values.descripcion,
         preciobase: values.preciobase,
         porcentajeDescuento: values.porcentajeDescuento,
         precioFinal: values.precioFinal,
         fechaDescuento: values.fechaDescuento,
-        categoría: values.categoría,
+        Idcategoria: values.categoria,
         tag: selectedValues,
         tallas: Tallas,
         imagenes: jsonImagenes,
@@ -310,7 +310,7 @@ const AddProductos: React.FC<Props> = (props) => {
           enableReinitialize={true}
           initialValues={{
             id: 0,
-            idProducto: '',
+            idInventario: '',
             activo: false,
             nombre: '',
             descripcionCorta: '',
@@ -319,7 +319,7 @@ const AddProductos: React.FC<Props> = (props) => {
             porcentajeDescuento: '',
             precioFinal: '',
             fechaDescuento: null,
-            categoría: '',
+            categoria: '',
 
           }}
           validate={(valor) => {
@@ -333,8 +333,8 @@ const AddProductos: React.FC<Props> = (props) => {
             if (!valor.descripcionCorta) {
               errors.descripcionCorta = 'Campo Obligatorio';
             }
-            if (!valor.categoría) {
-              errors.categoría = 'Campo Obligatorio';
+            if (!valor.categoria) {
+              errors.categoria = 'Campo Obligatorio';
             }
 
             return errors;
@@ -365,20 +365,17 @@ const AddProductos: React.FC<Props> = (props) => {
                         label="Seleccione inventario de SION"
                         size="small"
                         variant="outlined"
-                        value={values.idProducto}
-                        onChange={(e) => setFieldValue('idProducto', e.target.value)}
+                        value={values.idInventario}
+                        onChange={(e) => setFieldValue('idInventario', e.target.value)}
                       >
-                        <MenuItem value={'1'}>
-                          41790 - Producto 1
-                        </MenuItem>
-                        <MenuItem value={'2'}>
-                          41791 - Producto 2
-                        </MenuItem>
-                        <MenuItem value={'3'}>
-                          41792 - Producto 2
-                        </MenuItem>
+                        {inventario && inventario.map((option) => (
+                            <MenuItem key={option.idInventario} value={option.nombre}>
+                              {option.codigo + ' - ' + option.nombre}
+                            </MenuItem>
+                          ))}
+                        
                       </StyledTextField>
-                      <ErrorMessage name='idProducto' component={() => <p className='Error'>{errors.idProducto}</p>} />
+                      <ErrorMessage name='idInventario' component={() => <p className='Error'>{errors.idInventario}</p>} />
                     </div>
                     <div className='AddProductos_Formulario_input'>
                       <StyledTextField
@@ -571,8 +568,8 @@ const AddProductos: React.FC<Props> = (props) => {
                           label="Seleccione Categoria"
                           size="small"
                           variant="outlined"
-                          value={values.categoría}
-                          onChange={(e) => setFieldValue('categoría', e.target.value)}
+                          value={values.categoria}
+                          onChange={(e) => setFieldValue('categoria', e.target.value)}
                         >
                           {categoria && categoria.map((option) => (
                             <MenuItem key={option.idCategoria} value={option.idCategoria}>
@@ -594,20 +591,20 @@ const AddProductos: React.FC<Props> = (props) => {
                             renderValue={(selected) => (
                               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                 {selected.map((value) => (
-                                  <Chip key={value} label={options.find(option => option.value === value)?.label} />
+                                  <Chip key={value} label={tag && tag.find(option => option.idTag === Number(value))?.tag} />
                                 ))}
                               </Box>
                             )}
                             MenuProps={MenuProps}
                           >
-                            {options.map((option) => (
+                            {tag && tag.map((option) => (
                               <MenuItem
-                                key={option.value}
-                                value={option.value}
-                                style={getStyles(option.value, selectedValues, theme)}
+                                key={option.idTag}
+                                value={option.idTag}
+                                style={getStyles(option.tag, selectedValues, theme)}
                               >
-                                <Checkbox checked={selectedValues.indexOf(option.value) > -1} />
-                                <ListItemText primary={option.label} />
+                                <Checkbox checked={selectedValues.indexOf(option.tag) > -1} />
+                                <ListItemText primary={option.tag} />
                               </MenuItem>
                             ))}
                           </Select>
