@@ -135,9 +135,6 @@ const AddCategoria: React.FC<Props> = (props) => {
                 idTercero: 1,
                 fechaCreacion: new Date(),
             };
-
-            console.log(registroCategoria)
-
             if (values.id > 0) {
                 await api.put<any>('Categoria/Put_Actualizar_Categoria', registroCategoria);
             } else {

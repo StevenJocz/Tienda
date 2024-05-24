@@ -12,7 +12,7 @@ const Rutas = () => {
 
     return (
         <RoutesWithNotFound>
-            {usuario.tipoUsuario == 1 ? (
+            {usuario.tipoUsuario == 0 ? (
                 <>
                     <Route path="/" element={<Home/>} />
                     <Route path="/Productos" element={<Productos/>} />

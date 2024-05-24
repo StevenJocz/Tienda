@@ -225,21 +225,26 @@ const AddProductos: React.FC<Props> = (props) => {
       const Addproducto: AddProducto = {
         id: 0,
         idInventario: values.idInventario,
-        activo: values.activo,
+        idcategoria: values.categoria,
         nombre: values.nombre,
         descripcion: values.descripcionCorta,
         informacion: values.descripcion,
-        preciobase: values.preciobase,
-        porcentajeDescuento: values.porcentajeDescuento,
-        precioFinal: values.precioFinal,
-        fechaDescuento: values.fechaDescuento,
-        Idcategoria: values.categoria,
-        tag: selectedValues,
-        tallas: Tallas,
+        tags: selectedValues.toString(),
+        descuento: values.porcentajeDescuento,
+        fechaFinDescuento: values.fechaDescuento,
+        activo: values.activo,
         imagenes: jsonImagenes,
+        tallas: Tallas,
       };
 
+      console.log(Addproducto)
 
+      if (values.id > 0) {
+        await api.put<any>('Producto/Put_Actualizar_Producto', Addproducto);
+      } else {
+        await api.post<any>('Producto/Post_Crear_Producto', Addproducto);
+      }
+      setOpenSnackbar(true);
 
       console.log(Addproducto)
       setOpenSnackbar(true);
@@ -369,11 +374,11 @@ const AddProductos: React.FC<Props> = (props) => {
                         onChange={(e) => setFieldValue('idInventario', e.target.value)}
                       >
                         {inventario && inventario.map((option) => (
-                            <MenuItem key={option.idInventario} value={option.nombre}>
-                              {option.codigo + ' - ' + option.nombre}
-                            </MenuItem>
-                          ))}
-                        
+                          <MenuItem key={option.idInventario} value={option.nombre}>
+                            {option.codigo + ' - ' + option.nombre}
+                          </MenuItem>
+                        ))}
+
                       </StyledTextField>
                       <ErrorMessage name='idInventario' component={() => <p className='Error'>{errors.idInventario}</p>} />
                     </div>

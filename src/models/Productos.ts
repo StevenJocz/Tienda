@@ -32,16 +32,14 @@ export interface ImagenData {
 export interface AddProducto {
     id: number;
     idInventario: string;
-    activo: boolean;
+    Idcategoria: string;
     nombre: string;
     descripcion: string;
     informacion: string;
-    preciobase: number;
-    porcentajeDescuento: string;
-    precioFinal: string;
-    fechaDescuento: string;
-    Idcategoria: string;
-    tag: {};
+    tags: string;
+    descuento: string;
+    fechaFinDescuento: string;
+    activo: boolean;
     tallas: {};
     imagenes: {};
 }
