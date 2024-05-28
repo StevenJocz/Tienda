@@ -16,6 +16,7 @@ import { Table } from '../../dashboard/components/table';
 import { Categoria } from '../../../../models/categoria';
 import { api } from '../../../../services';
 import { Tag } from '../../../../models/tag';
+import dayjs from 'dayjs';
 
 interface Props {
   mostrarRegistro: () => void;
@@ -28,45 +29,99 @@ const AddProductos: React.FC<Props> = (props) => {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const [msg, setMsg] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [producto, setProducto] = useState<AddProducto>();
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
   const theme = useTheme();
   const [Tallas, setTalla] = useState<Talla[]>([]);
   const [porcentajeTalla, setPorcentajeTalla] = useState('');
   const [nombreTalla, setNombreTalla] = useState('');
   const [verAddImagen, setVerAddImagen] = useState(false);
+  const [idInventario, setIdInventario] = useState(0);
   const [inventario, setInventario] = useState<InventarioSION[] | null>(null);
   const [categoria, setCategoria] = useState<Categoria[] | null>(null);
   const [tag, setTag] = useState<Tag[] | null>(null);
+  const [precioBase, setPrecioBase] = useState(0);
+  const [selectedImage, setSelectedImage] = useState<string>('');
+  const [selectedImageBase64, setSelectedImageBase64] = useState<string>('');
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const precioBase = 20000;
 
   useEffect(() => {
     hadleGetCategorias();
     hadleGetTag();
     hadleGetInventarioSion();
     if (props.idProducto > 0) {
+      hadleGet();
     }
   }, []);
 
-  const hadleGetCategorias = () => {
+  const hadleGetCategorias = async () => {
     // Solicitud GET
-    api.get<any>('Categoria/Get_Categoria', { accion: 2 }).then((response) => {
+    await api.get<any>('Categoria/Get_Categoria', { accion: 2 }).then((response) => {
       setCategoria(response.data);
+      console.log(response.data)
     });
   };
 
-  const hadleGetTag = () => {
+  const hadleGetTag = async () => {
     // Solicitud GET
-    api.get<any>('tag/Get_Tag', { accion: 2 }).then((response) => {
+    await api.get<any>('tag/Get_Tag', { accion: 2 }).then((response) => {
       setTag(response.data);
     });
   };
 
-  const hadleGetInventarioSion = () => {
+  const hadleGetInventarioSion = async () => {
     // Solicitud GET
-    api.get<any>('Producto/Get_Inventario').then((response) => {
+    await api.get<any>('Producto/Get_Inventario').then((response) => {
       setInventario(response.data);
     });
+  };
+
+  
+  const hadleGetIdInventarioSion = async (idInventario: number) => {
+    // Solicitud GET
+    await api.get<any>('Producto/Get_Id_Inventario', { idInventario: idInventario }).then((response) => {
+      setPrecioBase(response.data[0].precio);
+    });
+  };
+
+  const haddleInventario = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedValue = event.target.value;
+    setIdInventario(parseInt(selectedValue));
+    if (selectedValue !== '0') {
+      await hadleGetIdInventarioSion(Number(selectedValue));
+    }
+  };
+
+  const hadleGet = async () => {
+    try {
+      const response = await api.get<AddProducto[]>('Producto/Get_Id_Producto', { idProducto: props.idProducto });
+      if (response.data.length > 0) {
+        setProducto({
+          id: response.data[0].id,
+          idInventario: response.data[0].idInventario,
+          idCategoria: response.data[0].idCategoria,
+          nombre: response.data[0].nombre,
+          descripcion: response.data[0].descripcion,
+          informacion: response.data[0].informacion,
+          tags: response.data[0].tags,
+          descuento: response.data[0].descuento,
+          fechaFinDescuento: response.data[0].fechaFinDescuento,
+          idTercero: response.data[0].idTercero,
+          activo: response.data[0].activo,
+          imagenes: response.data[0].imagenes,
+          tallas: response.data[0].tallas,
+
+        });
+        setIdInventario(response.data[0].idInventario);
+        hadleGetIdInventarioSion(response.data[0].idInventario);
+        setJsonImagenes(response.data[0].imagenes as ImagenData[]);
+        setTalla(response.data[0].tallas as Talla[]);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   const handleChange = (event: SelectChangeEvent<string[]>) => {
@@ -108,11 +163,6 @@ const AddProductos: React.FC<Props> = (props) => {
   const handleVerAddImagen = () => {
     setVerAddImagen(!verAddImagen);
   }
-
-  const [selectedImage, setSelectedImage] = useState<string>('');
-  const [selectedImageBase64, setSelectedImageBase64] = useState<string>('');
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleTextareaDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -224,20 +274,20 @@ const AddProductos: React.FC<Props> = (props) => {
     try {
       const Addproducto: AddProducto = {
         id: 0,
-        idInventario: values.idInventario,
-        idcategoria: values.categoria,
+        idInventario: idInventario,
+        idCategoria: parseInt(values.idCategoria),
         nombre: values.nombre,
-        descripcion: values.descripcionCorta,
-        informacion: values.descripcion,
+        descripcion: values.descripcion,
+        informacion: values.informacion,
         tags: selectedValues.toString(),
-        descuento: values.porcentajeDescuento,
+        descuento: parseInt(values.porcentajeDescuento),
         fechaFinDescuento: values.fechaDescuento,
+        idTercero: 42066,
         activo: values.activo,
         imagenes: jsonImagenes,
         tallas: Tallas,
       };
 
-      console.log(Addproducto)
 
       if (values.id > 0) {
         await api.put<any>('Producto/Put_Actualizar_Producto', Addproducto);
@@ -246,7 +296,6 @@ const AddProductos: React.FC<Props> = (props) => {
       }
       setOpenSnackbar(true);
 
-      console.log(Addproducto)
       setOpenSnackbar(true);
       setMsg('');
 
@@ -315,16 +364,16 @@ const AddProductos: React.FC<Props> = (props) => {
           enableReinitialize={true}
           initialValues={{
             id: 0,
-            idInventario: '',
-            activo: false,
-            nombre: '',
-            descripcionCorta: '',
-            descripcion: '',
+            idInventario: idInventario || '',
+            activo: producto?.activo || true,
+            nombre: producto?.nombre || '',
+            descripcion: producto?.descripcion || '0',
+            informacion: producto?.informacion || '',
             preciobase: precioBase,
-            porcentajeDescuento: '',
+            porcentajeDescuento: producto?.descuento.toString() || '',
             precioFinal: '',
-            fechaDescuento: null,
-            categoria: '',
+            fechaDescuento: producto?.fechaFinDescuento ? dayjs(producto?.fechaFinDescuento) : null,
+            idCategoria: producto?.idCategoria || '',
 
           }}
           validate={(valor) => {
@@ -335,11 +384,11 @@ const AddProductos: React.FC<Props> = (props) => {
               errors.nombre = 'Campo Obligatorio';
             }
 
-            if (!valor.descripcionCorta) {
-              errors.descripcionCorta = 'Campo Obligatorio';
+            if (!valor.descripcion) {
+              errors.descripcion = 'Campo Obligatorio';
             }
-            if (!valor.categoria) {
-              errors.categoria = 'Campo Obligatorio';
+            if (!valor.idCategoria) {
+              errors.idCategoria = 'Campo Obligatorio';
             }
 
             return errors;
@@ -366,19 +415,23 @@ const AddProductos: React.FC<Props> = (props) => {
                   <div className='AddProductos_Formulario_left'>
                     <div className='AddProductos_Formulario_input'>
                       <StyledTextField
+                        id="outlined-select-currency"
                         select
                         label="Seleccione inventario de SION"
                         size="small"
                         variant="outlined"
                         value={values.idInventario}
-                        onChange={(e) => setFieldValue('idInventario', e.target.value)}
+                        onChange={haddleInventario}
                       >
+                        <MenuItem value={'0'}>
+                          Seleccione
+                        </MenuItem>
+
                         {inventario && inventario.map((option) => (
-                          <MenuItem key={option.idInventario} value={option.nombre}>
+                          <MenuItem key={option.idInventario} value={option.idInventario}>
                             {option.codigo + ' - ' + option.nombre}
                           </MenuItem>
                         ))}
-
                       </StyledTextField>
                       <ErrorMessage name='idInventario' component={() => <p className='Error'>{errors.idInventario}</p>} />
                     </div>
@@ -405,16 +458,16 @@ const AddProductos: React.FC<Props> = (props) => {
                         rows={6}
                         color="secondary"
                         placeholder="Escribe una breve descripción del producto aquí..."
-                        value={values.descripcionCorta}
-                        onChange={(e) => setFieldValue('descripcionCorta', e.target.value)}
+                        value={values.descripcion}
+                        onChange={(e) => setFieldValue('descripcion', e.target.value)}
                       />
-                      <ErrorMessage name='descripcionCorta' component={() => <p className='Error'>{errors.descripcionCorta}</p>} />
+                      <ErrorMessage name='descripcionCorta' component={() => <p className='Error'>{errors.descripcion}</p>} />
                     </div>
                     <div className="AddProductos_Formulario_input">
                       <h4>Información del producto</h4>
                       <Editor
-                        value={values.descripcion}
-                        onEditorChange={(content) => setFieldValue('descripcion', content)}
+                        value={values.informacion}
+                        onEditorChange={(content) => setFieldValue('informacion', content)}
                         apiKey='tuezbpkp2ehsxvmrxtl2szjjtayo5yx9fm90xwbjrpbvopkv'
                         init={{
                           height: 350,
@@ -430,7 +483,7 @@ const AddProductos: React.FC<Props> = (props) => {
                     <div className='AddProductos_Formulario_input'>
                       <h4>Imagenes</h4>
                       <div className='AddCursos_Formulario-imagenes'>
-                        {verAddImagen &&
+                        {verAddImagen ? (
                           <div className='AddCursos_Formulario-imagenes--add'>
                             <div className='Formulario-imagenes--add--cerrar'>
                               <IonIcon className='icono' icon={closeOutline} onClick={handleVerAddImagen} />
@@ -524,6 +577,12 @@ const AddProductos: React.FC<Props> = (props) => {
                               </div>
                             </div>
                           </div>
+                        ) : (
+                          <div className='AddCursos_Formulario-imagenes--texto'>
+                            <p>Por favor, ten en cuenta que las dos primeras imágenes que agregues serán las que se mostrarán inicialmente en las tarjetas. Asegúrate de seleccionar cuidadosamente estas imágenes para dar una buena primera impresión a los usuarios.</p>
+                          </div>
+
+                        )
                         }
                         <div className='AddCursos_Formulario-imagenes-encabezado'>
                           <Button
@@ -536,7 +595,11 @@ const AddProductos: React.FC<Props> = (props) => {
                             Agregar imagenes
 
                           </Button>
-                          <Tooltip title="Precio regular del producto" placement="top" disableInteractive >
+                          <Tooltip
+                            title="Por favor, ten en cuenta que las dos primeras imágenes que agregues serán las que se mostrarán inicialmente en las tarjetas. Asegúrate de seleccionar cuidadosamente estas imágenes para dar una buena primera impresión a los usuarios."
+                            placement="left"
+                            disableInteractive
+                          >
                             <IonIcon className='icono' icon={helpCircleOutline} />
                           </Tooltip>
                         </div>
@@ -569,19 +632,25 @@ const AddProductos: React.FC<Props> = (props) => {
                       <h4>Organizar</h4>
                       <div className="AddProductos_Formulario_input">
                         <StyledTextField
+                          id="outlined-select-currency"
                           select
                           label="Seleccione Categoria"
                           size="small"
                           variant="outlined"
-                          value={values.categoria}
-                          onChange={(e) => setFieldValue('categoria', e.target.value)}
+                          value={values.idCategoria}
+                          onChange={(e) => setFieldValue('idCategoria', e.target.value)}
                         >
+                          <MenuItem value={0}>
+                            Seleccione
+                          </MenuItem>
+
                           {categoria && categoria.map((option) => (
                             <MenuItem key={option.idCategoria} value={option.idCategoria}>
                               {option.nombre}
                             </MenuItem>
                           ))}
                         </StyledTextField>
+                        
                       </div>
                       <div className="AddProductos_Formulario_input">
                         <StyledFormControl variant="outlined" size="small">
@@ -681,6 +750,7 @@ const AddProductos: React.FC<Props> = (props) => {
                       <h4>Agregar tallas</h4>
                       <div className='AddProductos_Formulario_input '>
                         <StyledTextField
+                          id="outlined-select-currency"
                           select
                           label="Seleccione la talla"
                           size="small"
@@ -688,22 +758,12 @@ const AddProductos: React.FC<Props> = (props) => {
                           value={nombreTalla}
                           onChange={(e) => setNombreTalla(e.target.value)}
                         >
-
-                          <MenuItem value={'XS'}>
-                            XS
-                          </MenuItem>
-                          <MenuItem value={'S'}>
-                            S
-                          </MenuItem>
-                          <MenuItem value={'M'}>
-                            M
-                          </MenuItem>
-                          <MenuItem value={'L'}>
-                            L
-                          </MenuItem>
-                          <MenuItem value={'XL'}>
-                            XL
-                          </MenuItem>
+                          <MenuItem value={'0'}> Seleccione</MenuItem>
+                          <MenuItem value={'XS'}>XS</MenuItem>
+                          <MenuItem value={'S'}>S</MenuItem>
+                          <MenuItem value={'M'}>M</MenuItem>
+                          <MenuItem value={'L'}>L</MenuItem>
+                          <MenuItem value={'XL'}>XL</MenuItem>
                         </StyledTextField>
                         <div className='AddProductos_Formulario_input'>
                           <StyledTextField

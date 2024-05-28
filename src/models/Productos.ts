@@ -3,7 +3,7 @@ export interface Producto {
     nombre: string;
     categorias: string;
     imagenes: Imagen[];
-    Bitdescuento: boolean;
+    aplicaDescuento: boolean;
     descuento: string;
     nuevo: boolean;
 }
@@ -31,17 +31,37 @@ export interface ImagenData {
 
 export interface AddProducto {
     id: number;
-    idInventario: string;
-    idcategoria: string;
+    idInventario: number;
+    idCategoria: number;
     nombre: string;
     descripcion: string;
     informacion: string;
     tags: string;
-    descuento: string;
+    descuento: number;
     fechaFinDescuento: string;
     activo: boolean;
+    idTercero: number;
+    precioBase?: number;
     tallas: {};
     imagenes: {};
+}
+
+export interface viewProducto {
+    id: number;
+    idInventario: number;
+    idCategoria: number;
+    nombre: string;
+    descripcion: string;
+    informacion: string;
+    tags: string;
+    descuento: number;
+    fechaFinDescuento: string;
+    activo: boolean;
+    idTercero: number;
+    stock?: number;
+    precioBase?: number;
+    tallas: Talla[];
+    imagenes: ImagenData[];
 }
 
 export interface InventarioSION {

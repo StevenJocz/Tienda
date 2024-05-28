@@ -4,6 +4,7 @@ import { Tooltip } from '@mui/material';
 import { closeOutline, rocketOutline, addOutline, removeOutline, trashOutline, cartOutline } from "ionicons/icons";
 import { useCartContext } from '../../../context/CartContext';
 import { Link } from 'react-router-dom';
+import { services } from '../../../models';
 
 interface Props {
     onClose: () => void;
@@ -94,14 +95,16 @@ const ShoppingCart: React.FC<Props> = (props) => {
                                 {cartItems.map((producto, index) => (
                                     <div className='ShoppingCart_Producto--Content' key={index}>
                                         <div className='ShoppingCart_Producto--Content--imagen'>
-                                            <img src={producto.src} alt={producto.nombre} />
+                                            <img src={`${services.url}/${producto.src}`} alt={producto.nombre} />
                                         </div>
                                         <div className='ShoppingCart_Producto--Content--Info'>
                                             <Link to={`/Producto/${producto.idProducto}/${encodeURIComponent(producto.nombre.toLowerCase().replace(/ /g, '-'))}`}>
                                                 <h3>{producto.nombre}</h3>
                                             </Link>
                                             <h4>${producto.valor.toLocaleString()}</h4>
-                                            <h3><span>Talla:</span> {producto.talla}</h3>
+                                            {producto.talla != '' &&
+                                                <h3><span>Talla:</span> {producto.talla}</h3>
+                                            }
                                             <h3><span>Color:</span> {producto.nombreColor}</h3>
                                             <div className='ShoppingCart_Producto--Content--Info-Cantidad'>
                                                 {producto.cantidad == 1 ? (

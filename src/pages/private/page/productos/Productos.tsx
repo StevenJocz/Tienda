@@ -4,16 +4,19 @@ import { Breadcrumbs, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import AddProductos from './AddProductos';
 import { Table } from '../../dashboard/components/table';
+import { api } from '../../../../services';
 
 const Productos = () => {
     const [dataProductos, setDataProductos] = useState<any>(null);
     const [verAddProducto, setVerAddProducto] = useState(false);
     const [idProducto, setIdProducto] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        hadleGetCProdcutos()
-
-    }, []);
+        if (loading) {
+            hadleGetCProdcutos();
+        }
+    }, [loading]);
 
 
     const handleAddProducto = (id: number) => {
@@ -22,55 +25,22 @@ const Productos = () => {
     }
 
     const hadleGetCProdcutos = () => {
-        setDataProductos(producto);
+        api.get<any>('Producto/Get_Productos', { accion: 1 }).then((response) => {
+            const productos = response.data.map((producto: any) => ({
+                id: producto.id,
+                foto: producto.imagenes[0].imagenUno, 
+                producto: producto.nombre,
+                categoría: producto.categorias,
+                descuento:producto.descuento > 0 ? producto.descuento + '%' : '0',
+                Stock: producto.existencias,
+                nuevo: producto.nuevo,
+                activo: producto.activo
+            }));
+            setDataProductos(productos);
+            setLoading(false);
+        })
     };
 
-
-    const producto = [
-        {
-            "id": 1,
-            "nombre": "001 - Camiseta negra manga corta para mujer",
-            "categorias": "Ropa",
-            "aplica_descuento": true,
-            "descuento": "20",
-            "activo": true,
-        },
-        {
-            "id": 2,
-            "nombre": "002 - Polo azul con raqueta malla para hombre",
-            "categorias": "Ropa",
-            "aplica_descuento": false,
-            "descuento": "0",
-            "activo": true,
-        }
-        ,
-        {
-            "id": 3,
-            "nombre": "003 - Camiseta blanco manga corta para hombre",
-            "categorias": "Ropa",
-            "aplica_descuento": false,
-            "descuento": "0",
-            "activo": true,
-        }
-        ,
-        {
-            "id": 4,
-            "nombre": "004 - Camiseta café con escote bandeja para mujer",
-            "categorias": "Ropa",
-            "aplica_descuento": false,
-            "descuento": "0",
-            "activo": true,
-        }
-        ,
-        {
-            "id": 5,
-            "nombre": "005 - Camiseta negra estampada en frente para hombre",
-            "categorias": "Ropa",
-            "aplica_descuento": false,
-            "descuento": "0",
-            "activo": true,
-        }
-    ];
 
 
     return (

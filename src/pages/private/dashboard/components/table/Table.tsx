@@ -165,13 +165,13 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
         }
     };
 
-    const renderAplicaDescuento = (boolean: boolean) => {
+    const renderNuevo = (boolean: boolean) => {
         if (boolean) {
             return (
                 <div style={{
-                    color: '#52c41a',
-                    backgroundColor: '#bbf77f3d',
-                    borderColor: 'rgb(149, 222, 100)',
+                    color: '#10b5b9',
+                    backgroundColor: '#7fb9f71d',
+                    borderColor: '#6489df',
                     width: '100%',
                     padding: '0 20px'
                 }}>
@@ -181,9 +181,9 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
         } else {
             return (
                 <div style={{
-                    color: 'rgb(255, 77, 79)',
+                    color: 'rgb(0,0,0)',
                     backgroundColor: 'rgb(255, 241, 240)',
-                    borderColor: 'rgb(255, 163, 158)',
+                    borderColor: '#696969',
                     width: '100%',
                     padding: '0 20px'
                 }}>
@@ -384,8 +384,8 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                                         cellContent = renderRol(row[column]);
                                     } else if (column === 'activo') {
                                         cellContent = renderActive(row[column]);
-                                    } else if (column === 'aplica_descuento') {
-                                        cellContent = renderAplicaDescuento(row[column]);
+                                    } else if (column === 'nuevo') {
+                                        cellContent = renderNuevo(row[column]);
                                     }
                                     else if (column === 'color') {
                                         cellContent = renderColor(row[column]);

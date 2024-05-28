@@ -118,6 +118,7 @@
     margin-bottom: 100px;
 }
 
+
 .AddCursos_Formulario-imagenes--add {
     width: 100%;
     margin-bottom: 20px;
@@ -131,6 +132,17 @@
     -o-border-radius: 5px;
 }
 
+.Productos .AddCursos_Formulario-imagenes--texto {
+    width: 100%;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.Productos .AddCursos_Formulario-imagenes--texto p {
+    text-align: left;
+    font-style: italic;
+    font-size: 15px;
+}
 
 
 .AddCursos_Formulario-imagenes-encabezado {
