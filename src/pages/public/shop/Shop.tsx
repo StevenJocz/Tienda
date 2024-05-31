@@ -6,13 +6,15 @@ import { useEffect, useState } from 'react';
 import { Slider, Switch } from '@mui/material';
 import { Productos } from '../../../components/productos';
 import { Link, useLocation } from 'react-router-dom';
+import { Categoria } from '../../../models/categoria';
+import { api } from '../../../services';
 
 
 const Shop = () => {
 
     const MIN = 800;
     const MAX = 1000;
-
+    const [data, setData] = useState<Categoria>();
     const [values, setValues] = useState<[number, number]>([MIN, MAX]);
     const [idCategoria, setIdCategoria] = useState('0');
     const [oferta, setOferta] = useState(false);
@@ -24,7 +26,32 @@ const Shop = () => {
     };
     useEffect(() => {
         setIdCategoria(location.pathname.split("/")[2]);
+        if(parseInt(idCategoria) != 0) {
+            hadleGetId();
+        }
     }, [location.pathname]);
+
+
+    const hadleGetId = async () => {
+        try {
+            const response = await api.get<Categoria[]>('Categoria/Get_Id_Categoria', {idCategoria: parseInt(idCategoria) });
+            if (response.data.length > 0) {
+                setData({
+                    idCategoria: response.data[0].idCategoria,
+                    nombre: response.data[0].nombre,
+                    titulo: response.data[0].titulo,
+                    descripcion: response.data[0].descripcion,
+                    imagen: response.data[0].imagen,
+                    activo: response.data[0].activo, 
+                    idTercero: response.data[0].idTercero,
+                    fechaCreacion: response.data[0].fechaCreacion,
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
 
     return (
         <div className='Home'>
@@ -39,9 +66,9 @@ const Shop = () => {
                             <img src={img1} alt="" />
                         </div>
                         <div className='Shop_Categoria--info'>
-                            <h3>Expresar tu orgullo</h3>
-                            <h2>Universitario</h2>
-                            <h1>Categorías</h1>
+                            <h3>{data?.titulo}</h3>
+                            <h2>{data?.descripcion}</h2>
+                            <h1>{data?.nombre}</h1>
                             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis autem delectus eum reiciendis.</p>
                         </div>
                     </div>
@@ -56,22 +83,22 @@ const Shop = () => {
                                         </li>
                                     </Link>
                                     <Link to='/Shop/1/Estudio'>
-                                        <li className={`${idCategoria == '1' ? 'active' : ''}`}>
+                                        <li className={`${idCategoria == '2' ? 'active' : ''}`}>
                                             Estudio
                                         </li>
                                     </Link>
                                     <Link to='/Shop/2/TiempoLibre'>
-                                        <li className={`${idCategoria == '2' ? 'active' : ''}`}>
+                                        <li className={`${idCategoria == '3' ? 'active' : ''}`}>
                                             Tiempo libre
                                         </li>
                                     </Link>
                                     <Link to='/Shop/3/Ropa'>
-                                        <li className={`${idCategoria == '3' ? 'active' : ''}`}>
+                                        <li className={`${idCategoria == '4' ? 'active' : ''}`}>
                                             Ropa
                                         </li>
                                     </Link>
                                     <Link to='/Shop/4/Tegnologia'>
-                                        <li className={`${idCategoria == '4' ? 'active' : ''}`}>
+                                        <li className={`${idCategoria == '5' ? 'active' : ''}`}>
                                             Tecnología
                                         </li>
                                     </Link>
