@@ -4,6 +4,9 @@
     padding: 20px 40px;
 }
 
+.Categorias a {
+    text-decoration: none;
+}
 .Categorias_Content--Uno,
 .Categorias_Content--Dos {
     display: flex;
@@ -88,8 +91,6 @@
     font-size: 50px;
     text-transform: uppercase;
     position: absolute;
-    top: 50%;
-    left: 7%;
     z-index: 100;
 }
 
@@ -114,7 +115,7 @@
 .Categorias_Content--Dos div:nth-child(2) button,
 .Categorias_Content--Uno div:nth-child(2) button,
 .Categorias_Content--Uno div:nth-child(3) button{
-    margin-top: 30%;
+    margin-top: 60px;
     width: 180px;
     height: 40px;
     font-size: 15px;
@@ -130,6 +131,7 @@
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     cursor: pointer;
+    z-index: 500;
 }
 
 .Categorias_Content--Dos div:nth-child(2) {
@@ -189,7 +191,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgb(131, 131, 131) 82%
 }
 .Categorias_Content--Dos div:nth-child(3) button, 
 .Categorias_Content--Uno div:nth-child(1) button{
-    margin-top: 25%;
+    margin-top: 160px;
     width: 180px;
     height: 40px;
     font-size: 15px;

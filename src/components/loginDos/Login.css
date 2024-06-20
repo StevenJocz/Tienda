@@ -93,7 +93,7 @@
 }
 
 .Login_content_body-msg {
-    color: var(--bg-color-Gris-Claro);
+    color: #00000069;
     font-size: 15px;
     text-align: center;
     display: flex;
@@ -109,6 +109,15 @@
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    position: relative;
+}
+
+.Login_content_body-input  .VerContraseña {
+    position: absolute;
+    top: 22px;
+    right: 20px;
+    font-size: 18px;
+    cursor: pointer;
 }
 
 .Input_Error {
@@ -300,4 +309,9 @@
     font-weight: 600;
     cursor: pointer;
     text-align: center;
+}
+
+
+.input_fecha_login .Pickers {
+    width: 100%;
 }

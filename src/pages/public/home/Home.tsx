@@ -19,7 +19,11 @@ const Home = () => {
                 <Categorias />
                 <Garantia />
                 <Informativo />
-                <Productos />
+                <Productos 
+                    titulo="Productos más vendidos"
+                    descripcion="Explora nuestros favoritos: los productos más populares de la temporada."
+                    filtros={{ categoria: ''}}
+                />
                 <Footer />
             </div>
         </div>

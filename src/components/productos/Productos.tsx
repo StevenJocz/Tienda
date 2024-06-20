@@ -1,4 +1,4 @@
-import './Productos.css'
+import './Productos.css';
 import { IonIcon } from '@ionic/react';
 import { heartOutline } from 'ionicons/icons';
 import { Link } from 'react-router-dom';
@@ -7,30 +7,54 @@ import { useEffect, useState } from 'react';
 import { api } from '../../services';
 import { services } from '../../models';
 
-const Productos = () => {
-    const [productos, setProducto] = useState<Producto[]>([]);
+interface Filtros {
+    categoria?: string;
+    nuevo?: boolean;
+    enOferta?: boolean;
+}
+
+interface Props {
+    titulo: string;
+    descripcion: string;
+    filtros: Filtros;
+}
+
+const Productos: React.FC<Props> = (props) => {
+    const [productos, setProductos] = useState<Producto[]>([]);
 
     useEffect(() => {
-        hadleGet();
+        handleGet();
     }, []);
 
-    const hadleGet = async () => {
+    const handleGet = async () => {
         try {
             const response = await api.get<Producto[]>('Producto/Get_Productos', { accion: 2 });
             if (response.data.length > 0) {
-                setProducto(response.data);
+                setProductos(response.data);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
+    const filtrarProductos = (productos: Producto[]) => {
+        return productos.filter(producto => {
+            const { categoria, nuevo, enOferta} = props.filtros;
+            const cumpleCategoria = categoria ? producto.categorias.includes(categoria) : true;
+            const cumpleNuevo = nuevo !== undefined && nuevo !== false ? producto.nuevo === nuevo : true;
+            const cumpleEnOferta = enOferta !== undefined && enOferta !== false ? producto.aplicaDescuento === enOferta : true;
+            return cumpleCategoria && cumpleNuevo && cumpleEnOferta;
+        });
+    };
+
+    const productosFiltrados = filtrarProductos(productos);
+
     return (
         <div className='Productos'>
-            <h1>Productos más vendidos</h1>
-            <p>Explora nuestros favoritos: los productos más populares de la temporada.</p>
+            <h1>{props.titulo}</h1>
+            <p>{props.descripcion}</p>
             <div className='Productos_Content'>
-                { productos && productos.map((producto, index) => (
+                {productosFiltrados && productosFiltrados.map((producto, index) => (
                     <div className='Productos_Card' key={index}>
                         <Link to={`/Producto/${producto.id}/${encodeURIComponent(producto.nombre.toLowerCase().replace(/ /g, '-'))}`}>
                             <div className='Productos_Card--img'>
@@ -41,10 +65,10 @@ const Productos = () => {
                                     <h6>Nuevo</h6>
                                 }
                                 {producto.imagenes.map((imagen, imgIndex) => (
-                                    <>
+                                    <div key={imgIndex}>
                                         <img className='Productos_Card--img-Uno' src={`${services.url}/${imagen.imagenUno}`} alt={`Imagen ${imgIndex}`} />
                                         <img className='Productos_Card--img-Dos' src={`${services.url}/${imagen.imagenDos}`} alt={`Imagen ${imgIndex}`} />
-                                    </>
+                                    </div>
                                 ))}
                                 {producto.aplicaDescuento &&
                                     <h3>{producto.descuento}% de descuento</h3>
@@ -53,7 +77,7 @@ const Productos = () => {
                         </Link>
                         <div className='Productos_Card--info'>
                             <Link to={'/Producto/1'}>
-                            <h3>{producto.nombre}</h3>
+                                <h3>{producto.nombre}</h3>
                             </Link>
                             <div className='Productos_Card--info-valor'>
                                 <h5>{producto.categorias}</h5>
@@ -62,10 +86,9 @@ const Productos = () => {
                         </div>
                     </div>
                 ))}
-                
             </div>
         </div>
-    )
+    );
 }
 
-export default Productos
+export default Productos;

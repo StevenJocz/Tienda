@@ -27,6 +27,7 @@ export interface ImagenData {
     nombreColor: string;
     color: string;
     porcentajeValor: string;
+    actualizar: boolean;
 }
 
 export interface AddProducto {

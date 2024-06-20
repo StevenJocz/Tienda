@@ -79,13 +79,13 @@ interface Props {
 
 }
 
-const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro, mostrarConfiguracion,eliminarRegistro, verBotonConfigurar, verBotonVer, verBotonEliminar, verBotonEditar, verBotonBuscador, verBotonExportar, mostrarLista, verListaEstudiantes, botonEstado, verAsistencias }) => {
+const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro, mostrarConfiguracion, eliminarRegistro, verBotonConfigurar, verBotonVer, verBotonEliminar, verBotonEditar, verBotonBuscador, verBotonExportar, mostrarLista, verListaEstudiantes, botonEstado, verAsistencias }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [page, setPage] = useState(0);
     const rowsPerPage = 10;
 
     // Obtener los nombres de las columnas basados en las propiedades del primer objeto en los datos
-    const columns = data.length > 0 ? Object.keys(data[0]).filter(column => column !== 'id') : [];
+    const columns = data.length > 0 ? Object.keys(data[0]).filter(column => column !== 'id' && column !== 'actualizar') : [];
 
     // Filtrar los datos basados en el término de búsqueda y ordenar por ID descendente
     const filteredData = data.filter((row) =>
@@ -290,6 +290,13 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
         }
     };
 
+    const isBase64 = (str: string) => {
+        return str.startsWith('data:image');
+    };
+
+    const getImageSrc = (src: string) => {
+        return isBase64(src) ? src : `${services.url}/${src}`;
+    };
 
     const ContactInfoCell: React.FC<Contacto> = ({ foto, nombre, correo }) => (
         <div className='divTableImagen'>
@@ -368,8 +375,12 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                                     // Dependiendo del nombre de la columna, asignamos contenido a la variable cellContent
                                     if (column === 'foto') {
                                         cellContent = <img className='imgTable' src={`${services.url}/${row[column]}`} alt="Foto de perfil" />;
-                                    }else if (column === 'imagen') {
-                                        cellContent = <img className='imgTable64' src={`${row[column]}`} alt="Foto" />;
+                                    } else if (column === 'imagen') {
+                                        cellContent = <img
+                                            className='imgTable64'
+                                            src={getImageSrc(row[column])}
+                                            alt="Foto"
+                                        />;
                                     } else if (column === 'Usuario') {
                                         cellContent = (
                                             <div>
@@ -423,7 +434,7 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                                     )}
                                     {verBotonEliminar && (
                                         <Tooltip title="Eliminar" disableInteractive>
-                                            <IonIcon className='icono iconoTrash' icon={trashOutline} onClick={() => DeleteRegistro(row.id)}/>
+                                            <IonIcon className='icono iconoTrash' icon={trashOutline} onClick={() => DeleteRegistro(row.id)} />
                                         </Tooltip>
                                     )}
                                     {verAsistencias && (

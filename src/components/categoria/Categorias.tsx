@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../../services';
 import { Categoria } from '../../models/categoria';
 import { services } from '../../models';
+import { Link } from 'react-router-dom';
 
 const Categorias = () => {
     const [categoria, setCategoria] = useState<Categoria[] | null>(null);
@@ -39,7 +40,9 @@ const Categorias = () => {
                             <h3>{cat.titulo}</h3>
                             <h2>{cat.descripcion}</h2>
                             <h1>{cat.nombre}</h1>
-                            <button>Ver categoría</button>
+                            <Link to={`/Shop/${cat.idCategoria}/${encodeURIComponent(cat.nombre.toLowerCase().replace(/ /g, '-'))}`}   >
+                                <button>Ver categoría</button>
+                            </Link>
                             <img src={Imagenes_URL + '/' + cat.imagen} alt="" />
                         </div>
                     ))}

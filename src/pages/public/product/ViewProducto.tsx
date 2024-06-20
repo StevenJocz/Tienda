@@ -291,7 +291,11 @@ const ViewProducto = () => {
                         )}
                     </div>
                     {guia && <Guia onClose={() => setGuia(false)} />}
-                    <Productos />
+                    <Productos
+                        titulo="Productos más vendidos"
+                        descripcion="Explora nuestros favoritos: los productos más populares de la temporada."
+                        filtros={{ categoria: '' }}
+                    />
                 </div>
                 {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} />}
                 <Snackbar

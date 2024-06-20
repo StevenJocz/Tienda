@@ -16,7 +16,7 @@ type Colores = {
 const BotonSubmit: React.FC<BotonSubmitProps> = ({ isLoading = false, texto = '', onClick, isSubmitting = false, color = 'guardar' }) => {
     const colores: Colores = {
         continuar: '#2A5783',
-        registrarme: '#6259ca',
+        registro: '#2A5783',
         editar: '#00ff00',
         eliminar: '#e7362f95;',
         modal: '#fd7e14',

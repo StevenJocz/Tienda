@@ -60,7 +60,6 @@ const AddProductos: React.FC<Props> = (props) => {
     // Solicitud GET
     await api.get<any>('Categoria/Get_Categoria', { accion: 2 }).then((response) => {
       setCategoria(response.data);
-      console.log(response.data)
     });
   };
 
@@ -242,6 +241,7 @@ const AddProductos: React.FC<Props> = (props) => {
       nombreColor: currentImagen.nombreColor,
       color: currentImagen.color,
       porcentajeValor: currentImagen.porcentajeValor,
+      actualizar: false
     };
 
     setJsonImagenes([...jsonImagenes, newImage]);
@@ -273,7 +273,7 @@ const AddProductos: React.FC<Props> = (props) => {
     setIsSubmitting(true);
     try {
       const Addproducto: AddProducto = {
-        id: 0,
+        id: props.idProducto,
         idInventario: idInventario,
         idCategoria: parseInt(values.idCategoria),
         nombre: values.nombre,
@@ -289,13 +289,13 @@ const AddProductos: React.FC<Props> = (props) => {
       };
 
 
-      if (values.id > 0) {
+      if (props.idProducto > 0) {
+        console.log(Addproducto);
         await api.put<any>('Producto/Put_Actualizar_Producto', Addproducto);
+        
       } else {
         await api.post<any>('Producto/Post_Crear_Producto', Addproducto);
       }
-      setOpenSnackbar(true);
-
       setOpenSnackbar(true);
       setMsg('');
 
@@ -363,7 +363,7 @@ const AddProductos: React.FC<Props> = (props) => {
         <Formik
           enableReinitialize={true}
           initialValues={{
-            id: 0,
+            id: props.idProducto,
             idInventario: idInventario || '',
             activo: producto?.activo || true,
             nombre: producto?.nombre || '',
@@ -534,6 +534,7 @@ const AddProductos: React.FC<Props> = (props) => {
                                     size="small"
                                     color="secondary"
                                     placeholder='0'
+                                    type='number'
                                     value={currentImagen.porcentajeValor}
                                     onChange={handleChangeImagen}
                                   />
