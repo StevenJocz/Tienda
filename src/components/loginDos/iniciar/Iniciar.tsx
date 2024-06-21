@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { api } from "../../../services";
 import { Base64 } from "js-base64";
 import { BotonSubmit } from "../../boton";
+import { createUser } from "../../../redux/states/User";
 
 interface Props {
   mostrarRegistro: () => void;
@@ -26,7 +27,7 @@ const Iniciar: React.FC<Props> = (props) => {
 
   const handleIniciar = async (values: FormikValues) => {
     setIsLoading(true);
-    const response = await api.get<any>('Login/GetAutenticar', { correo: values.correo, password: values.contraseña });
+    const response = await api.post<any>('Usuario/Post_InicioSesion', { correo: values.correo, password: values.contraseña });
     if (response.data.result === false) {
       setMsg(response.data.message);
       setIsLoading(false);
@@ -36,6 +37,7 @@ const Iniciar: React.FC<Props> = (props) => {
       const token = response.data.token.split(".")[1];
       const decodedValue = Base64.decode(token);
       const obj = JSON.parse(decodedValue);
+      dispatch(createUser({ ...obj }));
       setIsLoading(false);
       props.onClose();
     }

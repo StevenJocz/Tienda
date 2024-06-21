@@ -1,5 +1,5 @@
 import { IonIcon } from "@ionic/react";
-import { closeOutline, eyeOutline, eyeOffOutline } from "ionicons/icons";
+import { closeOutline, eyeOutline, eyeOffOutline, shieldCheckmarkOutline } from "ionicons/icons";
 import { ErrorMessage, Form, Formik, FormikValues } from "formik";
 import { BotonSubmit } from "../../boton";
 import { MenuItem, TextField, styled } from "@mui/material";
@@ -9,7 +9,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { useEffect, useState } from "react";
 import { api } from "../../../services";
-import { Generos, Ubicacion, tipoDocumento } from "../../../models";
+import { Generos, Ubicacion, Usuario, tipoDocumento } from "../../../models";
 import { capitalizeFirstLetter } from "../../../utilities/Generales";
 
 
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const Registro: React.FC<Props> = (props) => {
-  const [paso, SetPaso] = useState(3);
+  const [paso, SetPaso] = useState(0);
   const [botonTexto, SetBotonTexto] = useState('Continuar');
   const [msg, setMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +30,7 @@ const Registro: React.FC<Props> = (props) => {
   const [pais, setPais] = useState<Ubicacion[]>();
   const [departamento, setDepartamento] = useState<Ubicacion[]>();
   const [municipio, setMunicipio] = useState<Ubicacion[]>();
+  const [countdown, setCountdown] = useState(10);
 
   const StyledTextField = styled(TextField)({
     width: '100%'
@@ -85,14 +86,57 @@ const Registro: React.FC<Props> = (props) => {
     }
 
     if (paso == 4) {
-      console.log(values);
-      setMsg('Registrando')
+      setMsg('Registrando');
+      setIsLoading(false);
+
+      const usuario: Usuario = {
+        idUsuario: 0,
+        idTipoUsuario: 2,
+        nombre: values.nombres,
+        apellido: values.apellidos,
+        idTipoDocumento: values.tipoDocumento,
+        documento: values.documento,
+        fechaNacimiento: values.fechaNacimiento.toISOString(),
+        celular: values.celular,
+        idMunicipio: values.ciudad,
+        direccion: values.direccion,
+        correo: values.correo,
+        password: values.contraseña,
+        fechaRegistro: new Date(),
+      }
+
+      try {
+
+        console.log(JSON.stringify(usuario));
+        // Solicitud POST
+        const response = await api.post<any>('Usuario/Post_Crear_Usuario', usuario);
+        if (response.data.resultado === true) {
+          SetPaso(5);
+        }
+        setIsLoading(false);
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setMsg('Estamos presentando inconvenientes. Por favor, vuelva a intentarlo más tarde.');
+        setIsLoading(false);
+      }
     }
-
-
   };
 
-
+  useEffect(() => {
+    if (paso === 5) {
+      const timer = setInterval(() => {
+        setCountdown((prevCountdown) => {
+          if (prevCountdown <= 1) {
+            clearInterval(timer);
+            props.mostrarInicio();
+          }
+          return prevCountdown - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [paso, props]);
   return (
     <>
       <div className="Login_content_header">
@@ -236,6 +280,13 @@ const Registro: React.FC<Props> = (props) => {
           {({ errors, values, setFieldValue, isSubmitting }) => (
             <Form>
               <>
+                {paso === 0 &&
+                  <div className='PasoReglas'>
+                    <IonIcon className='PasoReglasIcono' icon={shieldCheckmarkOutline} />
+                    <p>Su privacidad es importante para nosotros. En esta <a href="https://drive.google.com/file/d/1Fq-FW6RqYzRlelHwCZ3jJDmLmKzGB6wk/view" target='_blank'>  política de protección de datos personales </a> se explica qué datos personales recopilamos de usted y cómo los usamos. Para más información haga clic <a href="https://drive.google.com/file/d/1Fq-FW6RqYzRlelHwCZ3jJDmLmKzGB6wk/view" target='_blank'> aquí</a></p>
+                    <p>Al dar clic en continuar y registrarse, aceptas la protección de datos personales, las condiciones y declaro que toda información proporcionada es verídica.</p>
+                  </div>
+                }
                 {paso === 1 && (
                   <>
                     <div className="Login_content_body-msg">
@@ -269,10 +320,6 @@ const Registro: React.FC<Props> = (props) => {
                             {option.documento}
                           </MenuItem>
                         ))}
-
-                        <MenuItem value={'0'}>
-                          CC - Cedula
-                        </MenuItem>
                       </StyledTextField>
                       <ErrorMessage name='tipoDocumento' component={() => <p className='Error'>{errors.tipoDocumento}</p>} />
                     </div>
@@ -494,14 +541,32 @@ const Registro: React.FC<Props> = (props) => {
                     </div>
                   </>
                 )}
-              </>
 
-              <BotonSubmit texto={botonTexto} isLoading={isLoading} isSubmitting={isSubmitting} onClick={() => handleRegistrar} color="Continuar" />
-              <p className='Login_Respuesta'>{msg}</p>
+                {paso === 5 &&
+                  <div className="Login_content_body-registro-Exito">
+                    <h3>¡Bienvenido a tienda UNAC!</h3>
+                    <p><span>¡Haz completado la creación de tu cuenta!</span> Estás listo para aprovechar al máximo todo lo que nuestra plataforma tiene para ofrecer.</p>
+                    <p className="redirigiendo">Redirigiendo en {countdown} segundos...</p>
+                    <div className="Login_content_body-registro">
+
+                      <button onClick={() => props.mostrarInicio()}>
+                        Iniciar sesión
+                      </button>
+                    </div>
+                  </div>
+                }
+              </>
+              {paso != 5 &&
+                <>
+                  <BotonSubmit texto={botonTexto} isLoading={isLoading} isSubmitting={isSubmitting} onClick={() => handleRegistrar} color="Continuar" />
+                  <p className='Login_Respuesta'>{msg}</p>
+                </>
+              }
+
             </Form>
           )}
         </Formik>
-      </div>
+      </div >
     </>
   )
 }

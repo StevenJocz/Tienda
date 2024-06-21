@@ -1,12 +1,16 @@
 import './Nav.css'
 import { IonIcon } from '@ionic/react';
 import { notificationsOutline, cartOutline, searchOutline, personOutline, heartOutline } from 'ionicons/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ShoppingCart from '../cart/shoppingCart/ShoppingCart';
 import { useCartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 import { Favoritos } from '../favoritos';
 import { Login } from '../loginDos';
+import { AppStore } from '../../redux/Store';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearLocalStorage } from '../../utilities';
+import { TokenKey, UserKey, resetUser } from '../../redux/states/User';
 
 
 const Nav = () => {
@@ -15,6 +19,15 @@ const Nav = () => {
     const [isLogin, setLogin] = useState(false);
     const [isSesion, setSesion] = useState(false);
     const { cartItems } = useCartContext();
+    const [verMenuPerfil, setVerMenuPerfil] = useState(false);
+    const usuario = useSelector((store: AppStore) => store.user);
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        if (usuario) {
+            setLogin(true);
+        }
+    }, []);
 
     const handleShoppingCart = () => {
         setShoppingCart(!shoppingCart);
@@ -22,6 +35,17 @@ const Nav = () => {
 
     const handleFavoritos = () => {
         setFavoritos(!favoritos);
+    };
+
+    const handleMenuPerfil = () => {
+        setVerMenuPerfil(!verMenuPerfil);
+    };
+
+    const logOut = () => {
+        clearLocalStorage(UserKey);
+        clearLocalStorage(TokenKey);
+        dispatch(resetUser());
+        setLogin(false);
     };
 
     return (
@@ -38,7 +62,7 @@ const Nav = () => {
                 <p>¿NECESITAS AYUDA?</p>
                 <IonIcon className='icono' icon={searchOutline} />
                 <IonIcon className='icono' icon={notificationsOutline} />
-                <IonIcon className='icono' icon={heartOutline} onClick={handleFavoritos}/>
+                <IonIcon className='icono' icon={heartOutline} onClick={handleFavoritos} />
                 <div className='Menu_right--icono' onClick={handleShoppingCart} >
                     <IonIcon className='icono' icon={cartOutline} />
                     {cartItems.length > 0 && <div>
@@ -46,20 +70,38 @@ const Nav = () => {
                     </div>}
                 </div>
 
-                <button onClick={() => setSesion(!isSesion)}>
-                    <IonIcon className='icono' icon={personOutline}  />
-                    Iniciar
-                </button>
+                {isLogin ? (
+                    <>
+                        <div className='Menu_right_Perfil'>
+                            <h4 onClick={handleMenuPerfil}>Hola, <span>{usuario.nombre}</span></h4>
+                            {verMenuPerfil &&
+                                <div className='Menu_right_Perfil_Content'>
+                                    <ul>
+                                        <li className="">Mi cuenta</li>
+                                        <li className="">Panel Administrador</li>
+                                        <li className="" onClick={logOut}>Salir</li>
+                                    </ul>
+                                </div>
+                            }
+                        </div>
+                    </>
+                ) : (
+                    <button onClick={() => setSesion(!isSesion)}>
+                        <IonIcon className='icono' icon={personOutline} />
+                        Iniciar
+                    </button>
+                )}
             </div>
             {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} />}
             {favoritos && <Favoritos onClose={() => setFavoritos(false)} />}
             {isSesion && (
-                <Login
-                    onClose={() => setSesion(!isSesion)}
-                    mostrarInicio={() => setLogin(true)}
-                />
-            )}
-        </div>
+                    <Login
+                        onClose={() => setSesion(!isSesion)}
+                        mostrarInicio={() => setLogin(true)}
+                    />
+                )
+            }
+        </div >
     )
 }
 

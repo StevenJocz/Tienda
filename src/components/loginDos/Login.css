@@ -188,8 +188,8 @@
     width: 100%;
     margin-top: 20px;
     padding: 10px;
-    background-color: var(--bg-gris-claro);
-    color: #00000085;
+    background-color: #00000069;
+    color: #ffffff;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -292,26 +292,59 @@
     text-align: center;
 }
 
+
 .Login_content_body-registro-Exito {
     margin-top: 10px;
+    background-image: url(https://jsaenzgonzalezmachado.wordpress.com/wp-content/uploads/2017/05/confeti.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .Login_content_body-registro-Exito h3 {
-    color: #ffffff;
+    color: var(--bg-unac);
     text-align: center;
     font-size: 23px;
     margin-bottom: 10px;
 }
 
 .Login_content_body-registro-Exito p {
-    color: #dfdfdf;
+    color: #00000094;
     font-size: 17px;
     font-weight: 600;
     cursor: pointer;
     text-align: center;
 }
 
+.Login_content_body-registro-Exito .Login_content_body-registro button {
+    margin-top: 30px;
+    background-color: #585858;
+}
+
+.Login_content_body-registro-Exito .redirigiendo{
+    margin-top: 50px;
+    color: #00000096;
+}
 
 .input_fecha_login .Pickers {
     width: 100%;
+}
+
+.PasoReglas {
+    width: 100%;
+}
+
+.PasoReglas  .PasoReglasIcono {
+    font-size: 80px;
+    margin: 0 40%;
+    color:#10af6d;
+}
+
+.PasoReglas p {
+    margin: 10px 0;
+
+}
+
+.PasoReglas p a {
+   color: #15a0fd;
+
 }
