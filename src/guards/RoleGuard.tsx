@@ -6,6 +6,6 @@ import { AppStore } from '../redux/Store';
 
 function RoleGuard() {
     const userState = useSelector((store: AppStore) => store.user);
-    return userState.tipoUsuario == 2 || userState.tipoUsuario == 1 ? <Outlet /> : <Navigate replace to={PrivateRoutes.private} />;
+    return userState.tipoUsuario == 1 ? <Outlet /> : <Navigate replace to={PrivateRoutes.private} />;
 }
 export default RoleGuard;

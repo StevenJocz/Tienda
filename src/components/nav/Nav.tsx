@@ -11,7 +11,7 @@ import { AppStore } from '../../redux/Store';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearLocalStorage } from '../../utilities';
 import { TokenKey, UserKey, resetUser } from '../../redux/states/User';
-
+import { PrivateRoutes } from '../../models';
 
 const Nav = () => {
     const [shoppingCart, setShoppingCart] = useState(false);
@@ -22,9 +22,12 @@ const Nav = () => {
     const [verMenuPerfil, setVerMenuPerfil] = useState(false);
     const usuario = useSelector((store: AppStore) => store.user);
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
-        if (usuario) {
+        // Verificar si el usuario tiene un token en localStorage
+        const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
+        if (token && user) {
             setLogin(true);
         }
     }, []);
@@ -55,7 +58,6 @@ const Nav = () => {
                 <ul>
                     <Link to={'/'}> <li className="">Home</li></Link>
                     <Link to={'/Shop/0/TodasCategorias'}> <li className="">Shop</li></Link>
-                    <li className="">Nosotros</li>
                 </ul>
             </div>
             <div className='Menu_right'>
@@ -78,7 +80,9 @@ const Nav = () => {
                                 <div className='Menu_right_Perfil_Content'>
                                     <ul>
                                         <li className="">Mi cuenta</li>
-                                        <li className="">Panel Administrador</li>
+                                        {usuario.tipoUsuario == 1 &&
+                                            <Link to={`${PrivateRoutes.private}`}> <li className="">Panel Administrador</li></Link>
+                                        }
                                         <li className="" onClick={logOut}>Salir</li>
                                     </ul>
                                 </div>
@@ -95,11 +99,11 @@ const Nav = () => {
             {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} />}
             {favoritos && <Favoritos onClose={() => setFavoritos(false)} />}
             {isSesion && (
-                    <Login
-                        onClose={() => setSesion(!isSesion)}
-                        mostrarInicio={() => setLogin(true)}
-                    />
-                )
+                <Login
+                    onClose={() => setSesion(!isSesion)}
+                    mostrarInicio={() => setLogin(true)}
+                />
+            )
             }
         </div >
     )

@@ -44,7 +44,6 @@ function App() {
                 <Route path={`${PublicRoutes.public}`} element={<Home />} />
                 <Route path={`${PublicRoutes.public}/Producto/:idProducto/*`} element={<ViewProducto />} />
                 <Route path={`${PublicRoutes.public}/Shop/:view/*`} element={<Shop />} />
-                <Route path={`${PrivateRoutes.private}/*`} element={<Dashboard />} />
                 <Route element={<AuthGuard privateValidation={true} />}>
                   <Route element={<RoleGuard />}>
                     <Route path={`${PrivateRoutes.private}/*`} element={<Dashboard />} />

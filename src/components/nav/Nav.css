@@ -218,10 +218,20 @@
     text-align: center;
 }
 
+.Menu_right_Perfil_Content ul a {
+    text-decoration: none;
+}
+
 .Menu_right_Perfil_Content ul li {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #0009;
+    color: #00000085;
+    
     padding: 5px 0;
     cursor: pointer;
     font-size: 12px;
 }
+
+.Menu_right_Perfil_Content ul li:nth-child(1){
+    border-bottom: 1px solid #92929218;
+    margin-bottom: 10px;
+}
+

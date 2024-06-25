@@ -30,12 +30,12 @@ const Nav: React.FC<Props> = ({ isOpen }) => {
 
   const hadleGetCursos = () => {
     // Solicitud GET
-    api.get<any>('User/GetUserPermission', { id: usuario.tipoUsuario }).then((response) => {
+    api.get<any>('Usuario/Get_Permisos', { tipoUsuario: usuario.tipoUsuario }).then((response) => {
       const Filtrados = response.data.map((permiso: any) => ({
-        id: permiso.id,
+        id: permiso.idTipoUsuariosPermiso,
         path: permiso.path,
-        icon: permiso.icon,
-        title: permiso.title
+        icon: permiso.icono,
+        title: permiso.texto
       }));
       setDataPermisos(Filtrados);
     });

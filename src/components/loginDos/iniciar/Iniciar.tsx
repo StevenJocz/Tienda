@@ -40,6 +40,7 @@ const Iniciar: React.FC<Props> = (props) => {
       dispatch(createUser({ ...obj }));
       setIsLoading(false);
       props.onClose();
+      props.mostrarRegistro();
     }
   };
 
