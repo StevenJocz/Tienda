@@ -283,7 +283,7 @@ const Registro: React.FC<Props> = (props) => {
                 {paso === 0 &&
                   <div className='PasoReglas'>
                     <IonIcon className='PasoReglasIcono' icon={shieldCheckmarkOutline} />
-                    <p>Su privacidad es importante para nosotros. En esta <a href="https://drive.google.com/file/d/1Fq-FW6RqYzRlelHwCZ3jJDmLmKzGB6wk/view" target='_blank'>  política de protección de datos personales </a> se explica qué datos personales recopilamos de usted y cómo los usamos. Para más información haga clic <a href="https://drive.google.com/file/d/1Fq-FW6RqYzRlelHwCZ3jJDmLmKzGB6wk/view" target='_blank'> aquí</a></p>
+                    <p>Su privacidad es importante para nosotros. En esta <a href="https://www.unac.edu.co/politica-de-tratamiento-de-datos-personales/" target='_blank'>  política de protección de datos personales </a> se explica qué datos personales recopilamos de usted y cómo los usamos. Para más información haga clic <a href="https://www.unac.edu.co/politica-de-tratamiento-de-datos-personales/" target='_blank'> aquí</a></p>
                     <p>Al dar clic en continuar y registrarse, aceptas la protección de datos personales, las condiciones y declaro que toda información proporcionada es verídica.</p>
                   </div>
                 }

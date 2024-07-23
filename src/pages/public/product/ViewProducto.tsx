@@ -108,8 +108,6 @@ const ViewProducto = () => {
         const precioConDescuento = precioFinalSinDescuento * (1 - descuento / 100);
         setPrecioFinal(precioFinalSinDescuento);
         setPrecio(precioConDescuento);
-        console.log(precioFinalSinDescuento);
-        console.log(precioConDescuento);
 
     }
 
@@ -119,7 +117,7 @@ const ViewProducto = () => {
             id: id + 1,
             idProducto: parseInt(idProducto),
             cantidad: cantidadSeleccionada,
-            valor: precio * cantidadSeleccionada,
+            valor: precio ,
             nombre: producto[0].nombre,
             src: imagenSeleccionada?.imagen || '',
             color: imagenSeleccionada?.color || '',

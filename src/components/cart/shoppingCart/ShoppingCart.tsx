@@ -131,7 +131,7 @@ const ShoppingCart: React.FC<Props> = (props) => {
                                 </div>
 
                                 <div className='ShoppingCart_Botones'>
-                                    <button>FINALIZAR COMPRA</button>
+                                    <Link to={'/Shop/Checkout'}>FINALIZAR COMPRA</Link>
                                     <button onClick={props.onClose}>SEGUIR COMPRANDO</button>
                                 </div>
                             </div>

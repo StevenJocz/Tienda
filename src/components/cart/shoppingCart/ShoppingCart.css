@@ -192,12 +192,17 @@
 .ShoppingCart_Producto--Content--Info-Cantidad {
     width: 120px;
     height: 30px;
-    border: 1px solid var(--bg-menu);
+    border: 1px solid #00000033;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 15px;
     margin-bottom: 10px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
 }
 
 .ShoppingCart_Producto--Content--Info-Cantidad .icono {
@@ -229,7 +234,7 @@
     justify-content: space-between;
 }
 
-.ShoppingCart_Botones button:nth-child(1) {
+.ShoppingCart_Botones a {
     width: 100%;
     height: 40px;
     background-color: var(--bg-unac);
@@ -240,9 +245,10 @@
     color: var(--text-blanco);
     border: none;
     cursor: pointer;
+    text-decoration: none;
 }
 
-.ShoppingCart_Botones button:nth-child(2) {
+.ShoppingCart_Botones button {
     width: 100%;
     height: 40px;
     display: flex;

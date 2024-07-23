@@ -79,9 +79,9 @@ const Shop = () => {
                                 <img src={`${img}`} alt="" />
                             </div>
                             <div className='Shop_Categoria--info'>
-                                <h3>Beats Solo</h3>
-                                <h2>Wireless</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis autem delectus eum reiciendis.</p>
+                                <h3>ESTILO QUE INSPIRA</h3>
+                                <h2>TU ESENCIA UNIVERSITARIA EN CADA PRENDA.</h2>
+                                <p>Tú espíritu académico se fusiona con la moda. Desde camisetas hasta accesorios exclusivos, encuentra todo lo que necesitas para expresar tu orgullo universitario con estilo.</p>
                             </div>
                         </div>
                     ) : (

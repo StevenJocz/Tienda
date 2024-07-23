@@ -15,8 +15,8 @@ const Login: React.FC<Props> = (props) => {
 
     const [componenteActual, setComponenteActual] = useState(ComponenteActual.Iniciar);
 
-    const mostrarIniciar = () => {
-        setComponenteActual(ComponenteActual.Iniciar);
+    const mostrarIniciar = (componente : string) => {
+        setComponenteActual(componente);
     };
 
     return (
@@ -24,12 +24,12 @@ const Login: React.FC<Props> = (props) => {
             <div className='Login_content-cerrar' onClick={props.onClose}> </div>
             {componenteActual === ComponenteActual.Iniciar && (
                 <div className="Login_content">
-                    <Iniciar  mostrarRegistro={props.mostrarInicio} onClose={props.onClose} />
+                    <Iniciar  mostrarRegistro={() => mostrarIniciar(ComponenteActual.Registro)} onClose={props.onClose} />
                 </div>
             )}
             {componenteActual === ComponenteActual.Registro && (
                 <div className="Login_content">
-                    <Registro mostrarInicio={mostrarIniciar} onClose={props.onClose} />
+                    <Registro mostrarInicio={() => mostrarIniciar(ComponenteActual.Iniciar)} onClose={props.onClose} />
                 </div>
             )}
 

@@ -81,7 +81,7 @@ const Nav = () => {
                                     <ul>
                                         <li className="">Mi cuenta</li>
                                         {usuario.tipoUsuario == 1 &&
-                                            <Link to={`${PrivateRoutes.private}`}> <li className="">Panel Administrador</li></Link>
+                                            <Link to={`/${PrivateRoutes.private}`}> <li className="">Panel Administrador</li></Link>
                                         }
                                         <li className="" onClick={logOut}>Salir</li>
                                     </ul>

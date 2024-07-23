@@ -14,6 +14,7 @@ import { Home } from './pages/public/home';
 import { ViewProducto } from './pages/public/product';
 import { CartProvider } from './context/CartContext';
 import { Shop } from './pages/public/shop';
+import Checkout from './pages/public/checkout/Checkout';
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
                 <Route path={`${PublicRoutes.public}`} element={<Home />} />
                 <Route path={`${PublicRoutes.public}/Producto/:idProducto/*`} element={<ViewProducto />} />
                 <Route path={`${PublicRoutes.public}/Shop/:view/*`} element={<Shop />} />
+                <Route path={`${PublicRoutes.public}/Shop/Checkout`} element={<Checkout />} />
                 <Route element={<AuthGuard privateValidation={true} />}>
                   <Route element={<RoleGuard />}>
                     <Route path={`${PrivateRoutes.private}/*`} element={<Dashboard />} />

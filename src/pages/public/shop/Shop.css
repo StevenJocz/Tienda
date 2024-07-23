@@ -106,9 +106,10 @@
 }
 
 .Shop_Categoria--info p {
-    font-size: 17px;
-    color: #fff;
+    font-size: 18px;
+    color: var(--text-blanco);
     opacity: 0.7;
+    font-weight: 100;
 }
 
 .Shop_body {
