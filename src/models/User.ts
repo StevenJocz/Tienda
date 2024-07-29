@@ -7,7 +7,8 @@ export interface UsuarioLogin {
   idUsuario: number;
   nombre: string;
   correo: string;
-  foto: string;
+  telefono: string;
+  direccion: string;
   tipoUsuario: number;
   exp: string;
   iat: string;

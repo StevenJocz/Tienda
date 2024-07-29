@@ -96,12 +96,13 @@ const Nav = () => {
                     </button>
                 )}
             </div>
-            {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} />}
+            {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} mostrarInicio={() => setSesion(true)} />}
             {favoritos && <Favoritos onClose={() => setFavoritos(false)} />}
             {isSesion && (
                 <Login
                     onClose={() => setSesion(!isSesion)}
                     mostrarInicio={() => setLogin(true)}
+                    IniciosSesion={() => setLogin(true)}
                 />
             )
             }

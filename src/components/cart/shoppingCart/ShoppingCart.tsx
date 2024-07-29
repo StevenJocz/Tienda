@@ -5,14 +5,19 @@ import { closeOutline, rocketOutline, addOutline, removeOutline, trashOutline, c
 import { useCartContext } from '../../../context/CartContext';
 import { Link } from 'react-router-dom';
 import { services } from '../../../models';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../../../redux/Store';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     onClose: () => void;
+    mostrarInicio: () => void;
 }
 
 const ShoppingCart: React.FC<Props> = (props) => {
     const { cartItems, removeFromCart, getTotalCartValue, updateCartItemQuantity } = useCartContext();
-
+    const usuario = useSelector((store: AppStore) => store.user);
+    const navigate = useNavigate();
     const handleSelectCantidad = (accion: number, id: number, Cantidad: number) => {
 
         if (accion == 1) {
@@ -62,6 +67,17 @@ const ShoppingCart: React.FC<Props> = (props) => {
             return 'green';
         }
     };
+
+
+    const handleFinalizarCompra = ()=> {
+       
+        if (usuario.idUsuario == 0) {
+            props.mostrarInicio();
+            props.onClose();
+        }else{
+            navigate('/Shop/Checkout');
+        }
+    }
 
     return (
         <div className='ShoppingCart'>
@@ -131,7 +147,7 @@ const ShoppingCart: React.FC<Props> = (props) => {
                                 </div>
 
                                 <div className='ShoppingCart_Botones'>
-                                    <Link to={'/Shop/Checkout'}>FINALIZAR COMPRA</Link>
+                                    <a onClick={handleFinalizarCompra}>FINALIZAR COMPRA</a>
                                     <button onClick={props.onClose}>SEGUIR COMPRANDO</button>
                                 </div>
                             </div>

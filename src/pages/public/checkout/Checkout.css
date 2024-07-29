@@ -16,11 +16,15 @@
     color: #4d5959;
 }
 
-.Checkout_Menu .Checkout_Menu_p {
-    margin: 10px 0 20px 0;
+.Checkout_Menu_p {
+    width: 100%;
+    padding: 10px;
     text-align: center;
-    color: var(--text-unac);
+    background-color: var(--bg-unac);
+    color: var(--text-blanco);
+    font-weight: 300;
 }
+
 
 .Checkout_Menu ul {
     display: flex;
@@ -109,18 +113,7 @@
     width: 100%;
 }
 
-.Checkout_Content_Resumen {
-    width: 30%;
-    height: 65vh;
-    background-color: var(--bg-gris-claro);
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -ms-border-radius: 8px;
-    -o-border-radius: 8px;
-    padding: 10px;
-    margin-top: 40px;
-}
+
 
 .Checkout_Carrito_Content .iconoRemove {
     color: rgb(179, 6, 6);
@@ -159,17 +152,15 @@
 }
 
 .Checkout_Info button {
-    width: 250px;
+    width: auto;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 5px 30px;
-    background-color: var(--bg-unac);
-    color: var(--text-blanco);
-    border: none;
+    border: solid 1px #4e4e4e2d;
     border-radius: 20px;
-    -webkit-border-radius: 20px;
+    -webkit-border-radius: 8px;
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
@@ -177,12 +168,18 @@
     font-weight: 400;
     font-style: normal;
     cursor: pointer;
-    margin: 80px 0 0 40px;
     transition: .35s cubic-bezier(.25, .1, .25, 1);
+    margin-left: 10%;
+    margin-top: 10%;
+}
+
+.Checkout_Info button .icono {
+    margin-right: 10px;
 }
 
 .Checkout_Info button:hover {
-    background-color: var(--bg-unac-hover);
+    background-color: #000000;
+    color: #fff;
 }
 
 .Checkout_Envio p {
@@ -227,32 +224,29 @@
     justify-content: space-between;
 }
 
-.Checkout_Envio_Direccion_Usuario p {
-    font-size: 16px;
+.Checkout_Envio_Direccion_Usuario h2 {
+    font-size: 22px;
     line-height: 20px;
-    color: #2e3535;
-    font-weight: 400;
+    color: #000000;
 }
 
-.Checkout_Envio_Direccion_Usuario p span {
-    font-size: 16px;
+.Checkout_Envio_Direccion_Usuario h4 {
+    font-size: 18px;
     line-height: 20px;
-    color: #222727;
-    font-weight: 600;
+    color: #4d5959;
+    margin-top: 5px;
 }
 
-.Checkout_Envio_Direccion_Usuario button {
-    width: 200px;
+.Checkout_Envio_Direccion_Usuario span {
+    width: auto;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 5px 30px;
-    background-color: var(--bg-unac);
-    color: var(--text-blanco);
-    border: none;
+    border: solid 1px #4e4e4e2d;
     border-radius: 20px;
-    -webkit-border-radius: 20px;
+    -webkit-border-radius: 8px;
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
@@ -265,12 +259,13 @@
     margin: 0;
 }
 
-.Checkout_Envio_Direccion_Usuario button .icono {
+.Checkout_Envio_Direccion_Usuario span .icono {
     margin-right: 10px;
 }
 
-.Checkout_Envio_Direccion_Usuario button:hover {
-    background-color: var(--bg-unac-hover);
+.Checkout_Envio_Direccion_Usuario span:hover {
+    background-color: #000000;
+    color: #fff;
 }
 
 
@@ -284,4 +279,424 @@
 
 .Checkout_Envio_Direccion_Ubicacion h5 {
     margin-bottom: 20px;
+}
+
+.Checkout_Envio_Recoger {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.Checkout_Envio_Recoger_Info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.Checkout_Envio_Recoger_Info .icono {
+    font-size: 60px;
+    margin-bottom: 30px;
+}
+
+.Checkout_Envio_Recoger_Info h2 {
+    font-size: 22px;
+    line-height: 20px;
+    color: #000000;
+}
+
+.Checkout_Envio_Recoger_Info h4 {
+    font-size: 18px;
+    line-height: 20px;
+    color: #4d5959;
+    margin-top: 5px;
+}
+
+.Checkout_Envio_Recoger_Info p {
+    margin-top: 0;
+}
+
+.Checkout_Envio_Recoger_horarios {
+    width: 100%;
+}
+
+.Checkout_Envio_Recoger_horarios h3 {
+    font-size: 18px;
+    line-height: 20px;
+    color: #4d5959;
+}
+
+.Checkout_Envio_Recoger_horarios table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.Checkout_Envio_Recoger_horarios table tr {
+    width: 100%;
+    height: 40px;
+}
+
+.Checkout_Envio_Recoger_horarios table tr td {
+    width: 50%;
+    border-bottom: 1px solid #0000001c;
+}
+
+.Checkout_Envio_Recoger_Responsable {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.Boton_Continuar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.Boton_Continuar button {
+    width: auto;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 30px;
+    background-color: var(--bg-unac);
+    border: none;
+    color: var(--text-blanco);
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    font-size: 18px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+    transition: .35s cubic-bezier(.25, .1, .25, 1);
+}
+
+
+.Boton_Continuar button .icono {
+    margin-left: 10px;
+}
+
+.Boton_Continuar button:hover {
+    background-color: #000000;
+    color: #fff;
+}
+
+.Boton_finalizar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.Boton_finalizar button {
+    width: auto;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 30px;
+    background-color: var(--bg-unac);
+    border: none;
+    color: var(--text-blanco);
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    font-size: 18px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+    transition: .35s cubic-bezier(.25, .1, .25, 1);
+}
+
+.Boton_finalizar button:nth-child(1) {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #494949;
+}
+
+
+.Boton_finalizar button .icono {
+    margin-right: 10px;
+}
+
+.Boton_finalizar button:hover {
+    background-color: #000000;
+    color: #fff;
+}
+
+.Checkout_Content_Finalizar {
+    display: flex;
+    gap: 30px;
+
+}
+
+.Checkout_Content_Producto {
+    width: 80%;
+    height: 60vh;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-right: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.Checkout_Content_Producto::-webkit-scrollbar {
+    width: 3px;
+}
+
+.Checkout_Content_Producto::-webkit-scrollbar-thumb {
+    background-color: #00000069;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.Checkout_Content_Producto::-webkit-scrollbar-track {
+    background-color: #262b3400;
+}
+
+
+
+.Checkout_Content_Finalizar_Info {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.Checkout_Content_Finalizar_Info h2 {
+    font-size: 15px;
+    line-height: 20px;
+    color: #2e3535;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+
+.Checkout_Content_Finalizar_Info p {
+    font-size: 14px;
+    line-height: 20px;
+    color: #2e3535;
+    font-weight: 400;
+    margin: 0;
+}
+
+.Checkout_Content_Finalizar_Info p span {
+    font-size: 14px;
+    line-height: 20px;
+    color: #222727;
+    font-weight: 600;
+}
+
+.Checkout_Content_Producto_items {
+    width: 100%;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.Checkout_Content_Producto_items img {
+    width: 45%;
+    height: 180px;
+}
+
+.Checkout_Content_Producto_items-Info {
+    width: 55%;
+    margin-left: 10px;
+}
+
+.Checkout_Content_Producto_items-Info h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #000000;
+    font-weight: 400;
+}
+
+.Checkout_Content_Producto_items-Info h3 span {
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #000000;
+    font-weight: 600;
+}
+
+.Checkout_Content_Resumen {
+    width: 20%;
+    height: 500px;
+    background-color: var(--bg-gris-claro);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    padding: 10px;
+    margin-top: 40px;
+    position: fixed;
+    top: 15%;
+    right: 5%;
+}
+
+.Checkout_Content_Resumen h2 {
+    margin-top: 15px;
+    font-weight: 400;
+}
+
+.Checkout_Content_Resumen_Cupon {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #68686823;
+    padding: 20px 0;
+}
+
+.Checkout_Content_Resumen_Cupon_usar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.Checkout_Content_Resumen_Cupon_usar h4 {
+    font-size: 17px;
+    color: #000000;
+    font-weight: 400;
+}
+
+.Checkout_Content_Resumen_Cupon_usar .icono {
+    font-size: 17px;
+    color: #000000;
+    font-weight: 400;
+
+}
+
+.Checkout_Content_Resumen_Cupon_input {
+    width: 100%;
+}
+
+.Checkout_Content_Resumen_Cupon_botones {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 10px;
+}
+
+.Checkout_Content_Resumen_Cupon_botones button {
+    width: auto;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 30px;
+    border: solid 1px #4e4e4e2d;
+    border-radius: 20px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+    margin-top: 40px;
+    transition: .35s cubic-bezier(.25, .1, .25, 1);
+    margin: 0;
+}
+
+button:nth-child(2) {
+    background-color: #000000;
+    color: #fff;
+}
+
+.Checkout_Content_Resumen_Cupon_botones button:hover {
+    background-color: #000000;
+    color: #fff;
+}
+
+
+.Checkout_Content_Resumen_valores,
+.Checkout_Content_Resumen_Tvalores {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Checkout_Content_Resumen_valores h3 span {
+    margin-top: 14px;
+    font-weight: 400;
+}
+
+.Checkout_Content_Resumen_valores h3 {
+    margin-top: 14px;
+    font-weight: 200;
+}
+
+.Checkout_Content_Resumen_Tvalores span {
+    margin-top: 17px;
+    font-weight: 600;
+}
+
+.Checkout_Content_Resumen_Tvalores h3 {
+    margin-top: 17px;
+    font-weight: 500;
+}
+
+
+.Checkout_Content_Resumen .volverCarrito{
+    margin-top: 20px;
+    text-decoration: underline;
+    color: var(--text-unac);
+    cursor: pointer;
+}
+
+.Checkout_Content_Resumen button {
+    width: 90%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 30px;
+    background-color: var(--bg-unac);
+    border: none;
+    color: var(--text-blanco);
+    border-radius: 1px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    -ms-border-radius: 1px;
+    -o-border-radius: 1px;
+    font-size: 18px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+    transition: .35s cubic-bezier(.25, .1, .25, 1);
+    position: absolute;
+    bottom: 20px;
+}
+
+
+.Checkout_Content_Resumen button .icono {
+    margin-right: 10px;
+}
+
+.Checkout_Content_Resumen button:hover {
+    background-color: #000000;
+    color: #fff;
 }

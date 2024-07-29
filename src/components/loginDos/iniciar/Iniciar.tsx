@@ -12,6 +12,7 @@ import { createUser } from "../../../redux/states/User";
 
 interface Props {
   mostrarRegistro: () => void;
+  IniciosSesion: () => void;
   onClose: () => void;
 }
 
@@ -28,8 +29,8 @@ const Iniciar: React.FC<Props> = (props) => {
   const handleIniciar = async (values: FormikValues) => {
     setIsLoading(true);
     const response = await api.post<any>('Usuario/Post_InicioSesion', { correo: values.correo, password: values.contraseña });
-    if (response.data.result === false) {
-      setMsg(response.data.message);
+    if (response.data.resultado === false) {
+      setMsg(response.data.mensaje);
       setIsLoading(false);
     } else {
 
@@ -40,7 +41,7 @@ const Iniciar: React.FC<Props> = (props) => {
       dispatch(createUser({ ...obj }));
       setIsLoading(false);
       props.onClose();
-      props.mostrarRegistro();
+      props.IniciosSesion();
     }
   };
 

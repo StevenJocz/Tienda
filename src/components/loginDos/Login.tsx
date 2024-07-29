@@ -8,6 +8,7 @@ import { Iniciar, Registro } from '../loginDos';
 
 interface Props {
     mostrarInicio: () => void;
+    IniciosSesion: () => void;
     onClose: () => void;
 }
 
@@ -24,7 +25,7 @@ const Login: React.FC<Props> = (props) => {
             <div className='Login_content-cerrar' onClick={props.onClose}> </div>
             {componenteActual === ComponenteActual.Iniciar && (
                 <div className="Login_content">
-                    <Iniciar  mostrarRegistro={() => mostrarIniciar(ComponenteActual.Registro)} onClose={props.onClose} />
+                    <Iniciar  mostrarRegistro={() => mostrarIniciar(ComponenteActual.Registro)} onClose={props.onClose} IniciosSesion={props.mostrarInicio}/>
                 </div>
             )}
             {componenteActual === ComponenteActual.Registro && (
