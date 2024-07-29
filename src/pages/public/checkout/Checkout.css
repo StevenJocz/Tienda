@@ -237,6 +237,17 @@
     margin-top: 5px;
 }
 
+.Checkout_Envio_Direccion_Usuario  div h3 {
+   font-weight: 200;
+}
+
+.Checkout_Envio_Direccion_Usuario  div h3 b {
+    font-weight: 500;
+    color: #5a5a5a;
+ }
+ 
+
+
 .Checkout_Envio_Direccion_Usuario span {
     width: auto;
     height: 40px;
@@ -267,6 +278,7 @@
     background-color: #000000;
     color: #fff;
 }
+
 
 
 .Checkout_Envio_Direccion_Ubicacion {
@@ -443,7 +455,7 @@
 
 .Checkout_Content_Producto {
     width: 80%;
-    height: 60vh;
+    max-height: 60vh;
     margin-top: 20px;
     padding-top: 20px;
     padding-right: 10px;
@@ -658,6 +670,12 @@ button:nth-child(2) {
     font-weight: 500;
 }
 
+.Checkout_Content_Resumen_valores_P {
+    text-align: right;
+    font-weight: 200;
+    font-size: 12px;
+    font-style: italic;
+}
 
 .Checkout_Content_Resumen .volverCarrito{
     margin-top: 20px;
@@ -666,7 +684,7 @@ button:nth-child(2) {
     cursor: pointer;
 }
 
-.Checkout_Content_Resumen button {
+.Checkout_Content_Resumen .Boton_Continuar button {
     width: 90%;
     height: 40px;
     display: flex;
@@ -692,11 +710,11 @@ button:nth-child(2) {
 }
 
 
-.Checkout_Content_Resumen button .icono {
+.Checkout_Content_Resumen .Boton_Continuar button .icono {
     margin-right: 10px;
 }
 
-.Checkout_Content_Resumen button:hover {
+.Checkout_Content_Resumen .Boton_Continuar  button:hover {
     background-color: #000000;
     color: #fff;
 }

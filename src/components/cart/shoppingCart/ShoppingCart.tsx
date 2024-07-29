@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface Props {
     onClose: () => void;
-    mostrarInicio: () => void;
+    mostrarInicio?: () => void;
 }
 
 const ShoppingCart: React.FC<Props> = (props) => {
@@ -70,9 +70,10 @@ const ShoppingCart: React.FC<Props> = (props) => {
 
 
     const handleFinalizarCompra = ()=> {
-       
         if (usuario.idUsuario == 0) {
-            props.mostrarInicio();
+            if (props.mostrarInicio) {
+                props.mostrarInicio();
+            }
             props.onClose();
         }else{
             navigate('/Shop/Checkout');

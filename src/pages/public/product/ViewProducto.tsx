@@ -182,6 +182,7 @@ const ViewProducto = () => {
                                     </h4>
                                     <p>En stock</p>
                                 </div>
+                                <p className='Producto_main--info-Header_iva'>*IVA incluido</p>
                             </div>
                             <div className='Producto_main--info-descripcion'>
                                 <div className='Producto_main--info-descripcion-extrellas'>

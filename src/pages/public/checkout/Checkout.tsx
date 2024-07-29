@@ -42,7 +42,9 @@ const Checkout = () => {
     const [barrio, setBarrio] = useState('');
     const [destinatario, setDestinatario] = useState('');
     const [responsable, setResponsable] = useState('');
-
+    const [valorEnvio, setValorEnvio] = useState(0);
+    const [valorTotal, setValorTotal] = useState(0);
+    const [valorDescuento, setValorDescuento] = useState(0);
 
     const handleSelectCantidad = (accion: number, id: number, Cantidad: number) => {
         if (accion == 1) {
@@ -80,6 +82,28 @@ const Checkout = () => {
             );
         }
     }
+
+
+
+    useEffect(() => {
+
+        const precioEnvio = 2000;
+        const precioDescuento = 500;
+        const totalporcentaje = calcularPorcentaje();
+        const subtotal= getTotalCartValue();
+
+        setValorDescuento(precioDescuento);
+
+        if (totalporcentaje == 100  || pasoEnvio == 2) {
+            setValorEnvio(0);
+        }else {
+            setValorEnvio(precioEnvio);
+        }
+        const valorTotal = subtotal + valorEnvio - valorDescuento;
+        setValorTotal(valorTotal);
+
+    }, [pasoEnvio, paso, valorTotal, calcularPorcentaje, valorDescuento]);
+
 
     useEffect(() => {
         hadleGetUbicacion(2, 36);
@@ -285,7 +309,6 @@ const Checkout = () => {
                                             validate={(valor) => {
                                                 let errors: any = {};
 
-
                                                 return errors;
                                             }}
                                             onSubmit={handleDireccion}
@@ -303,7 +326,7 @@ const Checkout = () => {
                                                                         ) : (
                                                                             <h4>{usuario.direccion}</h4>
                                                                         )}
-
+                                                                        <h3><b>Valor de envió:</b> ${valorEnvio.toLocaleString()}</h3>
                                                                     </div>
 
                                                                     {cambiarDireccion == true ? (
@@ -622,22 +645,23 @@ const Checkout = () => {
                             </div>
                             <div className='Checkout_Content_Resumen_valores '>
                                 <h3><span>Envío: </span></h3>
-                                <h3>$0</h3>
+                                <h3>${valorEnvio.toLocaleString()}</h3>
                             </div>
-                            <div className='Checkout_Content_Resumen_valores'>
-                                <h3><span>IVA: </span></h3>
-                                <h3>$0</h3>
+                            <div className='Checkout_Content_Resumen_valores '>
+                                <h3><span>Descuento: </span></h3>
+                                <h3>${valorDescuento}</h3>
                             </div>
                             <div className='Checkout_Content_Resumen_Tvalores'>
                                 <h3><span>Total: </span></h3>
-                                <h3><span>${getTotalCartValue().toLocaleString()}</span></h3>
+                                <h3><span>${valorTotal.toLocaleString()}</span></h3>
                             </div>
+                            <p className='Checkout_Content_Resumen_valores_P'>*IVA incluido</p>
                             {paso > 2 &&
                                 <p className='volverCarrito' onClick={() => setPaso(1)}>Volver al resumen de la compra</p>
                             }
                             {paso == 4 &&
                                 <div className='Boton_Continuar'>
-                                    <button type="submit" ><IonIcon className='icono' icon={checkmarkOutline} />Finalizar compra</button>
+                                    <button ><IonIcon className='icono' icon={checkmarkOutline} />Finalizar compra</button>
                                 </div>
                             }
 

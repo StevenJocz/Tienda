@@ -98,6 +98,12 @@
 
 }
 
+.Producto_main--info-Header_iva {
+    font-size: 11px;
+    font-style: italic;
+    margin-left: 10px;
+}
+
 .Producto_main--info-descripcion {
     width: 100%;
     margin-top: 20px;
