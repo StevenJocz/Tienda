@@ -5,19 +5,23 @@ import { IonIcon } from '@ionic/react';
 import { closeOutline, saveOutline, paperPlaneOutline } from 'ionicons/icons';
 import { useEffect, useRef, useState } from 'react';
 import { api } from '../../../../../services';
-import { Tag } from '../../../../../models/tag';
-
+import { Cupones } from '../../../../../models/Cupones';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 interface Props {
     mostrarRegistro: () => void;
     actualizarDatos?: () => void;
-    idTag: number;
+    idCupon: number;
 }
 
-const AddTag: React.FC<Props> = (props) => {
+
+const AddCupones: React.FC<Props> = (props) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [msg, setMsg] = useState('');
     const submitButtonRef = useRef<HTMLButtonElement>(null);
-    const [data, setData] = useState<Tag>();
+    const [data, setData] = useState<Cupones>();
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
 
@@ -28,10 +32,10 @@ const AddTag: React.FC<Props> = (props) => {
     });
 
     useEffect(() => {
-        if (props.idTag > 0) {
+        if (props.idCupon > 0) {
             hadleGetId();
         }
-    }, [props.idTag]);
+    }, [props.idCupon]);
 
     const handleClick = () => {
         if (submitButtonRef.current) {
@@ -41,11 +45,13 @@ const AddTag: React.FC<Props> = (props) => {
 
     const hadleGetId = async () => {
         try {
-            const response = await api.get<Tag[]>('Tag/Get_Id_Tag', { idTag: props.idTag });
+            const response = await api.get<Cupones[]>('Generales/Get_Id_Cupones', { IdCupon: props.idCupon });
             if (response.data.length > 0) {
                 setData({
-                    idTag: response.data[0].idTag,
-                    tag: response.data[0].tag,
+                    idCupon: response.data[0].idCupon,
+                    textoCupon: response.data[0].textoCupon,
+                    valorCupon: response.data[0].valorCupon,
+                    fechaLimite: response.data[0].fechaLimite,
                     activo: response.data[0].activo,
                 });
             }
@@ -62,17 +68,18 @@ const AddTag: React.FC<Props> = (props) => {
         try {
             // Solicitud POST
 
-            const registroCategoria: Tag = {
-                idTag: props.idTag,
-                tag: values.nombre,
+            const registro: Cupones = {
+                idCupon: props.idCupon,
+                textoCupon: values.TextoCupon,
+                valorCupon: values.ValorCupon,
+                fechaLimite: values.FechaLimite,
                 activo: values.activo,
             };
 
-
             if (values.id > 0) {
-                await api.put<any>('Tag/Put_Actualizar_Tag', registroCategoria);
+                await api.put<any>('Generales/Put_Actualizar_Cupones', registro);
             } else {
-                await api.post<any>('Tag/Post_Crear_Tag', registroCategoria);
+                await api.post<any>('Generales/Post_Crear_Cupon', registro);
             }
             setOpenSnackbar(true);
         } catch (error) {
@@ -96,7 +103,7 @@ const AddTag: React.FC<Props> = (props) => {
             <div className='Configuracion_Modal'>
                 <div className='Configuracion_Modal-Content'>
                     <div className="Configuracion_Modal_Encabezado">
-                    <h4>{props.idTag == 0 ? ('Registrar tag') : ('Actualizar tag')}</h4>
+                        <h4>{props.idCupon == 0 ? ('Registrar cupón') : ('Actualizar cupón')}</h4>
                         <div>
                             <Button
                                 onClick={() => props.mostrarRegistro()}
@@ -114,7 +121,7 @@ const AddTag: React.FC<Props> = (props) => {
                                 disabled={isSubmitting}
                                 onClick={handleClick}
                             >
-                                {props.idTag == 0 ? (
+                                {props.idCupon == 0 ? (
                                     isSubmitting == true ? ('Registrando...') : ('Registrar')
                                 ) : (
                                     isSubmitting == true ? ('Actualizando...') : ('Actualizar')
@@ -128,16 +135,18 @@ const AddTag: React.FC<Props> = (props) => {
                         <Formik
                             enableReinitialize={true}
                             initialValues={{
-                                id: props.idTag,
-                                nombre: data?.tag || '',
+                                id: props.idCupon,
+                                TextoCupon: data?.textoCupon || '',
+                                ValorCupon: data?.valorCupon || '',
+                                FechaLimite:data?.fechaLimite ? dayjs(data?.fechaLimite) : null, 
                                 activo: data?.activo || false,
                             }}
                             validate={(valor) => {
 
                                 let errors: any = {};
 
-                                if (!valor.nombre) {
-                                    errors.nombre = 'Campo requerido';
+                                if (!valor.TextoCupon) {
+                                    errors.TextoCupon = 'Campo requerido';
                                 }
                                 return errors;
                             }}
@@ -157,18 +166,41 @@ const AddTag: React.FC<Props> = (props) => {
                                         </div>
                                         <div className='Configuracion_Formuario-input'>
                                             <StyledTextField
-                                                name='titulo'
-                                                label="Nombre Tag"
+                                                name='TextoCupon'
+                                                label="Cupón"
                                                 variant="outlined"
                                                 size="small"
                                                 color="secondary"
-                                                placeholder='Introduce el nombre de la categorias'
-                                                value={values.nombre}
-                                                onChange={(e) => setFieldValue('nombre', e.target.value)}
+                                                placeholder='Introduce el cupón'
+                                                value={values.TextoCupon}
+                                                onChange={(e) => setFieldValue('TextoCupon', e.target.value)}
                                             />
-                                            <ErrorMessage name='nombre' component={() => <p className='Error'>{errors.nombre}</p>} />
+                                            <ErrorMessage name='TextoCupon' component={() => <p className='Error'>{errors.TextoCupon}</p>} />
+                                            <StyledTextField
+                                                name='ValorCupon'
+                                                label="Valor"
+                                                variant="outlined"
+                                                size="small"
+                                                color="secondary"
+                                                placeholder='Introduce el valor de cupón'
+                                                value={values.ValorCupon}
+                                                onChange={(e) => setFieldValue('ValorCupon', e.target.value)}
+                                            />
+                                            <ErrorMessage name='ValorCupon' component={() => <p className='Error'>{errors.ValorCupon}</p>} />
                                         </div>
-
+                                        <div className='Configuracion_Formuario-input  input_fecha_login'>
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <DemoContainer components={['DatePicker']}>
+                                                    <DatePicker
+                                                        className='Pickers'
+                                                        label="Fecha limite"
+                                                        value={values.FechaLimite}
+                                                        onChange={(date) => setFieldValue('FechaLimite', date)}
+                                                    />
+                                                </DemoContainer>
+                                            </LocalizationProvider>
+                                            <ErrorMessage name='FechaLimite' component={() => <p className='Error'>{errors.FechaLimite}</p>} />
+                                        </div>
                                         <button
                                             type="submit"
                                             style={{ display: 'none' }}
@@ -196,10 +228,10 @@ const AddTag: React.FC<Props> = (props) => {
                     variant="filled"
                     sx={{ width: '100%' }}
                 >
-                    {props.idTag == 0 ? (
-                        "¡Tag guardado exitosamente!"
+                    {props.idCupon == 0 ? (
+                        "Cupón guardada exitosamente!"
                     ) : (
-                        "¡Tag actualizado exitosamente!"
+                        "Cupón actualizada exitosamente!"
                     )}
                 </Alert>
             </Snackbar>
@@ -207,5 +239,4 @@ const AddTag: React.FC<Props> = (props) => {
     )
 }
 
-
-export default AddTag
+export default AddCupones

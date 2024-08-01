@@ -237,15 +237,15 @@
     margin-top: 5px;
 }
 
-.Checkout_Envio_Direccion_Usuario  div h3 {
-   font-weight: 200;
+.Checkout_Envio_Direccion_Usuario div h3 {
+    font-weight: 200;
 }
 
-.Checkout_Envio_Direccion_Usuario  div h3 b {
+.Checkout_Envio_Direccion_Usuario div h3 b {
     font-weight: 500;
     color: #5a5a5a;
- }
- 
+}
+
 
 
 .Checkout_Envio_Direccion_Usuario span {
@@ -551,7 +551,7 @@
 
 .Checkout_Content_Resumen {
     width: 20%;
-    height: 500px;
+    height: auto;
     background-color: var(--bg-gris-claro);
     border-radius: 8px;
     -webkit-border-radius: 8px;
@@ -561,7 +561,7 @@
     padding: 10px;
     margin-top: 40px;
     position: fixed;
-    top: 15%;
+    top: 10%;
     right: 5%;
 }
 
@@ -641,6 +641,18 @@ button:nth-child(2) {
     color: #fff;
 }
 
+.textCupon {
+    font-size: 17px;
+    color: #ff0000;
+    font-weight: 400;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.textCuponExitoso {
+    color: #07940e;
+}
+
 
 .Checkout_Content_Resumen_valores,
 .Checkout_Content_Resumen_Tvalores {
@@ -677,11 +689,12 @@ button:nth-child(2) {
     font-style: italic;
 }
 
-.Checkout_Content_Resumen .volverCarrito{
+.Checkout_Content_Resumen .volverCarrito {
     margin-top: 20px;
     text-decoration: underline;
     color: var(--text-unac);
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
 .Checkout_Content_Resumen .Boton_Continuar button {
@@ -705,8 +718,6 @@ button:nth-child(2) {
     font-style: normal;
     cursor: pointer;
     transition: .35s cubic-bezier(.25, .1, .25, 1);
-    position: absolute;
-    bottom: 20px;
 }
 
 
@@ -714,7 +725,7 @@ button:nth-child(2) {
     margin-right: 10px;
 }
 
-.Checkout_Content_Resumen .Boton_Continuar  button:hover {
+.Checkout_Content_Resumen .Boton_Continuar button:hover {
     background-color: #000000;
     color: #fff;
 }

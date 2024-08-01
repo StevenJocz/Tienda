@@ -163,7 +163,7 @@ const AddCategoria: React.FC<Props> = (props) => {
             <div className='Configuracion_Modal'>
                 <div className='Configuracion_Modal-Content'>
                     <div className="Configuracion_Modal_Encabezado">
-                        <h4>Registrar categoría</h4>
+                    <h4>{props.idCategoria == 0 ? ('Registrar categoría') : ('Actualizar categoría')}</h4>
                         <div>
                             <Button
                                 onClick={() => props.mostrarRegistro()}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import '../Configuracion.css'
 import { api } from '../../../../../services';
 import { Table } from '../../../dashboard/components/table';
+import AddCupones from './AddCupones';
 
 const Cupones = () => {
     const [registrarCupon, setRegistrarCupon] = useState(false);
@@ -18,11 +19,13 @@ const Cupones = () => {
 
     const hadleGetCupon = async () => {
         // Solicitud GET
-        api.get<any>('Tag/Get_Tag', { accion: 1 }).then((response) => {
-            const CuponFiltradas = response.data.map((tag: any) => ({
-                id: tag.idTag,
-                tag: tag.tag,
-                activo: tag.activo,
+        api.get<any>('Generales/Get_Cupones').then((response) => {
+            const CuponFiltradas = response.data.map((cupones: any) => ({
+                id: cupones.idCupon,
+                cupon: cupones.textoCupon,
+                valor: cupones.valorCupon ,
+                Fecha_Limite: cupones.fechaLimite,
+                activo: cupones.activo,
             }));
             setData(CuponFiltradas);
             setLoading(false);
@@ -36,7 +39,7 @@ const Cupones = () => {
 
     return (
         <div className='Configuracion_Formulario'>
-            <h4>Tags</h4>
+            <h4>Cupones</h4>
             {data && (
                 <Table
                     data={data}
@@ -47,9 +50,9 @@ const Cupones = () => {
                 />
             )}
             {registrarCupon && (
-                <AddCupon
+                <AddCupones
                     mostrarRegistro={() => setRegistrarCupon(false)}
-                    idTag={idCupon}
+                    idCupon={idCupon}
                     actualizarDatos={hadleGetCupon}
                 />
             )}
