@@ -2,12 +2,13 @@ import { Breadcrumbs, Grid, Typography } from '@mui/material'
 import './Configuracion.css'
 import { Link, Route, useLocation } from 'react-router-dom'
 import { IonIcon } from '@ionic/react';
-import { layersOutline, bookmarkOutline, sparklesOutline } from 'ionicons/icons';
+import { layersOutline, bookmarkOutline, sparklesOutline, cashOutline } from 'ionicons/icons';
 import { RoutesWithNotFound } from '../../../../utilities';
 import { Categorias } from './categorias';
 import Tag from './tag/Tag';
 import img from '../../../../assets/img/configuracion.png'
 import Cupones from './cupones/Cupones';
+import Monto from './monto/Monto';
 
 const Configuracion = () => {
     const location = useLocation();
@@ -50,6 +51,14 @@ const Configuracion = () => {
                                     Cupones
                                 </li>
                             </Link>
+                            <Link to='/Dashboard/Configuracion/Montoenviogratis'>
+                                <li
+                                    className={`${ruta == 'Montoenviogratis' ? 'LiActive' : ''}`}
+                                >
+                                    <IonIcon className='icono' icon={cashOutline} />
+                                    Monto de envio gratis
+                                </li>
+                            </Link>
                         </ul>
                     </div>
                 </Grid>
@@ -64,6 +73,7 @@ const Configuracion = () => {
                             <Route path="/Categorias" element={<Categorias />} />
                             <Route path="/Tag" element={<Tag />} />
                             <Route path="/Cupones" element={<Cupones />} />
+                            <Route path="/Montoenviogratis" element={<Monto />} />
                         </RoutesWithNotFound>
                     </div>
                 </Grid>

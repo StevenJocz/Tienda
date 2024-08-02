@@ -408,7 +408,8 @@
     margin-top: 40px;
 }
 
-.Boton_finalizar button {
+.Boton_finalizar button,
+.Boton_finalizar a {
     width: auto;
     height: 40px;
     display: flex;
@@ -431,10 +432,13 @@
     transition: .35s cubic-bezier(.25, .1, .25, 1);
 }
 
-.Boton_finalizar button:nth-child(1) {
+.Boton_finalizar button:nth-child(1),
+.Boton_finalizar a
+ {
     background-color: #ffffff;
     color: #000000;
     border: 1px solid #494949;
+    text-decoration: none;
 }
 
 

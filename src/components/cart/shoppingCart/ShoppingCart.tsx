@@ -8,6 +8,8 @@ import { services } from '../../../models';
 import { useSelector } from 'react-redux';
 import { AppStore } from '../../../redux/Store';
 import { useNavigate } from 'react-router-dom';
+import { api } from '../../../services';
+import { useEffect, useState } from 'react';
 
 interface Props {
     onClose: () => void;
@@ -18,6 +20,17 @@ const ShoppingCart: React.FC<Props> = (props) => {
     const { cartItems, removeFromCart, getTotalCartValue, updateCartItemQuantity } = useCartContext();
     const usuario = useSelector((store: AppStore) => store.user);
     const navigate = useNavigate();
+    const [monto, setMonto] = useState(0);
+
+    useEffect(() => {
+        hadleGetMonto();
+    }, [monto]);
+    
+    const hadleGetMonto = async () => {
+        // Solicitud GET
+        const response = await api.get<[any]>('Generales/Get_Monto', { IdMonto: 1 });
+        setMonto(response.data[0].valorMonto )
+    };
     const handleSelectCantidad = (accion: number, id: number, Cantidad: number) => {
 
         if (accion == 1) {
@@ -31,7 +44,7 @@ const ShoppingCart: React.FC<Props> = (props) => {
     };
 
     const calcularPorcentaje = () => {
-        const valorMinimoEnvio = 100000;
+        const valorMinimoEnvio = monto;
         const totalCarrito = getTotalCartValue();
         const porcentajeDecimal = (totalCarrito / valorMinimoEnvio) * 100;
         const porcentajeEntero = Math.floor(porcentajeDecimal);
@@ -40,7 +53,7 @@ const ShoppingCart: React.FC<Props> = (props) => {
 
 
     const haddleMensaje = () => {
-        const valorMinimoEnvio = 100000;
+        const valorMinimoEnvio = monto;
         const diferencia = valorMinimoEnvio - getTotalCartValue();
         if (calcularPorcentaje() === 100) {
             return (<p><span>¡Felicidades!</span> ¡Tienes envío gratis!</p>);

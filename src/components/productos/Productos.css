@@ -159,3 +159,8 @@
     -ms-border-radius: 100%;
     -o-border-radius: 100%;
 }
+
+.favorite {
+    color: var(--text-unac);
+    opacity: 1 !important;
+}

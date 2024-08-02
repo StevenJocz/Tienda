@@ -23,8 +23,8 @@ const Cupones = () => {
             const CuponFiltradas = response.data.map((cupones: any) => ({
                 id: cupones.idCupon,
                 cupon: cupones.textoCupon,
-                valor: cupones.valorCupon ,
-                Fecha_Limite: cupones.fechaLimite,
+                valor: '$'+(cupones.valorCupon).toLocaleString() ,
+                Fecha_Limite: new Date(cupones.fechaLimite).toISOString().split('T')[0],
                 activo: cupones.activo,
             }));
             setData(CuponFiltradas);

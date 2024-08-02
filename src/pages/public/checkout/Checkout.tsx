@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './Checkout.css'
 import { useCartContext } from '../../../context/CartContext';
-import { services, Ubicacion } from '../../../models';
+import {services, Ubicacion } from '../../../models';
 import { MenuItem, Tooltip } from '@mui/material';
 import { IonIcon } from '@ionic/react';
 import {
@@ -22,6 +22,7 @@ import { StyledTextField } from '../../../utilities/SelectProps';
 import { AppStore } from '../../../redux/Store';
 import { useSelector } from 'react-redux';
 import { Form, Formik, FormikValues } from 'formik';
+import { Link } from 'react-router-dom';
 
 
 const Checkout = () => {
@@ -45,8 +46,20 @@ const Checkout = () => {
     const [valorEnvio, setValorEnvio] = useState(0);
     const [valorTotal, setValorTotal] = useState(0);
     const [valorCupon, setValorCupon] = useState(0);
+    const [idCupon, setIdCupon] = useState(0);
     const [cupon, setCupon] = useState('');
     const [textCupon, setTextCupon] = useState('');
+    const [monto, setMonto] = useState(0);
+
+    useEffect(() => {
+        hadleGetMonto();
+    }, [monto]);
+
+    const hadleGetMonto = async () => {
+        // Solicitud GET
+        const response = await api.get<[any]>('Generales/Get_Monto', { IdMonto: 1 });
+        setMonto(response.data[0].valorMonto)
+    };
 
     const handleSelectCantidad = (accion: number, id: number, Cantidad: number) => {
         if (accion == 1) {
@@ -60,7 +73,7 @@ const Checkout = () => {
     };
 
     const calcularPorcentaje = () => {
-        const valorMinimoEnvio = 100000;
+        const valorMinimoEnvio = monto;
         const totalCarrito = getTotalCartValue();
         const porcentajeDecimal = (totalCarrito / valorMinimoEnvio) * 100;
         const porcentajeEntero = Math.floor(porcentajeDecimal);
@@ -68,7 +81,7 @@ const Checkout = () => {
     };
 
     const haddleMensaje = () => {
-        const valorMinimoEnvio = 100000;
+        const valorMinimoEnvio = monto;
         const diferencia = valorMinimoEnvio - getTotalCartValue();
         if (calcularPorcentaje() === 100) {
             return (<p><span>¡Felicidades!</span> ¡Tienes envío gratis!</p>);
@@ -90,15 +103,16 @@ const Checkout = () => {
     };
 
     const handleDescuento = async () => {
-        const response = await api.get<[any]>('Generales/Get_Cupones', { Accion: 2, Cupon: cupon });
+        const response = await api.get<[any]>('Generales/Get_Consultar_Cupones', { cupon: cupon, idUsuario: usuario.idUsuario });
         if (response.data.length > 0) {
             const subtotal = getTotalCartValue();
-            if (subtotal < response.data[0].valorCupon ) {
+            if (subtotal < response.data[0].valorCupon) {
                 setTextCupon('Lo sentimos, el cupón no se puede aplicar porque supera el total de la compra')
                 setValorCupon(0);
-            }else{
+            } else {
                 setValorCupon(response.data[0].valorCupon);
-                setTextCupon('¡Felicidades! Tu cupón es de $'+ response.data[0].valorCupon.toLocaleString())
+                setIdCupon(response.data[0].idCupon);
+                setTextCupon('¡Felicidades! Tu cupón es de $' + response.data[0].valorCupon.toLocaleString())
             }
         } else {
             setValorCupon(0);
@@ -171,6 +185,7 @@ const Checkout = () => {
                 }
             }
         }
+        console.log(idCupon)
 
     }
 
@@ -195,7 +210,7 @@ const Checkout = () => {
 
                 <div className='Home'>
                     <div className='Checkout_Menu_p'>
-                        <p>ENVÍO GRATIS DESDE $100.000 | Aplican TyC</p>
+                        <p>ENVÍO GRATIS DESDE ${monto.toLocaleString()} | Aplican TyC</p>
                     </div>
                     <div className='Home_main main' id='Home_main_Pruduct'>
                         <div className='Checkout'>
@@ -330,7 +345,9 @@ const Checkout = () => {
                                                     }}
                                                     validate={(valor) => {
                                                         let errors: any = {};
-
+                                                        if (!valor.destinatario) {
+                                                            errors.destinatario = 'Campo requerido';
+                                                        }
                                                         return errors;
                                                     }}
                                                     onSubmit={handleDireccion}
@@ -618,7 +635,9 @@ const Checkout = () => {
                                                 </div>
 
                                                 <div className='Boton_finalizar '>
-                                                    <button onClick={() => setPaso(4)} ><IonIcon className='icono' icon={closeOutline} /> Cancelar compra </button>
+                                                    <Link to='/'>
+                                                        <IonIcon className='icono' icon={closeOutline} /> Cancelar compra
+                                                    </Link>
                                                 </div>
                                             </>
                                         }
@@ -654,12 +673,12 @@ const Checkout = () => {
                                                     onChange={handleInputChange}
                                                     value={cupon}
                                                 />
-                                                
+
                                                 <div className='Checkout_Content_Resumen_Cupon_botones'>
-                                                    <button onClick={() => { setAplicaCupon(false); setCupon('');setTextCupon('')}}>Cancelar</button>
+                                                    <button onClick={() => { setAplicaCupon(false); setCupon(''); setTextCupon('') }}>Cancelar</button>
                                                     <button onClick={() => handleDescuento()}>Aplicar</button>
                                                 </div>
-                                                <p className={`textCupon ${valorCupon != 0 ? "textCuponExitoso" :""}`}>{textCupon}</p>
+                                                <p className={`textCupon ${valorCupon != 0 ? "textCuponExitoso" : ""}`}>{textCupon}</p>
                                             </div>
                                         )}
                                     </div>

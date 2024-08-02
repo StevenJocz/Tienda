@@ -4,7 +4,7 @@ import './ViewProducto.css'
 import Rating from '@mui/material/Rating';
 import { Alert, Snackbar, Tooltip } from '@mui/material';
 import { IonIcon } from '@ionic/react';
-import { alarmOutline, addOutline, removeOutline, heartOutline, logoFacebook, logoInstagram, logoWhatsapp } from 'ionicons/icons';
+import { alarmOutline, addOutline, removeOutline, heartOutline, logoFacebook, logoInstagram, logoWhatsapp, heartSharp } from 'ionicons/icons';
 import { ConteoRegresivo } from '../../../utilities';
 import { Guia } from '../../../components/giuaTallas';
 import { Productos } from '../../../components/productos';
@@ -15,10 +15,12 @@ import { api } from '../../../services';
 import { useParams } from 'react-router-dom';
 import { services } from '../../../models';
 import { BorderLinearProgress } from '../../../utilities/SelectProps';
+import { useFavoritesContext } from '../../../context/Favoritos';
 
 
 const ViewProducto = () => {
     const { addToCart, getLastSavedId } = useCartContext();
+    const { addToFavorites, isFavorite, removeFromFavorites } = useFavoritesContext();
     const [shoppingCart, setShoppingCart] = useState(false);
     const [menu, setMenu] = useState(1);
     const [guia, setGuia] = useState(false);
@@ -34,6 +36,15 @@ const ViewProducto = () => {
     const [precioFinal, setPrecioFinal] = useState(0);
     const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
     const [mensajeAddProducto, setMensajeAddProducto] = useState<string | void>('');
+
+    const handleToggleFavorite = (idProducto: number) => {
+        if (isFavorite(idProducto)) {
+            removeFromFavorites(idProducto);
+        } else {
+            addToFavorites(idProducto);
+        }
+    };
+
     useEffect(() => {
         const mainContainer = document.getElementById('Home_main_Pruduct');
         if (mainContainer) {
@@ -244,9 +255,13 @@ const ViewProducto = () => {
                                     <h4>{cantidadSeleccionada}</h4>
                                     <IonIcon className='icono' icon={addOutline} onClick={() => handleSelectCantidad(1)} />
                                 </div>
-                                <Tooltip title='Añadir a la lista de deseos' placement="top" disableInteractive >
+                                <Tooltip title={isFavorite(producto.id) ? 'Eliminar de lista de deseos'  : 'Añadir a la lista de deseos'} placement="top" disableInteractive >
                                     <div className='Producto_main--acciones-addDeseos'>
-                                        <IonIcon className='icono' icon={heartOutline} />
+                                    <IonIcon
+                                    className={`icono ${isFavorite(producto.id) ? 'favorite' : ''}`}
+                                    icon={isFavorite(producto.id) ? heartSharp : heartOutline}
+                                    onClick={() => handleToggleFavorite(producto.id)}
+                                />
                                     </div>
                                 </Tooltip>
                             </div>

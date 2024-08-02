@@ -1,11 +1,13 @@
 import './Productos.css';
 import { IonIcon } from '@ionic/react';
-import { heartOutline } from 'ionicons/icons';
+import { heartOutline, heartSharp } from 'ionicons/icons';
 import { Link } from 'react-router-dom';
 import { Producto } from '../../models/Productos';
 import { useEffect, useState } from 'react';
 import { api } from '../../services';
 import { services } from '../../models';
+import { useFavoritesContext } from '../../context/Favoritos';
+import { Tooltip } from '@mui/material';
 
 interface Filtros {
     categoria?: string;
@@ -21,6 +23,7 @@ interface Props {
 
 const Productos: React.FC<Props> = (props) => {
     const [productos, setProductos] = useState<Producto[]>([]);
+    const { addToFavorites, isFavorite, removeFromFavorites } = useFavoritesContext();
 
     useEffect(() => {
         handleGet();
@@ -39,7 +42,7 @@ const Productos: React.FC<Props> = (props) => {
 
     const filtrarProductos = (productos: Producto[]) => {
         return productos.filter(producto => {
-            const { categoria, nuevo, enOferta} = props.filtros;
+            const { categoria, nuevo, enOferta } = props.filtros;
             const cumpleCategoria = categoria ? producto.categorias.includes(categoria) : true;
             const cumpleNuevo = nuevo !== undefined && nuevo !== false ? producto.nuevo === nuevo : true;
             const cumpleEnOferta = enOferta !== undefined && enOferta !== false ? producto.aplicaDescuento === enOferta : true;
@@ -48,6 +51,15 @@ const Productos: React.FC<Props> = (props) => {
     };
 
     const productosFiltrados = filtrarProductos(productos);
+
+
+    const handleToggleFavorite = (idProducto: number) => {
+        if (isFavorite(idProducto)) {
+            removeFromFavorites(idProducto);
+        } else {
+            addToFavorites(idProducto);
+        }
+    };
 
     return (
         <div className='Productos'>
@@ -81,7 +93,14 @@ const Productos: React.FC<Props> = (props) => {
                             </Link>
                             <div className='Productos_Card--info-valor'>
                                 <h5>{producto.categorias}</h5>
-                                <IonIcon className='icono' icon={heartOutline} />
+                                <Tooltip title={isFavorite(producto.id) ? 'Eliminar de lista de deseos' : 'Añadir a la lista de deseos'} placement="top" disableInteractive >
+                                    <IonIcon
+                                        className={`icono ${isFavorite(producto.id) ? 'favorite' : ''}`}
+                                        icon={isFavorite(producto.id) ? heartSharp : heartOutline}
+                                        onClick={() => handleToggleFavorite(producto.id)}
+                                    />
+                                </Tooltip>
+                                {/* <IonIcon className='icono' icon={heartOutline} onClick={() => handleAddFavoritos(producto.id)} /> */}
                             </div>
                         </div>
                     </div>

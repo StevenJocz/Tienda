@@ -15,6 +15,7 @@ import { ViewProducto } from './pages/public/product';
 import { CartProvider } from './context/CartContext';
 import { Shop } from './pages/public/shop';
 import Checkout from './pages/public/checkout/Checkout';
+import { FavoritesProvider } from './context/Favoritos';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
           <Loader />
         ) : (
           <CartProvider>
+            <FavoritesProvider>
           <Provider store={Store}>
             <BrowserRouter>
               <RoutesWithNotFound>
@@ -54,6 +56,7 @@ function App() {
               </RoutesWithNotFound>
             </BrowserRouter>
           </Provider>
+          </FavoritesProvider>
           </CartProvider>
         )}
       </Suspense>
