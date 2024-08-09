@@ -23,7 +23,7 @@ const Home = () => {
                     <Card titulo='Productos' porcentaje={-9.5} tipo={1} numeroTotal={350} numeroNuevos={12} clase={1} />
                 </Grid>
                 <Grid item xs={3}>
-                    <Card titulo='Usuarios' porcentaje={3} tipo={2} numeroTotal={350} numeroNuevos={5} clase={1}/>
+                    <Card titulo='Usuarios' porcentaje={3} tipo={1} numeroTotal={350} numeroNuevos={5} clase={1}/>
                 </Grid>
                 <Grid item xs={3}>
                     <Card titulo='Ventas' porcentaje={67} tipo={3} numeroTotal={1220} numeroNuevos={687} clase={1}/>

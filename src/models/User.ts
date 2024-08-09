@@ -40,6 +40,8 @@ export interface Usuario {
   documento: string;
   fechaNacimiento: Date;
   celular: number;
+  idPais: number;
+  idDepartamento: number;
   idMunicipio: number;
   direccion: string;
   correo: string;

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
-import { services } from '../models'; 
+import { services } from '../models';
 
-const API_URL = services.local; 
+const API_URL = services.local;
 
 export const api = {
 
@@ -23,9 +23,11 @@ export const api = {
     // Métodos abreviados para los tipos de solicitud HTTP más comunes
 
     get: async <T>(path: string, params?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
-        // Construir la URL con los parámetros
         const url = `${API_URL}/${path}`;
-        const queryParams = new URLSearchParams(params).toString();
+        let queryParams = '';
+        if (params) {
+            queryParams = new URLSearchParams(params).toString();
+        }
         const finalUrl = queryParams ? `${url}?${queryParams}` : url;
 
         try {
@@ -34,6 +36,7 @@ export const api = {
             throw error;
         }
     },
+
 
     post: async <T>(
         path: string,

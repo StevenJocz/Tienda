@@ -127,6 +127,7 @@ const ViewProducto = () => {
         const mensaje = addToCart({
             id: id + 1,
             idProducto: parseInt(idProducto),
+            idInventario: producto[0].idInventario,
             cantidad: cantidadSeleccionada,
             valor: precio ,
             nombre: producto[0].nombre,

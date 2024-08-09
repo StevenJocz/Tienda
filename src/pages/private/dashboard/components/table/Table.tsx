@@ -263,7 +263,7 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                     {rol}
                 </div>
             );
-        } else if (rol == 'Profesor') {
+        } else {
             return (
                 <div style={{
                     color: '#053e74',
@@ -275,19 +275,7 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                     {rol}
                 </div>
             );
-        } else {
-            return (
-                <div style={{
-                    color: '#52c41a',
-                    backgroundColor: '#bbf77f96',
-                    borderColor: 'rgb(255, 163, 158)',
-                    width: '100%',
-                    padding: '0 20px'
-                }}>
-                    {rol}
-                </div>
-            );
-        }
+        } 
     };
 
     const isBase64 = (str: string) => {

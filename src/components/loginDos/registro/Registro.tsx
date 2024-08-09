@@ -98,6 +98,8 @@ const Registro: React.FC<Props> = (props) => {
         documento: values.documento,
         fechaNacimiento: values.fechaNacimiento.toISOString(),
         celular: values.celular,
+        idPais: values.pais,
+        idDepartamento: values.departamento,
         idMunicipio: values.ciudad,
         direccion: values.direccion,
         correo: values.correo,
@@ -107,7 +109,6 @@ const Registro: React.FC<Props> = (props) => {
 
       try {
 
-        console.log(JSON.stringify(usuario));
         // Solicitud POST
         const response = await api.post<any>('Usuario/Post_Crear_Usuario', usuario);
         if (response.data.resultado === true) {
@@ -315,6 +316,9 @@ const Registro: React.FC<Props> = (props) => {
                         value={values.tipoDocumento}
                         onChange={(e) => setFieldValue('tipoDocumento', e.target.value)}
                       >
+                        <MenuItem value='0'>
+                          Seleccione
+                        </MenuItem>
                         {tipoDocumentos && tipoDocumentos.map((option) => (
                           <MenuItem key={option.idDocumento} value={option.idDocumento}>
                             {option.documento}
@@ -403,6 +407,9 @@ const Registro: React.FC<Props> = (props) => {
                         value={values.genero}
                         onChange={(e) => setFieldValue('genero', e.target.value)}
                       >
+                        <MenuItem value='0'>
+                          Seleccione
+                        </MenuItem>
                         {genero && genero.map((option) => (
                           <MenuItem key={option.idGenero} value={option.idGenero}>
                             {capitalizeFirstLetter(option.genero)}
@@ -433,6 +440,9 @@ const Registro: React.FC<Props> = (props) => {
                           hadleGetUbicacion(2, parseInt(e.target.value))
                         }}
                       >
+                        <MenuItem value='0'>
+                          Seleccione
+                        </MenuItem>
                         {pais && pais.map((option) => (
                           <MenuItem key={option.id} value={option.id}>
                             {capitalizeFirstLetter(option.nombre)}
@@ -455,6 +465,9 @@ const Registro: React.FC<Props> = (props) => {
                           hadleGetUbicacion(3, parseInt(e.target.value))
                         }}
                       >
+                        <MenuItem value='0'>
+                          Seleccione
+                        </MenuItem>
                         {departamento && departamento.map((option) => (
                           <MenuItem key={option.id} value={option.id}>
                             {capitalizeFirstLetter(option.nombre)}
@@ -473,6 +486,9 @@ const Registro: React.FC<Props> = (props) => {
                         value={values.ciudad}
                         onChange={(e) => setFieldValue('ciudad', e.target.value)}
                       >
+                        <MenuItem value='0'>
+                          Seleccione
+                        </MenuItem>
                         {municipio && municipio.map((option) => (
                           <MenuItem key={option.id} value={option.id}>
                             {capitalizeFirstLetter(option.nombre)}

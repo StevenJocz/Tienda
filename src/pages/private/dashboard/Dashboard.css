@@ -21,7 +21,7 @@
 
 .Dashboard-menu {
     grid-area: Dashboard-menu;
-    background-color: var(--bg-menu);
+    background-color: #091314;
 }
 
 .Dashboard-header {

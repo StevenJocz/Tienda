@@ -12,12 +12,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearLocalStorage } from '../../utilities';
 import { TokenKey, UserKey, resetUser } from '../../redux/states/User';
 import { PrivateRoutes } from '../../models';
+import { MiCuenta } from '../miCuenta';
 
 const Nav = () => {
     const [shoppingCart, setShoppingCart] = useState(false);
     const [favoritos, setFavoritos] = useState(false);
     const [isLogin, setLogin] = useState(false);
     const [isSesion, setSesion] = useState(false);
+    const [verMiCuenta, setVerMiCuenta] = useState(false);
     const { cartItems } = useCartContext();
     const [verMenuPerfil, setVerMenuPerfil] = useState(false);
     const usuario = useSelector((store: AppStore) => store.user);
@@ -42,6 +44,10 @@ const Nav = () => {
 
     const handleMenuPerfil = () => {
         setVerMenuPerfil(!verMenuPerfil);
+    };
+
+    const handleMiCuenta = () => {
+        setVerMiCuenta(!verMiCuenta);
     };
 
     const logOut = () => {
@@ -79,7 +85,7 @@ const Nav = () => {
                             {verMenuPerfil &&
                                 <div className='Menu_right_Perfil_Content'>
                                     <ul>
-                                        <li className="">Mi cuenta</li>
+                                        <li className="" onClick={handleMiCuenta}>Mi cuenta</li>
                                         {usuario.tipoUsuario == 1 &&
                                             <Link to={`/${PrivateRoutes.private}`}> <li className="">Panel Administrador</li></Link>
                                         }
@@ -97,7 +103,8 @@ const Nav = () => {
                 )}
             </div>
             {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} mostrarInicio={() => setSesion(true)} />}
-            {favoritos && <Favoritos onClose={() => setFavoritos(false)} />}
+            {favoritos && <Favoritos onClose={() => setFavoritos(false)} filtros={{}}/>}
+            {verMiCuenta && <MiCuenta onClose={() => setVerMiCuenta(false)} />}
             {isSesion && (
                 <Login
                     onClose={() => setSesion(!isSesion)}

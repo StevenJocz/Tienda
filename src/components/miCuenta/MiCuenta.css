@@ -1,0 +1,116 @@
+.MiCuenta {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #00000096;
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1001;
+}
+
+.MiCuenta_Content{
+    padding: 20px;
+}
+
+.MiCuenta_Content_input {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+}
+
+.MiCuenta ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 10px;
+}
+
+.MiCuenta ul li {
+    display: flex;
+    margin: 0 10px;
+    border-bottom: 1px solid #00000034;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.MiCuenta ul .Activo {
+    border-bottom: 4px solid var(--text-unac);
+    padding-bottom: 10px;
+}
+
+.MiCuenta_Content .MiCuenta_Content_CambiarDireccion {
+    width: 250px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 30px;
+    border: solid 1px #4e4e4e2d;
+    border-radius: 20px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+    transition: .35s cubic-bezier(.25, .1, .25, 1);
+    -webkit-transition: .35s cubic-bezier(.25, .1, .25, 1);
+    -moz-transition: .35s cubic-bezier(.25, .1, .25, 1);
+    -ms-transition: .35s cubic-bezier(.25, .1, .25, 1);
+    -o-transition: .35s cubic-bezier(.25, .1, .25, 1);
+}
+
+.MiCuenta_Content  .MiCuenta_Content_CambiarDireccion .icono {
+    margin-right: 10px;
+}
+
+.MiCuenta_Content .MiCuenta_Content_CambiarDireccion:hover {
+    background-color: #000000;
+    color: #fff;
+}
+
+.MiCuenta_Content .MiCuenta_Content_Direccion_Cambio {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-top: 20px;
+}
+
+.MiCuenta_Content .MiCuenta_Content_Direccion_Cambio  button {
+    width: 250px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 30px;
+    border: solid 1px #4e4e4e2d;
+    border-radius: 20px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+    transition: .35s cubic-bezier(.25, .1, .25, 1);
+    -webkit-transition: .35s cubic-bezier(.25, .1, .25, 1);
+    -moz-transition: .35s cubic-bezier(.25, .1, .25, 1);
+    -ms-transition: .35s cubic-bezier(.25, .1, .25, 1);
+    -o-transition: .35s cubic-bezier(.25, .1, .25, 1);
+   
+
+}
+
+.MiCuenta_Content .MiCuenta_Content_Direccion_Cambio  button .icono {
+    margin-right: 10px;
+}

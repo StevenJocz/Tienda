@@ -6,6 +6,7 @@ import { AppStore } from '../../../../../redux/Store';
 import { Home } from '../../../page/home';
 import { Productos } from '../../../page/productos';
 import { Configuracion } from '../../../page/configuracion';
+import { Usuarios } from '../../../page/usuarios';
 
 const Rutas = () => {
     const usuario = useSelector((store: AppStore) => store.user);
@@ -17,6 +18,7 @@ const Rutas = () => {
                     <Route path="/" element={<Home/>} />
                     <Route path="/Productos" element={<Productos/>} />
                     <Route path="/Configuracion/*" element={<Configuracion/>} />
+                    <Route path="/Usuarios/*" element={<Usuarios/>} />
                 </>
             ) : (
                 <>
