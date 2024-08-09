@@ -169,7 +169,8 @@ const ShoppingCart: React.FC<Props> = (props) => {
                     ) : (
                         <div className='ShoppingCart_Producto-null'>
                             <IonIcon className='icono' icon={cartOutline} />
-                            <p>Su carrito está vacío.</p>
+                            <h2>Su carrito está vacío.</h2>
+                            <p>Parece que aún no has encontrado lo que buscas. ¡No te preocupes! Explora nuestros productos y descubre algo que te encantará.</p>
                             <button onClick={props.onClose}>Volver a la tienda</button>
                         </div>
 

@@ -272,8 +272,10 @@
 }
 
 .ShoppingCart_Producto-null p {
-    font-size: 20px;
-    opacity: 0.5;
+    font-size: 16px;
+    opacity: 0.8;
+    margin-top: 10px;
+
 }
 
 .ShoppingCart_Producto-null button {

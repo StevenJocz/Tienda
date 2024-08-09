@@ -400,6 +400,48 @@
     color: #fff;
 }
 
+.Boton_FinalizarCompra {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.Boton_FinalizarCompra button {
+    width: auto;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 30px;
+    background-color: var(--bg-unac);
+    border: none;
+    color: var(--text-blanco);
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    font-size: 18px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+    transition: .35s cubic-bezier(.25, .1, .25, 1);
+}
+
+
+.Boton_FinalizarCompra button .icono {
+    margin-left: 10px;
+}
+
+.Boton_FinalizarCompra button:hover {
+    background-color: #000000;
+    color: #fff;
+}
+.Boton_FinalizarCompra p {
+    margin-top: 20px;
+    text-align: center;
+    color: #07940e;
+}
 .Boton_finalizar {
     width: 100%;
     display: flex;
@@ -732,4 +774,36 @@ button:nth-child(2) {
 .Checkout_Content_Resumen .Boton_Continuar button:hover {
     background-color: #000000;
     color: #fff;
+}
+
+.Checkout_Content_Resumen-null {
+    width: 100%;
+    text-align: center;
+    margin-top: 20%;
+    padding: 0 35%;
+}
+
+.Checkout_Content_Resumen-null .icono{
+    font-size: 80px;
+    opacity: 0.5;
+}
+
+.Checkout_Content_Resumen-null p {
+    font-size: 16px;
+    opacity: 0.8;
+    margin-top: 10px;
+}
+
+.Checkout_Content_Resumen-null a {
+    width: 100%;
+    height: 50px;
+    background-color: var(--bg-unac);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    color: var(--text-blanco);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './Checkout.css'
 import { useCartContext } from '../../../context/CartContext';
-import {services, Ubicacion } from '../../../models';
+import { services, Ubicacion } from '../../../models';
 import { MenuItem, Tooltip } from '@mui/material';
 import { IonIcon } from '@ionic/react';
 import {
@@ -13,8 +13,8 @@ import {
     homeOutline,
     closeOutline,
     arrowForwardOutline,
-    checkmarkOutline,
-    chevronDownOutline
+    chevronDownOutline,
+    cartOutline
 } from "ionicons/icons";
 import carro from '../../../assets/img/camion.png'
 import { api } from '../../../services';
@@ -23,14 +23,20 @@ import { AppStore } from '../../../redux/Store';
 import { useSelector } from 'react-redux';
 import { Form, Formik, FormikValues } from 'formik';
 import { Link } from 'react-router-dom';
+import { Pedido } from '../../../models/Pedido';
+import { BotonSubmit } from '../../../components/boton';
+import CompraExitosa from './CompraExitosa';
 
 
 const Checkout = () => {
+    const [msg, setMsg] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [paso, setPaso] = useState(1);
+    const [compraExitosa, setCompraExitosa] = useState(false);
     const [pasoEnvio, setPasoEnvio] = useState(1);
     const [cambiarDireccion, setCambiarDireccion] = useState(false);
     const [aplicaCupon, setAplicaCupon] = useState(false);
-    const { cartItems, removeFromCart, getTotalCartValue, updateCartItemQuantity } = useCartContext();
+    const { cartItems, removeFromCart, getTotalCartValue, updateCartItemQuantity, clearCart } = useCartContext();
     const [departamento, setDepartamento] = useState<Ubicacion[]>();
     const [municipio, setMunicipio] = useState<Ubicacion[]>();
     const [tipoVia, setTipoVia] = useState<Ubicacion[]>();
@@ -185,7 +191,6 @@ const Checkout = () => {
                 }
             }
         }
-        console.log(idCupon)
 
     }
 
@@ -202,6 +207,61 @@ const Checkout = () => {
         setResponsable(values.documentoresponsable + ' - ' + values.responsable);
         setPaso(4);
     };
+
+    const handdleEnviarPedido = async () => {
+        setIsLoading(true);
+
+        try {
+            const Pedido: Pedido = {
+                idUsuario: usuario.idUsuario,
+                subTotal: parseFloat(getTotalCartValue().toFixed(2)),
+                valorEnvio: valorEnvio,
+                idCupon: idCupon,
+                valorDescuento: valorCupon,
+                valorTotal: parseFloat(valorTotal.toFixed(2)),
+                tipoEntrega: pasoEnvio == 1 ? "	Envío" : "Recogida en el campus",
+                direccion: direccion,
+                complemento: complementario,
+                barrio: barrio,
+                destinatario: destinatario,
+                responsable: responsable,
+                registros: cartItems.map((producto, index) => ({
+                    idPedido_Registro: index + 1,
+                    idPedido: 0,
+                    idProducto: producto.idProducto,
+                    idInventario: producto.idInventario,
+                    cantidad: producto.cantidad,
+                    nombre: producto.nombre,
+                    color: producto.color,
+                    talla: producto.talla,
+                    ValorUnidad: parseFloat(producto.valor.toFixed(2))
+                }
+                ))
+            }
+
+            console.log(Pedido);
+            const response = await api.post('Pedido/Post_Registrar_Pedido', Pedido);
+            const data = response.data as { resultado: boolean; mensaje: string };
+
+            setMsg(data.mensaje);
+            setIsLoading(false);
+
+            setTimeout(() => {
+                if (data.resultado == true) {
+                    setCompraExitosa(true)
+                    clearCart();
+                }
+
+            }, 3000);
+
+
+
+        } catch (error) {
+            setMsg('Estamos presentando inconvenientes. Por favor, vuelva a intentarlo más tarde.');
+            setIsLoading(false);
+        }
+
+    }
 
 
     return (
@@ -703,8 +763,9 @@ const Checkout = () => {
                                         <p className='volverCarrito' onClick={() => setPaso(1)}>Volver al resumen de la compra</p>
                                     }
                                     {paso == 4 &&
-                                        <div className='Boton_Continuar'>
-                                            <button ><IonIcon className='icono' icon={checkmarkOutline} />Finalizar compra</button>
+                                        <div className='Boton_FinalizarCompra'>
+                                            <BotonSubmit texto={'Finalizar compra'} isLoading={isLoading} onClick={handdleEnviarPedido} color="Registrarme" />
+                                            <p>{msg}</p>
                                         </div>
                                     }
                                 </div>
@@ -715,7 +776,18 @@ const Checkout = () => {
                 </div>
             ) : (
                 <div className=''>
-                    <p>Su carrito está vacío.</p>
+                    {!compraExitosa ? (
+                        <CompraExitosa/>
+                    ) : (
+                        <div className='Checkout_Content_Resumen-null'>
+                            <IonIcon className='icono' icon={cartOutline} />
+                            <h2>Su carrito está vacío.</h2>
+                            <p>Parece que aún no has encontrado lo que buscas. ¡No te preocupes! Explora nuestros productos y descubre algo que te encantará.</p>
+                            <Link to='/'>
+                                Explorar productos
+                            </Link>
+                        </div>
+                    )}
                 </div>
             )}
         </>
