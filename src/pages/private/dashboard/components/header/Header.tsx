@@ -5,8 +5,8 @@ import { notificationsOutline, expandOutline, mailOutline} from 'ionicons/icons'
 import { Notification } from '../notification';
 import { Mail } from '../mail';
 import { useSelector } from 'react-redux';
-import { services } from '../../../../../models';
 import { AppStore } from '../../../../../redux/Store';
+import img from '../../../../../assets/img/usuario.png'
 
 const Header = () => {
   const [notification, setNotification] = useState(false);
@@ -33,7 +33,7 @@ const Header = () => {
         <IonIcon className='icono' icon={expandOutline} />
       </div>
       <div className="Header_Perfil">
-        <img src={`${services.url}/${usuario.foto}`} alt="" />
+        <img src={img} alt="" />
         <h2>{usuario.nombre}</h2>
       </div>
       {notification && <Notification />}

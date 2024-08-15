@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import { useState } from 'react';
 import { Button, InputAdornment, Pagination, TextField, Tooltip } from '@mui/material';
 import { IonIcon } from '@ionic/react';
-import { trashOutline, createOutline, searchOutline, downloadOutline, constructOutline, addOutline, peopleOutline, eyeOutline, thumbsUpOutline, checkmarkDoneOutline } from 'ionicons/icons';
+import { trashOutline, closeOutline, timeOutline, checkmarkOutline, createOutline, searchOutline, downloadOutline, constructOutline, addOutline, peopleOutline, eyeOutline, thumbsUpOutline, checkmarkDoneOutline, bonfireOutline } from 'ionicons/icons';
 import './Table.css';
 import { services } from '../../../../../models';
 
@@ -145,7 +145,10 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                     backgroundColor: '#bbf77f3d',
                     borderColor: 'rgb(149, 222, 100)',
                     width: '100%',
-                    padding: '0 20px'
+                    padding: '0 20px',
+                    borderRadius: '4px',
+                    border: '1px solid',
+                    textAlign: 'center',
                 }}>
                     Activo
                 </div>
@@ -157,7 +160,10 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                     backgroundColor: 'rgb(255, 241, 240)',
                     borderColor: 'rgb(255, 163, 158)',
                     width: '100%',
-                    padding: '0 20px'
+                    padding: '0 20px',
+                    borderRadius: '4px',
+                    border: '1px solid',
+                    textAlign: 'center',
                 }}>
                     Inactivo
                 </div>
@@ -169,11 +175,14 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
         if (boolean) {
             return (
                 <div style={{
-                    color: '#10b5b9',
-                    backgroundColor: '#7fb9f71d',
-                    borderColor: '#6489df',
+                    color: '#1890ff',
+                    backgroundColor: '#e6f7ff',
+                    borderColor: '#91d5ff',
                     width: '100%',
-                    padding: '0 20px'
+                    padding: '0 20px',
+                    borderRadius: '4px',
+                    border: '1px solid',
+                    textAlign: 'center',
                 }}>
                     Si
                 </div>
@@ -181,11 +190,14 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
         } else {
             return (
                 <div style={{
-                    color: 'rgb(0,0,0)',
+                    color: 'rgb(255, 77, 79)',
                     backgroundColor: 'rgb(255, 241, 240)',
-                    borderColor: '#696969',
+                    borderColor: 'rgb(255, 163, 158)',
                     width: '100%',
-                    padding: '0 20px'
+                    padding: '0 20px',
+                    borderRadius: '4px',
+                    border: '1px solid',
+                    textAlign: 'center',
                 }}>
                     No
                 </div>
@@ -211,42 +223,133 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
 
 
     const renderEstado = (Estado: string) => {
-        if (Estado == 'Aprobado' || Estado == 'Pagado') {
-            return (
-                <div style={{
-                    color: '#52c41a',
-                    backgroundColor: '#bbf77f3d',
-                    borderColor: 'rgb(149, 222, 100)',
-                    width: '100%',
-                    padding: '0 20px'
-                }}>
-                    {Estado}
-                </div>
-            );
-        } else if (Estado == 'En curso' || Estado == 'Pendiente') {
-            return (
-                <div style={{
-                    color: '#053e74',
-                    backgroundColor: '#106bb53d',
-                    borderColor: '#052e74',
-                    width: '100%',
-                    padding: '0 20px'
-                }}>
-                    {Estado}
-                </div>
-            );
-        } else {
-            return (
-                <div style={{
-                    color: 'rgb(255, 77, 79)',
-                    backgroundColor: 'rgb(255, 241, 240)',
-                    borderColor: 'rgb(255, 163, 158)',
-                    width: '100%',
-                    padding: '0 20px'
-                }}>
-                    {Estado}
-                </div>
-            );
+        switch (Estado) {
+            case 'Pendiente':
+                return (
+                    <div style={{
+                        color: '#053e74',
+                        backgroundColor: '#106bb53d',
+                        borderColor: '#052e74',
+                        width: '180px',
+                        padding: '0 2px',
+                        borderRadius: '4px',
+                        border: '1px solid',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        {Estado}
+                        <IonIcon
+                            className=' iconoEstado' icon={timeOutline}
+                        />
+                    </div>
+                );
+
+            case 'Pagado':
+            case 'Aprobado':
+                return (
+                    <div style={{
+                        color: '#52c41a',
+                        backgroundColor: '#bbf77f3d',
+                        borderColor: 'rgb(149, 222, 100)',
+                        width: '180px',
+                        padding: '0 2px',
+                        borderRadius: '4px',
+                        border: '1px solid',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        {Estado}
+                        <IonIcon
+                            className=' iconoEstado' icon={checkmarkOutline}
+                        />
+                    </div>
+                );
+
+            case 'Enviado':
+            case 'Listo para recogida':
+            case 'Entregado':
+                return (
+                    <div style={{
+                        color: '#1890ff',
+                        backgroundColor: '#e6f7ff',
+                        borderColor: '#91d5ff',
+                        width: '180px',
+                        padding: '0 2px',
+                        borderRadius: '4px',
+                        border: '1px solid',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        {Estado}
+                        <IonIcon
+                            className=' iconoEstado' icon={checkmarkOutline}
+                        />
+                    </div>
+                );
+
+            case 'Cancelado':
+            case 'Devuelto':
+            case 'Fallo en el pago':
+                return (
+                    <div style={{
+                        color: 'rgb(255, 77, 79)',
+                        backgroundColor: 'rgb(255, 241, 240)',
+                        borderColor: 'rgb(255, 163, 158)',
+                        width: '180px',
+                        padding: '0 2px',
+                        borderRadius: '4px',
+                        border: '1px solid',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        {Estado}
+                        <IonIcon
+                            className=' iconoEstado' icon={closeOutline}
+                        />
+                    </div>
+                );
+            case 'Preparando el pedido':
+                return (
+                    <div style={{
+                        color: '#c4971a',
+                        backgroundColor: '#f6f6b4ea',
+                        borderColor: '#c4971a',
+                        width: '180px',
+                        padding: '0 2px',
+                        borderRadius: '4px',
+                        border: '1px solid',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        {Estado}
+                        <IonIcon
+                            className=' iconoEstado' icon={bonfireOutline}
+                        />
+                    </div>
+                );
+
+            default:
+                return (
+                    <div style={{
+                        color: '#666',
+                        backgroundColor: '#f5f5f5',
+                        borderColor: '#d9d9d9',
+                        width: '180px',
+                        padding: '0 2px',
+                        borderRadius: '4px',
+                        border: '1px solid',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        {Estado}
+                    </div>
+                );
         }
     };
 
@@ -258,7 +361,10 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                     backgroundColor: '#f6f6b4ea',
                     borderColor: 'rgb(149, 222, 100)',
                     width: '100%',
-                    padding: '0 20px'
+                    padding: '0 20px',
+                    borderRadius: '4px',
+                    border: '1px solid',
+                    textAlign: 'center',
                 }}>
                     {rol}
                 </div>
@@ -270,12 +376,15 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                     backgroundColor: '#106bb53d',
                     borderColor: '#052e74',
                     width: '100%',
-                    padding: '0 20px'
+                    padding: '0 20px',
+                    borderRadius: '4px',
+                    border: '1px solid',
+                    textAlign: 'center',
                 }}>
                     {rol}
                 </div>
             );
-        } 
+        }
     };
 
     const isBase64 = (str: string) => {
@@ -377,7 +486,7 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                                                 ))}
                                             </div>
                                         );
-                                    } else if (column === 'estado') {
+                                    } else if (column === 'Estado pago' || column === 'Estado envio') {
                                         cellContent = renderEstado(row[column]);
                                     } else if (column === 'rol') {
                                         cellContent = renderRol(row[column]);

@@ -39,24 +39,25 @@ function App() {
           <Loader />
         ) : (
           <CartProvider>
-            <FavoritesProvider>
-          <Provider store={Store}>
-            <BrowserRouter>
-              <RoutesWithNotFound>
-                <Route path="/Private" element={<Navigate to={PrivateRoutes.private} />} />
-                <Route path={`${PublicRoutes.public}`} element={<Home />} />
-                <Route path={`${PublicRoutes.public}/Producto/:idProducto/*`} element={<ViewProducto />} />
-                <Route path={`${PublicRoutes.public}/Shop/:view/*`} element={<Shop />} />
-                <Route path={`${PublicRoutes.public}/Shop/Checkout`} element={<Checkout />} />
-                <Route element={<AuthGuard privateValidation={true} />}>
-                  <Route element={<RoleGuard />}>
-                    <Route path={`${PrivateRoutes.private}/*`} element={<Dashboard />} />
-                  </Route>
-                </Route>
-              </RoutesWithNotFound>
-            </BrowserRouter>
-          </Provider>
-          </FavoritesProvider>
+            <Provider store={Store}>
+              <FavoritesProvider>
+                <BrowserRouter>
+                  <RoutesWithNotFound>
+                    <Route path="/Private" element={<Navigate to={PrivateRoutes.private} />} />
+                    <Route path={`${PublicRoutes.public}`} element={<Home />} />
+                    <Route path={`${PublicRoutes.public}/Producto/:idProducto/*`} element={<ViewProducto />} />
+                    <Route path={`${PublicRoutes.public}/Shop/:view/*`} element={<Shop />} />
+                    <Route path={`${PublicRoutes.public}/Shop/Checkout`} element={<Checkout />} />
+                    <Route element={<AuthGuard privateValidation={true} />}>
+                      <Route element={<RoleGuard />}>
+                        <Route path={`${PrivateRoutes.private}/*`} element={<Dashboard />} />
+                      </Route>
+                    </Route>
+                  </RoutesWithNotFound>
+                </BrowserRouter>
+              </FavoritesProvider>
+            </Provider>
+
           </CartProvider>
         )}
       </Suspense>

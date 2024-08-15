@@ -735,6 +735,10 @@ button:nth-child(2) {
     font-style: italic;
 }
 
+.valorDescuento {
+    color: rgb(194, 9, 9);
+}
+
 .Checkout_Content_Resumen .volverCarrito {
     margin-top: 20px;
     text-decoration: underline;
@@ -806,4 +810,95 @@ button:nth-child(2) {
     border: none;
     cursor: pointer;
     text-decoration: none;
+}
+
+.CompraExitosa {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.CompraExitosa::-webkit-scrollbar {
+    width: 3px;
+}
+
+.CompraExitosa::-webkit-scrollbar-thumb {
+    background-color: #00000069;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.CompraExitosa::-webkit-scrollbar-track {
+    background-color: #262b3400;
+}
+
+.order-confirmation {
+    color: #333;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 650px;
+    margin: 20px auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: 2%;
+}
+
+.order-confirmation h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.order-confirmation p {
+    margin: 10px 0;
+}
+
+.order-confirmation ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.order-confirmation li {
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.order-confirmation span {
+    font-weight: bold;
+    display: block;
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.order-confirmation p:last-of-type {
+    margin-top: 30px;
+    text-align: center;
+}
+
+
+.order-confirmation a {
+    width: 100%;
+    height: 50px;
+    background-color: var(--bg-unac);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    color: var(--text-blanco);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.order-confirmation img {
+    width: 40px !important;
+    height: 40px !important;
 }

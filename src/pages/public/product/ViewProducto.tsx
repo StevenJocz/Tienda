@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom';
 import { services } from '../../../models';
 import { BorderLinearProgress } from '../../../utilities/SelectProps';
 import { useFavoritesContext } from '../../../context/Favoritos';
+import Comentarios from '../../../components/comentarios/Comentarios';
 
 
 const ViewProducto = () => {
@@ -129,7 +130,7 @@ const ViewProducto = () => {
             idProducto: parseInt(idProducto),
             idInventario: producto[0].idInventario,
             cantidad: cantidadSeleccionada,
-            valor: precio ,
+            valor: precio,
             nombre: producto[0].nombre,
             src: imagenSeleccionada?.imagen || '',
             color: imagenSeleccionada?.color || '',
@@ -256,13 +257,13 @@ const ViewProducto = () => {
                                     <h4>{cantidadSeleccionada}</h4>
                                     <IonIcon className='icono' icon={addOutline} onClick={() => handleSelectCantidad(1)} />
                                 </div>
-                                <Tooltip title={isFavorite(producto.id) ? 'Eliminar de lista de deseos'  : 'Añadir a la lista de deseos'} placement="top" disableInteractive >
+                                <Tooltip title={isFavorite(producto.id) ? 'Eliminar de lista de deseos' : 'Añadir a la lista de deseos'} placement="top" disableInteractive >
                                     <div className='Producto_main--acciones-addDeseos'>
-                                    <IonIcon
-                                    className={`icono ${isFavorite(producto.id) ? 'favorite' : ''}`}
-                                    icon={isFavorite(producto.id) ? heartSharp : heartOutline}
-                                    onClick={() => handleToggleFavorite(producto.id)}
-                                />
+                                        <IonIcon
+                                            className={`icono ${isFavorite(producto.id) ? 'favorite' : ''}`}
+                                            icon={isFavorite(producto.id) ? heartSharp : heartOutline}
+                                            onClick={() => handleToggleFavorite(producto.id)}
+                                        />
                                     </div>
                                 </Tooltip>
                             </div>
@@ -272,7 +273,6 @@ const ViewProducto = () => {
                             <div className='Producto_main--menu'>
                                 <ul>
                                     <li onClick={handleGuia}>Guía de tallas</li>
-                                    <li>Entrega y devolución</li>
                                     <li>Hacer una pregunta</li>
                                 </ul>
                             </div>
@@ -292,16 +292,19 @@ const ViewProducto = () => {
                     <div className='Producto_Descripcion'>
                         <div className='Producto_Descripcion--menu'>
                             <ul>
-                                <li onClick={() => handleMenu(1)}>Descripción</li>
-                                <li onClick={() => handleMenu(2)}>Comentarios</li>
+                                <li onClick={() => handleMenu(1)}>Calificaciones y reseñas</li>
+                                <li onClick={() => handleMenu(2)}>Descripción</li>
+
                             </ul>
                         </div>
                         {menu == 1 ? (
                             <div className='Producto_Descripcion-info'>
-                                <div dangerouslySetInnerHTML={{ __html: producto.informacion }} />
+                                < Comentarios idProducto={parseInt(idProducto)}/>
                             </div>
                         ) : (
+
                             <div className='Producto_Descripcion-info'>
+                                <div className='Producto_Descripcion-info_text' dangerouslySetInnerHTML={{ __html: producto.informacion }} />
                             </div>
                         )}
                     </div>

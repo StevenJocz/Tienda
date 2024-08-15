@@ -1,0 +1,51 @@
+.ViewUsuarios_Content {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.ViewUsuarios_Content_right {
+    width: 25%;
+}
+
+.ViewUsuarios_Content-content {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #57575731;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.ViewUsuarios_Content-content img {
+    width: 100px;
+    height: 100px;
+}
+
+.ViewUsuarios_Content-content h2 {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+    color: rgba(0, 0, 0, 0.692);
+}
+
+.ViewUsuarios_Content-content h3 {
+    font-size: 17px;
+    margin-top: 0;
+    color: rgba(0, 0, 0, 0.904);
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+.ViewUsuarios_Content_left {
+    width: 75%;
+}

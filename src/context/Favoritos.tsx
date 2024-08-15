@@ -1,5 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { persistLocalStorage, clearLocalStorage } from '../utilities';
+import { Favoritos } from '../models/Productos';
+import { api } from '../services';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../redux/Store';
 
 // Define la interfaz para el contexto de favoritos
 interface FavoritesContextProps {
@@ -26,39 +30,69 @@ export const useFavoritesContext = () => {
 export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     // Estado para almacenar los IDs de los productos favoritos
     const [favoriteProductIds, setFavoriteProductIds] = useState<number[]>([]);
+    const usuario = useSelector((store: AppStore) => store.user);
 
-    // Cargar datos de favoritos desde localStorage al cargar el componente
-    useEffect(() => {
-        const savedFavorites = localStorage.getItem('favoriteProductIds');
-        if (savedFavorites) {
-            setFavoriteProductIds(JSON.parse(savedFavorites));
+    // Función para obtener los favoritos desde la API
+    const fetchFavorites = async () => {
+        console.log('usuario.idUsuario', usuario.idUsuario);
+        try {
+            const response = await api.get<Favoritos[]>('Producto/Get_Favoritos', {accion: 1, idUsuario: usuario.idUsuario  });
+            
+            if (response.data) {
+                // Extraer solo los idProducto del response
+                const productIds = response.data.map(favorito => favorito.idProducto);
+                setFavoriteProductIds(productIds);
+                localStorage.setItem('favoriteProductIds', JSON.stringify(productIds));
+            }
+        } catch (error) {
+            console.error('Error al obtener los favoritos:', error);
         }
-    }, []);
+    };
+
+    // Ejecutar fetchFavorites al montar el componente y cuando cambia el usuario
+    useEffect(() => {
+        if (usuario?.idUsuario) {
+            fetchFavorites();
+        }
+    }, [usuario.idUsuario]);
 
     // Actualizar localStorage cada vez que cambien los favoritos
     useEffect(() => {
         if (favoriteProductIds.length > 0) {
             persistLocalStorage('favoriteProductIds', favoriteProductIds);
         } else {
-            clearLocalStorage('favoriteProductIds'); 
+            clearLocalStorage('favoriteProductIds');
         }
     }, [favoriteProductIds]);
 
     // Función para agregar un producto a los favoritos
-    const addToFavorites = (productId: number) => {
+    const addToFavorites = async (productId: number) => {
         if (!favoriteProductIds.includes(productId)) {
-            setFavoriteProductIds([...favoriteProductIds, productId]);
+            const updatedFavorites = [...favoriteProductIds, productId];
+            setFavoriteProductIds(updatedFavorites);
+            const favoritos: Favoritos = {
+                idDeseos: 0,
+                idProducto: productId,
+                idUsuario: usuario.idUsuario,
+                fechaAgregado: new Date().toISOString()  // Fecha actual en formato ISO
+            };
+            await api.post<any>('Producto/Post_Agregar_Favoritos', favoritos);
+            persistLocalStorage('favoriteProductIds', updatedFavorites);  // Actualiza el localStorage inmediatamente
         }
     };
 
     // Función para eliminar un producto de los favoritos
-    const removeFromFavorites = (productId: number) => {
-        setFavoriteProductIds(favoriteProductIds.filter(id => id !== productId));
+    const removeFromFavorites = async (productId: number) => {
+        const updatedFavorites = favoriteProductIds.filter(id => id !== productId);
+        setFavoriteProductIds(updatedFavorites);
+        await api.delete<any>(`Producto/Delete_Eliminar_Favoritos?idProducto=${productId}&idUsuario=${usuario.idUsuario}`);
+        persistLocalStorage('favoriteProductIds', updatedFavorites);  // Actualiza el localStorage inmediatamente
     };
 
     // Función para vaciar los favoritos
     const clearFavorites = () => {
         setFavoriteProductIds([]);
+        clearLocalStorage('favoriteProductIds');
     };
 
     // Función para verificar si un producto es favorito

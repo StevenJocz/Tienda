@@ -53,8 +53,11 @@ const Nav = () => {
     const logOut = () => {
         clearLocalStorage(UserKey);
         clearLocalStorage(TokenKey);
+        clearLocalStorage('favoriteProductIds');
+        clearLocalStorage('cartItems');
         dispatch(resetUser());
         setLogin(false);
+        window.location.reload();
     };
 
     return (

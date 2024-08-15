@@ -48,3 +48,18 @@ export interface Usuario {
   password: string;
   fechaRegistro: Date;
 }
+
+export interface UsuarioInformacion {
+  idUsuario: number;
+  tipoUsuario: string;
+  nombre: string;
+  apellido: string;
+  tipoDocumento: string;
+  documento: string;
+  fechaNacimiento: string;  
+  celular: string;
+  ubicacion: string;
+  direccion: string;
+  correo: string;
+  fechaRegistro: string; 
+}

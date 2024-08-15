@@ -166,3 +166,8 @@
 .TableAsistencia .DynamicTable_acciones {
     margin-bottom: 20px;
 }
+
+.iconoEstado {
+    font-size: 12px;
+    margin-left: 7px;
+}

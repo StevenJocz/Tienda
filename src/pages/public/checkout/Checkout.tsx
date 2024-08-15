@@ -56,6 +56,8 @@ const Checkout = () => {
     const [cupon, setCupon] = useState('');
     const [textCupon, setTextCupon] = useState('');
     const [monto, setMonto] = useState(0);
+    const [objetoPedido, setobjectoPedido] = useState<Pedido>();
+    const [orden, setOrden] = useState(1);
 
     useEffect(() => {
         hadleGetMonto();
@@ -232,27 +234,29 @@ const Checkout = () => {
                     idInventario: producto.idInventario,
                     cantidad: producto.cantidad,
                     nombre: producto.nombre,
-                    color: producto.color,
+                    color: producto.nombreColor,
                     talla: producto.talla,
-                    ValorUnidad: parseFloat(producto.valor.toFixed(2))
+                    ValorUnidad: parseFloat(producto.valor.toFixed(2)),
+                    imagen: producto.src
                 }
                 ))
             }
 
-            console.log(Pedido);
             const response = await api.post('Pedido/Post_Registrar_Pedido', Pedido);
-            const data = response.data as { resultado: boolean; mensaje: string };
+            const data = response.data as { resultado: boolean; mensaje: string ; orden: number};
 
             setMsg(data.mensaje);
+            setOrden(data.orden);
             setIsLoading(false);
 
             setTimeout(() => {
                 if (data.resultado == true) {
+                    setobjectoPedido(Pedido)
                     setCompraExitosa(true)
                     clearCart();
                 }
 
-            }, 3000);
+            }, 1000);
 
 
 
@@ -752,7 +756,7 @@ const Checkout = () => {
                                     </div>
                                     <div className='Checkout_Content_Resumen_valores '>
                                         <h3><span>Descuento: </span></h3>
-                                        <h3>${valorCupon.toLocaleString()}</h3>
+                                        <h3 className={valorCupon > 0 ? 'valorDescuento': ''}>{valorCupon > 0 ? '-': ''}${valorCupon.toLocaleString()}</h3>
                                     </div>
                                     <div className='Checkout_Content_Resumen_Tvalores'>
                                         <h3><span>Total: </span></h3>
@@ -776,8 +780,9 @@ const Checkout = () => {
                 </div>
             ) : (
                 <div className=''>
-                    {!compraExitosa ? (
-                        <CompraExitosa/>
+                    {compraExitosa ? (
+                        objetoPedido && <CompraExitosa data={objetoPedido} orden={orden}/>
+                        
                     ) : (
                         <div className='Checkout_Content_Resumen-null'>
                             <IonIcon className='icono' icon={cartOutline} />

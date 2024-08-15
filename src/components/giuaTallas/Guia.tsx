@@ -61,39 +61,39 @@ const Guia: React.FC<Props> = (props) => {
         }
     ]
 
-    const tallaHombres =[
+    const tallaHombres = [
         {
-          "Talla": "XS",
-          "Pecho": 94,
-          "Cintura": 77
+            "Talla": "XS",
+            "Pecho": 94,
+            "Cintura": 77
         },
         {
-          "Talla": "S",
-          "Pecho": 99,
-          "Cintura": 82
+            "Talla": "S",
+            "Pecho": 99,
+            "Cintura": 82
         },
         {
-          "Talla": "M",
-          "Pecho": 103,
-          "Cintura": 87
+            "Talla": "M",
+            "Pecho": 103,
+            "Cintura": 87
         },
         {
-          "Talla": "L",
-          "Pecho": 109,
-          "Cintura": 92
+            "Talla": "L",
+            "Pecho": 109,
+            "Cintura": 92
         },
         {
-          "Talla": "XL",
-          "Pecho": 115,
-          "Cintura": 97
+            "Talla": "XL",
+            "Pecho": 115,
+            "Cintura": 97
         },
         {
-          "Talla": "XXL",
-          "Pecho": 121,
-          "Cintura": 102
+            "Talla": "XXL",
+            "Pecho": 121,
+            "Cintura": 102
         }
-      ]
-      
+    ]
+
 
     return (
         <div className='Guia'>

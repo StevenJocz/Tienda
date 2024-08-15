@@ -70,5 +70,11 @@ export interface InventarioSION {
     codigo: string;
     nombre: string;
     precio: number;
+}
 
+export interface Favoritos {
+    idDeseos: number;
+    idProducto: number;
+    idUsuario: number;
+    fechaAgregado: string;
 }

@@ -1,0 +1,99 @@
+.Comentarios {
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.css-d1ybhn-MuiRating-root {
+    font-size: 2.5rem !important;
+}
+
+.Comentarios_Ranting {
+    display: flex;
+    align-items: center;
+}
+
+.Comentarios_Ranting h3 {
+    font-size: 2rem;
+    margin-right: 20px;
+}
+
+.Comentarios_Ranting h3 span{
+    font-size: 1.5rem;
+    color: #868686;
+}
+
+.Comentarios_Ranting h4 {
+    font-size: 1.5rem;
+    margin-right: 20px;
+    margin-left: 10px;
+    font-weight: 400;
+}
+
+.Comentarios_buton {
+    margin-top: 20px;
+}
+
+.Comentarios_buton  button {
+    width: 250px;
+    height: 30px;
+    background-color: var(--bg-unac);
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    color: var(--text-blanco);
+    cursor: pointer;
+    border: none;
+}
+
+.Comentarios_buton  button:hover {
+    background-color: var(--bg-unac-hover);
+}
+
+.Comentarios_Content {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.Comentarios_Content_Card {
+    width: 100%;
+    border-top: 1px solid #47474731;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.Comentarios_Content_Card_Head {
+    display: flex;
+    align-items: center;
+}
+
+.Comentarios_Content_Card_Head h4 {
+    margin-left: 10px;
+}
+
+.Comentarios_Content_Card h3 {
+    font-size: 15px;
+    color: #868686;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.Comentarios_Content_Card p {
+    font-size: 15px;
+    color: #000000;
+    margin-top: 10px;
+}
+
+.Comentarios_Content_Card_Imagenes{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+}
+
+.Comentarios_Content_Card_Imagenes img{
+    width: 100%;
+    height: 200px;
+}

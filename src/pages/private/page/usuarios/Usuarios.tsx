@@ -3,11 +3,12 @@ import { api } from "../../../../services";
 import { Breadcrumbs, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Table } from "../../dashboard/components/table";
+import ViewUsuarios from "./ViewUsuarios";
 
 const Usuarios = () => {
     const [data, setData] = useState<any>(null);
-    const [verAddUsuario, setVerAddUsuario] = useState(false);
-   //const [idUsuario, setIdUsuario] = useState(0);
+    const [verUsuario, setVerUsuario] = useState(false);
+    const [idUsuario, setIdUsuario] = useState(0);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -17,18 +18,18 @@ const Usuarios = () => {
     }, [loading]);
 
 
-    // const handleAddUsuario = (id: number) => {
-    //     setIdUsuario(id);
-    //     setVerAddUsuario(true);
-    // }
+    const handleVerUsuario = (id: number) => {
+        setIdUsuario(id);
+        setVerUsuario(true);
+    }
 
     const hadleGetUsuario = () => {
         api.get<any>('Usuario/Get_Usuario').then((response) => {
             const productos = response.data.map((producto: any) => ({
                 id: producto.idUsuario,
-                nombre: producto.nombre + ' ' + producto.apellido, 
-                docuemento: producto.tipoDocumento + ' ' + producto.documento, 
-                celular:producto.celular,
+                nombre: producto.nombre + ' ' + producto.apellido,
+                documento: producto.documento,
+                celular: producto.celular,
                 fechaRegistro: new Date(producto.fechaRegistro).toISOString().split('T')[0],
                 rol: producto.tipoUsuario,
             }));
@@ -45,25 +46,26 @@ const Usuarios = () => {
                 <Link to="/Dashboard" color="inherit">
                     Dashboard
                 </Link>
-                {verAddUsuario == true && (
-                    <Link to="/Dashboard/Usuarios" onClick={() => setVerAddUsuario(false)} color="inherit">
-                        Usuarios
+                {verUsuario == true && (
+                    <Link to="/Dashboard/Usuarios" onClick={() => setVerUsuario(false)} color="inherit">
+                        Lista de usuarios
                     </Link>
                 )}
-                <Typography color="text.primary">{verAddUsuario == true ? ('Crear Usuario') : ('Usuarios')}</Typography>
+                <Typography color="text.primary">{verUsuario == true ? ('Usuario') : ('Lista usuarios')}</Typography>
             </Breadcrumbs>
-            {verAddUsuario == true ? (
-                // <AddProductos mostrarRegistro={() => setVerAddProducto(false)} idProducto={idProducto} actualizarDatos={hadleGetCProdcutos} />
-                <div></div>
+            {verUsuario == true ? (
+                <ViewUsuarios mostrarRegistro={() => setVerUsuario(false)} idUsuario={idUsuario} actualizarDatos={hadleGetUsuario} />
             ) : (
                 <>
-                    <h2>Usuarios</h2>
+                    <h2>Lista de usuarios</h2>
                     <div className="Layout_contenedor">
                         {data && (
                             <Table
                                 data={data}
+                                mostrarRegistro={handleVerUsuario}
                                 verBotonBuscador={true}
                                 verBotonExportar={true}
+                                verBotonEditar={true}
                             />
                         )}
                     </div>

@@ -30,7 +30,6 @@
     background: none;
     border: none;
     color: #1677ff;
-    font-family: "Neue Plak Extended Bold", serif;
     font-size: 11px;
     font-style: normal;
     cursor: pointer;
@@ -46,7 +45,6 @@
 }
 
 .Notification_header h3 {
-    font-family: "Neue Plak Extended Bold", serif;
     color: #0303039f;
     font-size: 15px;
     font-style: normal;
@@ -108,12 +106,10 @@
 }
 
 .Notification_content-items-content h2 {
-    font-family: "Neue Plak Extended Bold", serif;
     font-size: 15px;
 }
 
 .Notification_content-items-content p {
-    font-family: "Neue Plak Regular", serif;
     font-size: 14px;
 }
 

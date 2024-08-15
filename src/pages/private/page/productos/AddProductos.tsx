@@ -48,6 +48,13 @@ const AddProductos: React.FC<Props> = (props) => {
 
 
   useEffect(() => {
+    const mainContainer = document.getElementById('main');
+    if (mainContainer) {
+      mainContainer.scrollTop = 0;
+    }
+  }, []);
+
+  useEffect(() => {
     hadleGetCategorias();
     hadleGetTag();
     hadleGetInventarioSion();
@@ -77,7 +84,7 @@ const AddProductos: React.FC<Props> = (props) => {
     });
   };
 
-  
+
   const hadleGetIdInventarioSion = async (idInventario: number) => {
     // Solicitud GET
     await api.get<any>('Producto/Get_Id_Inventario', { idInventario: idInventario }).then((response) => {
@@ -292,7 +299,7 @@ const AddProductos: React.FC<Props> = (props) => {
       if (props.idProducto > 0) {
         console.log(Addproducto);
         await api.put<any>('Producto/Put_Actualizar_Producto', Addproducto);
-        
+
       } else {
         await api.post<any>('Producto/Post_Crear_Producto', Addproducto);
       }
@@ -651,7 +658,7 @@ const AddProductos: React.FC<Props> = (props) => {
                             </MenuItem>
                           ))}
                         </StyledTextField>
-                        
+
                       </div>
                       <div className="AddProductos_Formulario_input">
                         <StyledFormControl variant="outlined" size="small">

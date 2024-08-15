@@ -7,6 +7,7 @@ import { Home } from '../../../page/home';
 import { Productos } from '../../../page/productos';
 import { Configuracion } from '../../../page/configuracion';
 import { Usuarios } from '../../../page/usuarios';
+import { Pedidos } from '../../../page/pedidos';
 
 const Rutas = () => {
     const usuario = useSelector((store: AppStore) => store.user);
@@ -19,6 +20,7 @@ const Rutas = () => {
                     <Route path="/Productos" element={<Productos/>} />
                     <Route path="/Configuracion/*" element={<Configuracion/>} />
                     <Route path="/Usuarios/*" element={<Usuarios/>} />
+                    <Route path="/Pedidos/*" element={<Pedidos/>} />
                 </>
             ) : (
                 <>
