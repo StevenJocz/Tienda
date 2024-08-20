@@ -26,6 +26,8 @@ const ViewProducto = () => {
     const [menu, setMenu] = useState(1);
     const [guia, setGuia] = useState(false);
     const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [calificacion, setCalificacion] = useState(0);
+    const [cantidadComentarios, setCantidadComentarios] = useState<number | null>(null);
 
     const { idProducto: idProductoFromParams } = useParams<{ idProducto: string | undefined }>();
     const idProducto = idProductoFromParams ?? '';
@@ -143,7 +145,9 @@ const ViewProducto = () => {
         setOpenSnackbar(true);
 
     }
-
+    useEffect(() => {
+        // Aquí se cargan los comentarios nuevamente cuando cambia el idProducto
+    }, [idProducto]);
 
     const handleMenu = (opcion: number) => {
         setMenu(opcion);
@@ -155,6 +159,14 @@ const ViewProducto = () => {
 
     const handleCloseSnackbar = () => {
         setOpenSnackbar(false);
+    };
+
+    const handleCalificacion = (promedio: number) => {
+        setCalificacion(promedio);
+    };
+
+    const handleCantidadComentarios = (valor: number) => {
+        setCantidadComentarios(valor);
     };
 
     return (
@@ -193,18 +205,22 @@ const ViewProducto = () => {
                                             &&
                                             <span>${precioFinal.toLocaleString()}</span>}
                                     </h4>
-                                    <p>En stock</p>
+                                    <p>{producto.stock == 0 ?"": "En stock"}</p>
                                 </div>
                                 <p className='Producto_main--info-Header_iva'>*IVA incluido</p>
                             </div>
                             <div className='Producto_main--info-descripcion'>
                                 <div className='Producto_main--info-descripcion-extrellas'>
-                                    <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
-                                    <p>(11 Comentarios)</p>
+                                    <Rating name="half-rating-read"
+                                        max={5}
+                                        readOnly
+                                        precision={0.5}
+                                        value={calificacion} />
+                                    <p>({cantidadComentarios} Comentarios)</p>
                                 </div>
                                 <p>{producto.descripcion}</p>
                                 <h4>¡APURARTE! SOLO QUEDAN <span>{producto.stock}</span> EN STOCK.</h4>
-                                <BorderLinearProgress variant="determinate" value={10} />
+                                <BorderLinearProgress variant="determinate" value={producto.stock} />
                             </div>
                             {producto.descuento > 0 && new Date(producto.fechaFinDescuento).getTime() - new Date().getTime() > 0 &&
                                 <div className='Producto_main--info-oferta'>
@@ -299,7 +315,11 @@ const ViewProducto = () => {
                         </div>
                         {menu == 1 ? (
                             <div className='Producto_Descripcion-info'>
-                                < Comentarios idProducto={parseInt(idProducto)}/>
+                                <Comentarios
+                                    idProducto={parseInt(idProducto)}
+                                    calificacion={handleCalificacion}
+                                    cantidad={handleCantidadComentarios}
+                                />
                             </div>
                         ) : (
 

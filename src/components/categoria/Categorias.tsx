@@ -36,15 +36,18 @@ const Categorias = () => {
             {categoriasChunks.map((chunk, chunkIndex) => (
                 <div key={chunkIndex} className={`Categorias_Content--${chunkIndex % 2 === 0 ? 'Dos' : 'Uno'}`}>
                     {chunk.map((cat, index) => (
+
                         <div className="" key={index}>
-                            <h3>{cat.titulo}</h3>
-                            <h2>{cat.descripcion}</h2>
-                            <h1>{cat.nombre}</h1>
                             <Link to={`/Shop/${cat.idCategoria}/${encodeURIComponent(cat.nombre.toLowerCase().replace(/ /g, '-'))}`}   >
-                                <button>Ver categoría</button>
+                                <h3>{cat.titulo}</h3>
+                                <h2>{cat.descripcion}</h2>
+                                <h1>{cat.nombre}</h1>
+
+
+                                <img src={Imagenes_URL + '/' + cat.imagen} alt="" />
                             </Link>
-                            <img src={Imagenes_URL + '/' + cat.imagen} alt="" />
                         </div>
+
                     ))}
                 </div>
             ))}

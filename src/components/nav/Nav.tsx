@@ -71,7 +71,8 @@ const Nav = () => {
             </div>
             <div className='Menu_right'>
                 <p>¿NECESITAS AYUDA?</p>
-                <IonIcon className='icono' icon={searchOutline} />
+                <Link to={'/Shop/0/TodasCategorias'}> <IonIcon className='icono' icon={searchOutline} /></Link>
+
                 <IonIcon className='icono' icon={notificationsOutline} />
                 <IonIcon className='icono' icon={heartOutline} onClick={handleFavoritos} />
                 <div className='Menu_right--icono' onClick={handleShoppingCart} >
@@ -88,9 +89,26 @@ const Nav = () => {
                             {verMenuPerfil &&
                                 <div className='Menu_right_Perfil_Content'>
                                     <ul>
-                                        <li className="" onClick={handleMiCuenta}>Mi cuenta</li>
+                                        <li
+                                            className=""
+                                            onClick={() => {
+                                                handleMiCuenta();
+                                                handleMenuPerfil();
+                                            }}
+                                        >
+                                            Mi cuenta
+                                        </li>
                                         {usuario.tipoUsuario == 1 &&
-                                            <Link to={`/${PrivateRoutes.private}`}> <li className="">Panel Administrador</li></Link>
+                                            <>
+                                                <Link
+                                                    to={`/${PrivateRoutes.private}`}>
+                                                    <li className="">Mis pedidos</li>
+                                                </Link>
+                                                <Link
+                                                    to={`/${PrivateRoutes.private}`}>
+                                                    <li className="">Panel Administrador</li>
+                                                </Link>
+                                            </>
                                         }
                                         <li className="" onClick={logOut}>Salir</li>
                                     </ul>
@@ -106,7 +124,7 @@ const Nav = () => {
                 )}
             </div>
             {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} mostrarInicio={() => setSesion(true)} />}
-            {favoritos && <Favoritos onClose={() => setFavoritos(false)} filtros={{}}/>}
+            {favoritos && <Favoritos onClose={() => setFavoritos(false)} filtros={{}} />}
             {verMiCuenta && <MiCuenta onClose={() => setVerMiCuenta(false)} />}
             {isSesion && (
                 <Login

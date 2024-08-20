@@ -7,6 +7,7 @@ export interface ComentarioImagen {
 export interface Comentario {
     idComentario: number;
     idProducto: number;
+    nombreUsuario?: string;
     idUsuario: number;
     comentario: string;
     fecha: Date; // ISO 8601 date string

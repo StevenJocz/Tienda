@@ -70,7 +70,6 @@ const MiCuenta: React.FC<Props> = (props) => {
                     <li className={menu == 1 ? 'Activo' : ''} onClick={() => handdleMenu(1)}>Información personal</li>
                     <li className={menu == 2 ? 'Activo' : ''} onClick={() => handdleMenu(2)}>Residencia</li>
                     <li className={menu == 3 ? 'Activo' : ''} onClick={() => handdleMenu(3)}>Cambio de contraseña</li>
-                    <li className={menu == 4 ? 'Activo' : ''} onClick={() => handdleMenu(4)}>Mis compras</li>
                 </ul>
                 <div className='MiCuenta_Content'>
                     {menu == 1 &&

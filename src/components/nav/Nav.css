@@ -203,7 +203,7 @@
     background-color: #ffffff;
     padding: 10px;
     border-radius: 8px;
-    z-index: 1000;
+    z-index: 10001;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;

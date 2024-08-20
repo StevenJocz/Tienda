@@ -5,6 +5,7 @@
 }
 
 .Categorias a {
+    width: 100%;
     text-decoration: none;
 }
 .Categorias_Content--Uno,

@@ -134,6 +134,9 @@ const AddComentario: React.FC<Props> = (props) => {
             // Solicitud POST
             const response = await api.post<any>('Comentario/Post_Agregar_Comentario', Objcomentario);
             if (response.data.resultado === true) {
+                if (props.actualizarDatos) {
+                    props.actualizarDatos();
+                }
                 props.onClose();
             }
 

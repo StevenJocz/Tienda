@@ -215,16 +215,20 @@ const ViewPedidos: React.FC<Props> = (props) => {
                 </div>
 
                 <div className="ViewPedidos_Content_let">
-                    <div className="AddCursos_Formulario-content">
-                        <Button
-                            variant="contained"
-                            size="small"
-                            color="warning"
-                            startIcon={<IonIcon className='' icon={documentTextOutline} />}
-                        >
-                            Descargar factura
-                        </Button>
-                    </div>
+                    {pedidos?.idEstadoPedido == 2 &&
+                        <div className="AddCursos_Formulario-content">
+                            <Button
+                                variant="contained"
+                                size="small"
+                                color="warning"
+                                startIcon={<IonIcon className='' icon={documentTextOutline} />}
+                            >
+                                Descargar factura
+                            </Button>
+                        </div>
+
+                    }
+
                     <div className="AddCursos_Formulario-content">
                         <h2>Estado del pedido</h2>
                         <Formik

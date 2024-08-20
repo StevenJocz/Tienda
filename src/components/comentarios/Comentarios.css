@@ -97,3 +97,30 @@
     width: 100%;
     height: 200px;
 }
+
+.Comentarios_boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Comentarios_SinComentarios {
+    width: 100%;
+}
+.Comentarios_SinComentarios img {
+    width: 200px;
+}
+
+.Comentarios_boton  button {
+    width: 250px;
+    height: 30px;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    color: var(--text-unac);
+    cursor: pointer;
+    border: none;
+    border: solid 1px #000000;
+}
