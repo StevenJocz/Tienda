@@ -7,7 +7,6 @@
 }
 
 .Card h3 {
-    font-family: "Neue Plak Extended Bold", serif;
     color: #0303039f;
     font-size: 17px;
     font-style: normal;
@@ -20,9 +19,8 @@
 }
 
 .Card div p {
-    font-family: "Neue Plak Regular", serif;
     color: #000000;
-    font-size: 18px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 900;
 }
@@ -30,9 +28,8 @@
 .Card div button {
     display: flex;
     align-items: center;
-    margin-left: 30px;
+    margin-left: 15px;
     padding: 3px 10px;
-    margin-top: 10px;
     color: rgb(22, 119, 255);
     background-color: rgb(230, 244, 255);
     border-color: rgb(105, 177, 255);
@@ -63,11 +60,10 @@
 }
 
 .Card div button .icono {
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .Card div button .iconoDos {
-    margin-right: 10px;
     transform: rotate(70deg);
     -webkit-transform: rotate(70deg);
     -moz-transform: rotate(70deg);
@@ -76,11 +72,10 @@
 }
 
 .Card p {
-    font-family: "Neue Plak Regular", serif;
     color: #0303039f;
     font-size: 14px;
     font-style: normal;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .Card span {

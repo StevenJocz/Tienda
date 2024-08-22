@@ -1,5 +1,6 @@
 export const PublicRoutes = {
-    public: ''
+    public: '',
+    Mispedidos: 'MisPedidos'
 };
 
 export const PrivateRoutes = {

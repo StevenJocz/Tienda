@@ -348,3 +348,12 @@
    color: #15a0fd;
 
 }
+
+.Login_content_direccion {
+    color: #00000069;
+    font-size: 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

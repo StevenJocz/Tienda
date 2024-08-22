@@ -17,6 +17,7 @@ import { services } from '../../../models';
 import { BorderLinearProgress } from '../../../utilities/SelectProps';
 import { useFavoritesContext } from '../../../context/Favoritos';
 import Comentarios from '../../../components/comentarios/Comentarios';
+import { Footer } from '../../../components/footer';
 
 
 const ViewProducto = () => {
@@ -205,7 +206,7 @@ const ViewProducto = () => {
                                             &&
                                             <span>${precioFinal.toLocaleString()}</span>}
                                     </h4>
-                                    <p>{producto.stock == 0 ?"": "En stock"}</p>
+                                    <p>{producto.stock == 0 ? "" : "En stock"}</p>
                                 </div>
                                 <p className='Producto_main--info-Header_iva'>*IVA incluido</p>
                             </div>
@@ -334,6 +335,7 @@ const ViewProducto = () => {
                         descripcion="Explora nuestros favoritos: los productos más populares de la temporada."
                         filtros={{ categoria: '' }}
                     />
+                    <Footer />
                 </div>
                 {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} />}
                 <Snackbar

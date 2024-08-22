@@ -5,53 +5,54 @@
 }
 
 .Header_Iconos {
-    margin-right: 10px;
-    margin-top: 10px;
+    display: flex;
+
 }
 
 .Header_Iconos .icono {
-    font-size: 20px;
+    font-size: 25px;
     margin-right: 10px;
-    color: #0303039f;
+    color: #03030379;
     padding: 5px;
+}
+
+
+.Header_Iconos_content {
+    display: flex;
     position: relative;
     cursor: pointer;
+
 }
 
-.Header_Iconos .icono:nth-child(1)::after {
-    content: '';
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: #1677ff;
+.Header_Iconos_content div {
     position: absolute;
-    top: 0;
+    top: -7px;
     right: 0;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2A5783;
+
+   border-radius: 100% 100% 100% 5px;
+    -webkit-border-radius: 100% 100% 100% 5px;
+    -moz-border-radius: 100% 100% 100% 5px;
+    -ms-border-radius: 100% 100% 100% 5px;
+    -o-border-radius: 100% 100% 100% 5px;
+    animation: divanimate 2s infinite;
+    -webkit-animation: divanimate 2s infinite;
 }
 
-.Header_Iconos .icono:nth-child(2)::after {
-    content: '';
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: #23cb8d;
-    position: absolute;
-    top: 0;
-    right: 0;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-
+.Header_Iconos_content div p {
+    font-size: 10px;
+    padding: 5px;
+    color: #fff;
+    font-weight: 500;
+    animation: divanimate 2s infinite;
+    -webkit-animation: divanimate 2s infinite;
 }
 
-.Header_Iconos .icono:hover {
-    background-color: #def8fa;
-}
 
 .Header_Perfil {
     display: flex;

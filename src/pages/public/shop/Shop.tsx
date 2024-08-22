@@ -9,6 +9,7 @@ import { Categoria } from '../../../models/categoria';
 import { api } from '../../../services';
 import { services } from '../../../models';
 import img from '../../../assets/img/Logo.png'
+import { Footer } from '../../../components/footer';
 
 
 const Shop = () => {
@@ -171,6 +172,7 @@ const Shop = () => {
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
         </div>
     )

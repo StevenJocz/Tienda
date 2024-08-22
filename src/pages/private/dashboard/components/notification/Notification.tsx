@@ -1,94 +1,75 @@
-import './Notification.css'
+import './Notification.css';
 import { IonIcon } from '@ionic/react';
-import { medalOutline, timeOutline, personAddOutline, peopleOutline } from 'ionicons/icons';
-
+import {  timeOutline } from 'ionicons/icons';
+import { Link } from 'react-router-dom';
+import { IconoComponet } from '../iconoComponet';
 
 const Notification = () => {
   return (
     <div className='Notification'>
       <div className="Notification_header">
         <h3>Notificaciones</h3>
-        <button>Marcar todas como leidos</button>
       </div>
       <div className="Notification_content">
-        <div className="Notification_content-items  Notification_Nuevas">
-          <div className='Notification_content-items-photo'>
-            <img src="https://mantisdashboard.io/assets/avatar-1-51c6502a.png" alt="" />
+
+        <Link to={`/Dashboard/Pedidos/${2}`}>
+          <div className="Notification_content-items items_Tipo_1 Notification_Pedidos">
+            <IconoComponet  name='giftOutline' />
+            <div className='Notification_content-items-content'>
+              <p><span>¡Nuevo Pedido!</span> Se ha realizado la <span>Orden #2</span></p>
+              <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
+            </div>
           </div>
+        </Link>
+
+        <Link to={`/Dashboard/Pedidos/${1}`}>
+          <div className="Notification_content-items items_Tipo_2 Notification_Error Notification_Nueva">
+          <IconoComponet  name='bagCheckOutline' />
+            <div className='Notification_content-items-content'>
+              <p><span>Error en el Pago</span> para la <span>Orden #7</span></p>
+              <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
+            </div>
+          </div>
+        </Link>
+
+        <div className="Notification_content-items items_Tipo_3 Notification_Soporte Notification_Nueva">
+          <IconoComponet  name='personAddOutline' />
           <div className='Notification_content-items-content'>
-            <h2>Steven Jocz</h2>
-            <div className='Notification_content-items-content-tipo'>
-              <div>
-                <IonIcon className='icono' icon={medalOutline} />
-              </div>
-              <p>Se inscribio al curso UX/UI Diseño y desarrollo de productos digitales centrados en el usuario</p>
-            </div>
-            <div className='Notification_content-items-time'>
-              <IonIcon className='icono' icon={timeOutline} />
-              <p>9:11 AM August 7,2021</p>
-            </div>
+            <p><span>Solicitud de Soporte</span> de <span>María Camila</span></p>
+            <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
           </div>
         </div>
-        <div className="Notification_content-items">
-          <div className='Notification_content-items-photo'>
-            <img src="https://mantisdashboard.io/assets/avatar-1-51c6502a.png" alt="" />
-          </div>
+
+        <div className="Notification_content-items items_Tipo_4 Notification_Comentario Notification_Nueva">
+          <IconoComponet  name='personAddOutline' />
           <div className='Notification_content-items-content'>
-            <h2>Steven Jocz</h2>
-            <div className='Notification_content-items-content-tipo Notification_registro'>
-              <div>
-                <IonIcon className='icono' icon={personAddOutline} />
-              </div>
-              <p>Se registro en SLIES</p>
-            </div>
-            <div className='Notification_content-items-time'>
-              <IonIcon className='icono' icon={timeOutline} />
-              <p>9:11 AM August 7,2021</p>
-            </div>
+            <p><span>Nuevo Comentario</span> de <span>María Camila</span></p>
+            <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
           </div>
         </div>
-        <div className="Notification_content-items">
-          <div className='Notification_content-items-photo'>
-            <img src="https://mantisdashboard.io/assets/avatar-1-51c6502a.png" alt="" />
-          </div>
+
+        <div className="Notification_content-items items_Tipo_5 Notification_Envio">
+        <IconoComponet  name='checkmarkCircleOutline' />
           <div className='Notification_content-items-content'>
-            <h2>Steven Jocz</h2>
-            <div className='Notification_content-items-content-tipo Notification_grupal'>
-              <div>
-                <IonIcon className='icono' icon={peopleOutline} />
-              </div>
-              <p>Realizo una inscripción grupal al evento Ministerio musical</p>
-            </div>
-            <div className='Notification_content-items-time'>
-              <IonIcon className='icono' icon={timeOutline} />
-              <p>9:11 AM August 7,2021</p>
-            </div>
+            <p><span>Pedido Enviado:</span> La <span>Orden #6</span> ha sido despachada</p>
+            <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
           </div>
         </div>
-        <div className="Notification_content-items">
-          <div className='Notification_content-items-photo'>
-            <img src="https://mantisdashboard.io/assets/avatar-1-51c6502a.png" alt="" />
-          </div>
+
+        <div className="Notification_content-items items_Tipo_6 Notification_Cancelacion">
+        <IconoComponet  name='closeCircleOutline' />
           <div className='Notification_content-items-content'>
-            <h2>Steven Jocz</h2>
-            <div className='Notification_content-items-content-tipo'>
-              <div>
-                <IonIcon className='icono' icon={medalOutline} />
-              </div>
-              <p>Se inscribio al curso Ministerio musical</p>
-            </div>
-            <div className='Notification_content-items-time'>
-              <IonIcon className='icono' icon={timeOutline} />
-              <p>9:11 AM August 7,2021</p>
-            </div>
+            <p><span>Pedido Cancelado:</span> La <span>Orden #7</span> ha sido cancelada</p>
+            <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
           </div>
         </div>
+
       </div>
       <div className="Notification_footer">
         <button>Ver todas las notificaciones</button>
       </div>
     </div>
-  )
+  );
 }
 
-export default Notification
+export default Notification;

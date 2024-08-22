@@ -11,7 +11,7 @@ import { AppStore } from '../../redux/Store';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearLocalStorage } from '../../utilities';
 import { TokenKey, UserKey, resetUser } from '../../redux/states/User';
-import { PrivateRoutes } from '../../models';
+import { PrivateRoutes, PublicRoutes } from '../../models';
 import { MiCuenta } from '../miCuenta';
 
 const Nav = () => {
@@ -98,12 +98,13 @@ const Nav = () => {
                                         >
                                             Mi cuenta
                                         </li>
+                                        <Link
+                                            to={`/${PublicRoutes.Mispedidos}`}>
+                                            <li className="">Mis pedidos</li>
+                                        </Link>
                                         {usuario.tipoUsuario == 1 &&
                                             <>
-                                                <Link
-                                                    to={`/${PrivateRoutes.private}`}>
-                                                    <li className="">Mis pedidos</li>
-                                                </Link>
+
                                                 <Link
                                                     to={`/${PrivateRoutes.private}`}>
                                                     <li className="">Panel Administrador</li>

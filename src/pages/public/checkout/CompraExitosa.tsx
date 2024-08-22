@@ -11,11 +11,14 @@ interface Props {
 
 const CompraExitosa: React.FC<Props> = (props) => {
     const usuario = useSelector((store: AppStore) => store.user);
+
+
+
     return (
         <div className="CompraExitosa">
             <div className="order-confirmation">
                 <h2>¡Gracias por tu compra!</h2>
-                <p> Tu pedido ha sido realizado con éxito. Te enviaremos un correo electrónico de confirmación con los detalles de tu pedido.</p>
+                <p> Tu pedido ha sido realizado con éxito. Te enviaremos un correo electrónico de confirmación a <b>{usuario.correo}</b> con los detalles de tu pedido.</p>
 
                 <p>Número de pedido: #{props.orden}</p>
                 <p>Resumen de tu pedido: </p>
@@ -59,11 +62,7 @@ const CompraExitosa: React.FC<Props> = (props) => {
                 <span>Total: ${props.data.valorTotal.toLocaleString()}</span>
 
                 <p>Envío a: {props.data.direccion}</p>
-                <p> Método de pago: Tarjeta de crédito (**** **** **** 1234)</p>
-
-                <p>Tu pedido será entregado entre [Fecha estimada de entrega].</p>
-
-                <p>Hemos enviado un correo electrónico a {usuario.correo} con los detalles de tu pedido.</p>
+                {/* <p> Método de pago: Tarjeta de crédito (**** **** **** 1234)</p> */}
 
                 <p>Puedes rastrear tu pedido o ver tu historial de compras en la sección "Mis Pedidos" en tu cuenta.
                     Si tienes alguna pregunta o inquietud, no dudes en contactarnos.</p>

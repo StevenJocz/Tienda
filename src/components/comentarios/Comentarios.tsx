@@ -20,7 +20,6 @@ const Comentarios: React.FC<Props> = (props) => {
     const [comentariosVisibles, setComentariosVisibles] = useState<number>(3);
 
     useEffect(() => {
-        console.log("Producto ID:", props.idProducto);
         haddleGet();
     }, [props.idProducto]);
 
@@ -57,7 +56,7 @@ const Comentarios: React.FC<Props> = (props) => {
     return (
         <div className='Comentarios'>
             <div className="Comentarios_Ranting">
-                <h3>{promedioCalificacion} <span> /5</span></h3>
+                <h3>{promedioCalificacion?.toFixed(1)} <span> /5</span></h3>
                 <Rating
                     name="half-rating-read"
                     max={5}

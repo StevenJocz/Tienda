@@ -10,11 +10,13 @@ import { api } from "../../../../services";
 import { services } from "../../../../models";
 import { Estado } from "../../../../models/Estados";
 import { Link } from "react-router-dom";
+import useHandleNavigation from "../../../../utilities/HandleNavigation ";
 
 interface Props {
     mostrarRegistro: () => void;
     actualizarDatos?: () => void;
     idPedido: number;
+    esAdmin: boolean;
 }
 
 const ViewPedidos: React.FC<Props> = (props) => {
@@ -22,6 +24,7 @@ const ViewPedidos: React.FC<Props> = (props) => {
     const [pedidos, setPedidos] = useState<PedidoVista>();
     const [estadosPedidos, setEstadosPedidos] = useState<Estado[]>([]);
     const [estadosEnvios, setEstadosEnvios] = useState<Estado[]>([]);
+    const handleNavigation = useHandleNavigation(props.mostrarRegistro);
 
     useEffect(() => {
         const mainContainer = document.getElementById('main');
@@ -73,13 +76,15 @@ const ViewPedidos: React.FC<Props> = (props) => {
             setMsg('Estamos presentando inconvenientes. Por favor, vuelva a intentarlo más tarde.');
         }
     };
+
+
     return (
         <div className="AddProductos">
             <div className='AddProductos_Encabezado'>
                 <h3> Orden #{pedidos?.orden} </h3>
                 <div>
                     <Button
-                        onClick={props.mostrarRegistro}
+                        onClick={handleNavigation}
                         variant="outlined"
                         size="small"
                         startIcon={<IonIcon className='' icon={arrowBackOutline} />}
@@ -91,7 +96,7 @@ const ViewPedidos: React.FC<Props> = (props) => {
             <div className="ViewPedidos_Content">
                 <div className="ViewPedidos_Content_right">
                     <div className="ViewPedidos_Content_right_texto">
-                        <p>ID de cliente: <span>{pedidos?.usuarios.idUsuario}</span></p>
+                        {props.esAdmin && <p>ID de cliente: <span>{pedidos?.usuarios.idUsuario}</span></p>}
                         <p>Fecha de registro: <span>{pedidos?.fechaRegistro}</span></p>
                     </div>
 
@@ -260,6 +265,7 @@ const ViewPedidos: React.FC<Props> = (props) => {
                                                 label="Estado Pago"
                                                 size="small"
                                                 variant="outlined"
+                                                disabled={props.esAdmin ? false: true}
                                                 value={values.EstadoPedido}
                                                 onChange={(e) => setFieldValue('EstadoPedido', e.target.value)}
                                             >
@@ -279,7 +285,8 @@ const ViewPedidos: React.FC<Props> = (props) => {
                                                 select
                                                 label="Estado del envio"
                                                 size="small"
-                                                variant="outlined"
+                                                variant="outlined" 
+                                                disabled={props.esAdmin ? false: true}
                                                 value={values.EstadoEnvio}
                                                 onChange={(e) => setFieldValue('EstadoEnvio', e.target.value)}
                                             >
@@ -295,16 +302,21 @@ const ViewPedidos: React.FC<Props> = (props) => {
                                             </StyledTextField>
                                             <ErrorMessage name='EstadoEnvio' component={() => <p className='Error'>{errors.EstadoEnvio}</p>} />
 
-                                            <Button
-                                                onClick={() => handleActualizar}
-                                                variant="contained"
-                                                size="small"
-                                                color="info"
-                                                type="submit"
-                                            >
-                                                Cambiar estado
-                                            </Button>
-                                            <p className="P_ActuaizacionEstado">{msg}</p>
+                                            {props.esAdmin &&
+                                                <>
+                                                    <Button
+                                                        onClick={() => handleActualizar}
+                                                        variant="contained"
+                                                        size="small"
+                                                        color="info"
+                                                        type="submit"
+                                                    >
+                                                        Cambiar estado
+                                                    </Button>
+
+                                                    <p className="P_ActuaizacionEstado">{msg}</p>
+                                                </>
+                                            }
                                         </div>
 
                                     </div>

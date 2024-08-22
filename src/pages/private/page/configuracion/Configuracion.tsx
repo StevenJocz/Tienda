@@ -2,7 +2,7 @@ import { Breadcrumbs, Grid, Typography } from '@mui/material'
 import './Configuracion.css'
 import { Link, Route, useLocation } from 'react-router-dom'
 import { IonIcon } from '@ionic/react';
-import { layersOutline, bookmarkOutline, sparklesOutline, cashOutline } from 'ionicons/icons';
+import { layersOutline, bookmarkOutline, ticketOutline, cashOutline } from 'ionicons/icons';
 import { RoutesWithNotFound } from '../../../../utilities';
 import { Categorias } from './categorias';
 import Tag from './tag/Tag';
@@ -47,7 +47,7 @@ const Configuracion = () => {
                                 <li
                                     className={`${ruta == 'Cupones' ? 'LiActive' : ''}`}
                                 >
-                                    <IonIcon className='icono' icon={sparklesOutline} />
+                                    <IonIcon className='icono' icon={ticketOutline} />
                                     Cupones
                                 </li>
                             </Link>

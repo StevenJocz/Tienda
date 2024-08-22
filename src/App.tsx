@@ -16,6 +16,7 @@ import { CartProvider } from './context/CartContext';
 import { Shop } from './pages/public/shop';
 import Checkout from './pages/public/checkout/Checkout';
 import { FavoritesProvider } from './context/Favoritos';
+import { MisPedidos } from './pages/public/misPedidos';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
                     <Route path={`${PublicRoutes.public}/Shop/:view/*`} element={<Shop />} />
                     <Route path={`${PublicRoutes.public}/Shop/Checkout`} element={<Checkout />} />
                     <Route element={<AuthGuard privateValidation={true} />}>
+                      <Route path={`${PublicRoutes.Mispedidos}`} element={<MisPedidos />} />
                       <Route element={<RoleGuard />}>
                         <Route path={`${PrivateRoutes.private}/*`} element={<Dashboard />} />
                       </Route>
@@ -57,7 +59,6 @@ function App() {
                 </BrowserRouter>
               </FavoritesProvider>
             </Provider>
-
           </CartProvider>
         )}
       </Suspense>

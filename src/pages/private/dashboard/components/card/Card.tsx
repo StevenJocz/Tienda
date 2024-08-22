@@ -23,19 +23,13 @@ const Card: React.FC<Props> = (props) => {
                 </button>
             </div>
             {props.clase === 1 ?
-                <p>{props.tipo == 1 ? 'Has registrado' : props.tipo == 2 ? 'Se han inscripto' : props.tipo == 3 ? 'Se han pagado' : 'Has recibido'}
+                <p>{props.tipo == 1 ? 'Has registrado' : props.tipo == 2 ? 'Se han registrado' : props.tipo == 3 ? 'Se han hecho' : 'Has recibido'}
                     <span>{props.tipo === 4 ? "$" : ""} {props.numeroNuevos.toLocaleString()}</span>
                     este mes
                 </p>
                 : null
             }
-            {props.clase === 2 ?
-                <p>
-                    <span>{props.numeroNuevos}</span>
-                    Inscripciones
-                </p>
-                : null
-            }
+            
         </div>
     )
 }

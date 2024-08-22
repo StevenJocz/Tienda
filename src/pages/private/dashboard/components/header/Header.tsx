@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Header.css';
 import { IonIcon } from '@ionic/react';
-import { notificationsOutline, expandOutline, mailOutline} from 'ionicons/icons';
+import { notificationsOutline, expandOutline, mailOutline } from 'ionicons/icons';
 import { Notification } from '../notification';
 import { Mail } from '../mail';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ const Header = () => {
   const [notification, setNotification] = useState(false);
   const [mail, setMail] = useState(false);
   const usuario = useSelector((store: AppStore) => store.user);
-  
+
 
   const handleNotification = () => {
     setNotification(!notification);
@@ -28,8 +28,19 @@ const Header = () => {
   return (
     <div className='Header_Dashboard'>
       <div className="Header_Iconos">
-        <IonIcon className='icono' icon={notificationsOutline} onClick={handleNotification} />
-        <IonIcon className='icono' icon={mailOutline} onClick={handleMail} />
+        <div className='Header_Iconos_content' onClick={handleNotification} >
+          <IonIcon className='icono' icon={notificationsOutline} />
+          <div>
+            <p>1</p>
+          </div>
+        </div>
+        <div className='Header_Iconos_content' onClick={handleMail} >
+          <IonIcon className='icono' icon={mailOutline} />
+          <div>
+            <p>10</p>
+          </div>
+        </div>
+
         <IonIcon className='icono' icon={expandOutline} />
       </div>
       <div className="Header_Perfil">

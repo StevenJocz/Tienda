@@ -58,7 +58,7 @@ const ViewUsuarios: React.FC<Props> = (props) => {
 
             const PedidoFiltrados = response.data.map((pedido: any) => ({
                 id: pedido.id,
-                Orden: '#' +pedido.orden,
+                Orden: '#' + pedido.orden,
                 Total: '$' + (pedido.total).toLocaleString(),
                 "Estado pago": pedido.estadoPedido,
                 "Estado envio": pedido.estadoEnvio,
@@ -72,9 +72,9 @@ const ViewUsuarios: React.FC<Props> = (props) => {
         })
     };
 
-    const hadleGetFavoritos= async () => {
+    const hadleGetFavoritos = async () => {
         // Solicitud GET
-        api.get<any>('Producto/Get_Favoritos_Usuario', {idUsuario: props.idUsuario }).then((response) => {
+        api.get<any>('Producto/Get_Favoritos_Usuario', { idUsuario: props.idUsuario }).then((response) => {
 
             console.log(response.data);
             const FavoritosFiltrados = response.data.map((producto: any) => ({
@@ -82,7 +82,7 @@ const ViewUsuarios: React.FC<Props> = (props) => {
                 foto: producto.imagen,
                 nombre: producto.nombre,
                 categoria: producto.categoria,
-                
+
             }));
 
             setDataFavoritos(FavoritosFiltrados);
@@ -111,7 +111,7 @@ const ViewUsuarios: React.FC<Props> = (props) => {
                     <div className="ViewUsuarios_Content-content">
                         <h2>Datos del cliente</h2>
                         <img src={img} alt="" />
-                        <h3>{datosUsuarios?.nombre + ' '+ datosUsuarios?.apellido}</h3>
+                        <h3>{datosUsuarios?.nombre + ' ' + datosUsuarios?.apellido}</h3>
                         <h3>{datosUsuarios?.tipoDocumento}</h3>
                         <h3>{datosUsuarios?.documento}</h3>
                         <h3>Celúlar: {datosUsuarios?.celular}</h3>
@@ -132,19 +132,23 @@ const ViewUsuarios: React.FC<Props> = (props) => {
                     </div>
                 </div>
                 <div className="ViewUsuarios_Content_left">
-                    <h3>Historial de pedidos</h3>
+
                     {dataPedidos && (
-
-                        <Table
-                            data={dataPedidos}
-                        />
+                        <>
+                            <h3>Historial de pedidos</h3>
+                            <Table
+                                data={dataPedidos}
+                            />
+                        </>
                     )}
-                    <h3>Lista de deseos</h3>
-                    {dataFavoritos && (
 
-                        <Table
-                            data={dataFavoritos}
-                        />
+                    {dataFavoritos && (
+                        <>
+                            <h3>Lista de deseos</h3>
+                            <Table
+                                data={dataFavoritos}
+                            />
+                        </>
                     )}
                 </div>
 

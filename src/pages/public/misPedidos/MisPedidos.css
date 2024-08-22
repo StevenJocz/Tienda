@@ -1,0 +1,30 @@
+.MisPedidos {
+    width: 100%;
+    padding: 5% 10% 5% 10%;
+}
+
+.MisPedidos_Encabezado {
+    margin-bottom: 3%;
+}
+
+.MisPedidos_Encabezado h2 {
+    margin-bottom: 20px;
+}
+
+.MisPedidos_Encabezado p {
+    color: rgb(48, 48, 48);
+}
+
+.MisPedidos_SinPedidos {
+    text-align: center;
+    color: rgb(48, 48, 48);
+}
+
+.MisPedidos_SinPedidos img {
+    width: 40%;
+}
+
+.MisPedidos .AddCursos_Formulario-content h2 {
+    margin-bottom: 20px;
+}
+

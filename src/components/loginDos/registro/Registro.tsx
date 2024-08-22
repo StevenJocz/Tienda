@@ -30,6 +30,7 @@ const Registro: React.FC<Props> = (props) => {
   const [pais, setPais] = useState<Ubicacion[]>();
   const [departamento, setDepartamento] = useState<Ubicacion[]>();
   const [municipio, setMunicipio] = useState<Ubicacion[]>();
+  const [tipoVia, setTipoVia] = useState<Ubicacion[]>();
   const [countdown, setCountdown] = useState(10);
 
   const StyledTextField = styled(TextField)({
@@ -40,6 +41,7 @@ const Registro: React.FC<Props> = (props) => {
     hadleGetTipoDocumentos();
     hadleGetGeneros();
     hadleGetUbicacion(1, 0);
+    hadleGetUbicacion(4, 0);
 
   }, []);
 
@@ -64,6 +66,8 @@ const Registro: React.FC<Props> = (props) => {
         await setPais(response.data);
       } else if (accion == 2) {
         await setDepartamento(response.data);
+      } else if (accion == 4) {
+        await setTipoVia(response.data);
       } else {
         await setMunicipio(response.data);
       }
@@ -101,7 +105,7 @@ const Registro: React.FC<Props> = (props) => {
         idPais: values.pais,
         idDepartamento: values.departamento,
         idMunicipio: values.ciudad,
-        direccion: values.direccion,
+        direccion: values.tipoVia + ' ' + values.Numero1 + ' # ' +  values.Numero2 + ' - ' +  values.Numero3 ,
         correo: values.correo,
         password: values.contraseña,
         fechaRegistro: new Date(),
@@ -167,6 +171,10 @@ const Registro: React.FC<Props> = (props) => {
             departamento: '',
             ciudad: '',
             direccion: '',
+            tipoVia: '',
+            Numero1: '',
+            Numero2: '',
+            Numero3: '',
             contraseña: '',
             Confirmarcontraseña: '',
           }}
@@ -223,10 +231,7 @@ const Registro: React.FC<Props> = (props) => {
 
 
             } else if (paso == 3) {
-              if (!valor.direccion) {
-                errors.direccion = 'Campo obligatorio';
-                return errors;
-              }
+              
 
               if (!valor.pais) {
                 errors.pais = 'Campo obligatorio';
@@ -240,6 +245,16 @@ const Registro: React.FC<Props> = (props) => {
 
               if (!valor.ciudad) {
                 errors.ciudad = 'Campo obligatorio';
+                return errors;
+              }
+
+              if (!valor.tipoVia) {
+                errors.tipoVia = 'Campo obligatorio';
+                return errors;
+              }
+
+              if (!valor.Numero1 || !valor.Numero2 || !valor.Numero3) {
+                errors.Numero1 = 'Campo obligatorio';
                 return errors;
               }
 
@@ -497,17 +512,59 @@ const Registro: React.FC<Props> = (props) => {
                       </StyledTextField>
                       <ErrorMessage name='ciudad' component={() => <p className='Error'>{errors.ciudad}</p>} />
                     </div>
-                    <div className={`Login_content_body-input ${errors.direccion ? 'Input_Error' : ''}`}>
+                    <p className="Login_content_direccion ">Direccion</p>
+                    <div className={`Login_content_body-input ${errors.tipoVia ? 'Input_Error' : ''}`}>
                       <StyledTextField
-                        name='direccion'
-                        label="Dirección"
+                        id="outlined-select-currency"
+                        select
+                        name='tipoVia'
+                        label="Tipo de vía"
+                        size="small"
+                        variant="outlined"
+                        value={values.tipoVia}
+                        onChange={(e) => {
+                          setFieldValue('tipoVia', e.target.value)
+
+                        }}
+                      >
+                        <MenuItem value={0}>
+                          Seleccione
+                        </MenuItem>
+                        {tipoVia && tipoVia.map((option) => (
+                          <MenuItem key={option.id} value={option.nombre}>
+                            {option.nombre}
+                          </MenuItem>
+                        ))}
+                      </StyledTextField>
+                      <ErrorMessage name='tipoVia' component={() => <p className='Error'>{errors.tipoVia}</p>} />
+                    </div>
+                    <div className='Checkout_Envio_Direccion_Ubicacion'>
+                      <StyledTextField
+                        name='Numero1'
                         variant="outlined"
                         size="small"
-                        placeholder='Introduce tu dirección'
-                        value={values.direccion}
-                        onChange={(e) => setFieldValue('direccion', e.target.value)}
+                        placeholder='Ej: 32C'
+                        value={values.Numero1}
+                        onChange={(e) => setFieldValue('Numero1', e.target.value)}
                       />
-                      <ErrorMessage name='direccion' component={() => <p className='Error'>{errors.direccion}</p>} />
+                      <h5>#</h5>
+                      <StyledTextField
+                        name='Numero2'
+                        variant="outlined"
+                        size="small"
+                        placeholder='45'
+                        value={values.Numero2}
+                        onChange={(e) => setFieldValue('Numero2', e.target.value)}
+                      />
+                      <h5>-</h5>
+                      <StyledTextField
+                        name='Numero3'
+                        variant="outlined"
+                        size="small"
+                        placeholder='116'
+                        value={values.Numero3}
+                        onChange={(e) => setFieldValue('Numero3', e.target.value)}
+                      />
                     </div>
                   </>
                 )}
