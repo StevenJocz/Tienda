@@ -225,6 +225,7 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
     const renderEstado = (Estado: string) => {
         switch (Estado) {
             case 'Pendiente':
+            case 'Nuevo pedido':
                 return (
                     <div style={{
                         color: '#053e74',
@@ -247,6 +248,7 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
 
             case 'Pagado':
             case 'Aprobado':
+
                 return (
                     <div style={{
                         color: '#52c41a',
