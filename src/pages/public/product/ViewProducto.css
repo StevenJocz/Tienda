@@ -85,11 +85,18 @@
 
 }
 
-.Producto_main--info-Header div h4 span {
+.Producto_main--info-Header div h4 span:nth-child(1) {
     font-size: 20px;
     text-decoration: line-through;
     opacity: 0.6;
     margin-left: 10px;
+
+}
+
+.Producto_main--info-Header div h4 span:nth-child(2) {
+    font-size: 14px;
+    margin-left: 10px;
+    color: #1774df;
 
 }
 

@@ -833,9 +833,9 @@ const AddProductos: React.FC<Props> = (props) => {
           sx={{ width: '100%' }}
         >
           {props.idProducto == 0 ? (
-            "¡Categoría guardada exitosamente!"
+            "¡Producto guardado exitosamente!"
           ) : (
-            "¡Categoría actualizada exitosamente!"
+            "¡Producto actualizada exitosamente!"
           )}
         </Alert>
       </Snackbar>

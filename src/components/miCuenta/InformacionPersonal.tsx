@@ -70,127 +70,128 @@ const InformacionPersonal: React.FC<Props> = (props) => {
 
 
 
-return (
-    <div>
-        <Formik
-            enableReinitialize={true}
-            initialValues={{
-                Nombre: props.data.nombre,
-                Apellido: props.data.apellido,
-                tipoDocumento: props.data.idTipoDocumento,
-                Documento: props.data.documento,
-                Celular: props.data.celular,
-                Correo: props.data.correo,
-                FechaNacimiento: new Date(props.data.fechaNacimiento).toISOString().split('T')[0],
+    return (
+        <div>
+            <Formik
+                enableReinitialize={true}
+                initialValues={{
+                    Nombre: props.data.nombre,
+                    Apellido: props.data.apellido,
+                    tipoDocumento: props.data.idTipoDocumento,
+                    Documento: props.data.documento,
+                    Celular: props.data.celular,
+                    Correo: props.data.correo,
+                    FechaNacimiento: new Date(props.data.fechaNacimiento).toISOString().split('T')[0],
 
-            }}
-            validate={(valor) => {
-                let errors: any = {};
-                if (!valor.Celular) {
-                    errors.Celular = 'Campo obligatorio';
-                }
+                }}
+                validate={(valor) => {
+                    let errors: any = {};
+                    if (!valor.Celular) {
+                        errors.Celular = 'Campo obligatorio';
+                    }
 
-                if (!valor.Correo) {
-                    errors.Correo = 'Campo obligatorio';
-                }
+                    if (!valor.Correo) {
+                        errors.Correo = 'Campo obligatorio';
+                    }
 
 
-                return errors;
-            }}
-            onSubmit={handleActualizar}
-        >
-            {({ errors, values, setFieldValue, isSubmitting }) => (
-                <Form>
-                    <>
-                        <div className='MiCuenta_Content_input'>
+                    return errors;
+                }}
+                onSubmit={handleActualizar}
+            >
+                {({ errors, values, setFieldValue, isSubmitting }) => (
+                    <Form>
+                        <>
+                            <div className='MiCuenta_Content_input'>
 
-                            <StyledTextField
-                                name='Nombre'
-                                label="Nombre"
-                                variant="outlined"
-                                size="small"
-                                placeholder='Introduce tu nombre'
-                                value={values.Nombre}
-                                onChange={(e) => setFieldValue('Nombre', e.target.value)}
-                                disabled={true}
-                            />
-                            <StyledTextField
-                                name='Apellido'
-                                label="Apellido"
-                                variant="outlined"
-                                size="small"
-                                placeholder='Introduce tus apellidos'
-                                value={values.Apellido}
-                                onChange={(e) => setFieldValue('Apellido', e.target.value)}
-                                disabled={true}
-                            />
-                            <StyledTextField
-                                id="outlined-select-currency"
-                                select
-                                label="Tipo de documento"
-                                size="small"
-                                variant="outlined"
-                                value={values.tipoDocumento}
-                                onChange={(e) => setFieldValue('tipoDocumento', e.target.value)}
-                                disabled={true}
-                            >
-                                <MenuItem value=''>
-                                    Seleccione
-                                </MenuItem>
-                                {tipoDocumentos && tipoDocumentos.map((option) => (
-                                    <MenuItem key={option.idDocumento} value={option.idDocumento}>
-                                        {option.documento}
+                                <StyledTextField
+                                    name='Nombre'
+                                    label="Nombre"
+                                    variant="outlined"
+                                    size="small"
+                                    placeholder='Introduce tu nombre'
+                                    value={values.Nombre}
+                                    onChange={(e) => setFieldValue('Nombre', e.target.value)}
+                                    disabled={true}
+                                />
+                                <StyledTextField
+                                    name='Apellido'
+                                    label="Apellido"
+                                    variant="outlined"
+                                    size="small"
+                                    placeholder='Introduce tus apellidos'
+                                    value={values.Apellido}
+                                    onChange={(e) => setFieldValue('Apellido', e.target.value)}
+                                    disabled={true}
+                                />
+                                <StyledTextField
+                                    id="outlined-select-currency"
+                                    select
+                                    label="Tipo de documento"
+                                    size="small"
+                                    variant="outlined"
+                                    value={values.tipoDocumento}
+                                    onChange={(e) => setFieldValue('tipoDocumento', e.target.value)}
+                                    disabled={true}
+                                >
+                                    <MenuItem value=''>
+                                        Seleccione
                                     </MenuItem>
-                                ))}
-                            </StyledTextField>
-                            <StyledTextField
-                                name='Documento'
-                                label="Documento"
-                                variant="outlined"
-                                size="small"
-                                placeholder='Introduce tu número de documento'
-                                value={values.Documento}
-                                onChange={(e) => setFieldValue('Documento', e.target.value)}
-                                disabled={true}
-                            />
-                            <StyledTextField
-                                name='FechaNacimiento'
-                                label="Fecha de Nacimiento"
-                                variant="outlined"
-                                size="small"
-                                placeholder='Introduce tu fecha de nacimiento'
-                                value={values.FechaNacimiento}
-                                onChange={(e) => setFieldValue('FechaNacimiento', e.target.value)}
-                                disabled={true}
-                            />
+                                    {tipoDocumentos && tipoDocumentos.map((option) => (
+                                        <MenuItem key={option.idDocumento} value={option.idDocumento}>
+                                            {option.documento}
+                                        </MenuItem>
+                                    ))}
+                                </StyledTextField>
+                                <StyledTextField
+                                    name='Documento'
+                                    label="Documento"
+                                    variant="outlined"
+                                    size="small"
+                                    placeholder='Introduce tu número de documento'
+                                    value={values.Documento}
+                                    onChange={(e) => setFieldValue('Documento', e.target.value)}
+                                    disabled={true}
+                                />
+                                <StyledTextField
+                                    name='FechaNacimiento'
+                                    label="Fecha de Nacimiento"
+                                    variant="outlined"
+                                    size="small"
+                                    placeholder='Introduce tu fecha de nacimiento'
+                                    value={values.FechaNacimiento}
+                                    onChange={(e) => setFieldValue('FechaNacimiento', e.target.value)}
+                                    disabled={true}
+                                />
 
-                            <StyledTextField
-                                name='Celular'
-                                label="Celular"
-                                variant="outlined"
-                                size="small"
-                                placeholder='Introduce tu número celular/Teléfoo'
-                                value={values.Celular}
-                                onChange={(e) => setFieldValue('Celular', e.target.value)}
-                            />
-                            <StyledTextField
-                                name='Correo'
-                                label="Correo"
-                                variant="outlined"
-                                size="small"
-                                placeholder='Introduce tu dirección de correo'
-                                value={values.Correo}
-                                onChange={(e) => setFieldValue('Correo', e.target.value)}
-                            />
-                        </div>
-                    </>
-                    <ErrorMessage name='Correo' component={() => <p className='Error'>{errors.Correo}</p>} />
-                    <BotonSubmit texto={'Actualizar'} isLoading={isLoading} isSubmitting={isSubmitting} onClick={() => handleActualizar} color="continuar" />
-                    <p className='Login_Respuesta'>{msg}</p>
-                </Form>
-            )}
-        </Formik></div>
-)
+                                <StyledTextField
+                                    name='Celular'
+                                    label="Celular"
+                                    variant="outlined"
+                                    size="small"
+                                    placeholder='Introduce tu número celular/Teléfoo'
+                                    value={values.Celular}
+                                    onChange={(e) => setFieldValue('Celular', e.target.value)}
+                                />
+                                <StyledTextField
+                                    name='Correo'
+                                    label="Correo"
+                                    variant="outlined"
+                                    size="small"
+                                    placeholder='Introduce tu dirección de correo'
+                                    value={values.Correo}
+                                    onChange={(e) => setFieldValue('Correo', e.target.value)}
+                                />
+                            </div>
+                        </>
+                        <ErrorMessage name='Correo' component={() => <p className='Error'>{errors.Correo}</p>} />
+                        <BotonSubmit texto={'Actualizar'} isLoading={isLoading} isSubmitting={isSubmitting} onClick={() => handleActualizar} color="continuar" />
+                        <p className='Login_Respuesta'>{msg}</p>
+                    </Form>
+                )}
+            </Formik>
+        </div>
+    )
 }
 
 export default InformacionPersonal

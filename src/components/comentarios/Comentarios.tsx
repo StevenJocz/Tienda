@@ -20,6 +20,7 @@ const Comentarios: React.FC<Props> = (props) => {
     const [comentariosVisibles, setComentariosVisibles] = useState<number>(3);
 
     useEffect(() => {
+        setComentarios([]);
         haddleGet();
     }, [props.idProducto]);
 

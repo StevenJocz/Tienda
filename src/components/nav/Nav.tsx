@@ -13,6 +13,8 @@ import { clearLocalStorage } from '../../utilities';
 import { TokenKey, UserKey, resetUser } from '../../redux/states/User';
 import { PrivateRoutes, PublicRoutes } from '../../models';
 import { MiCuenta } from '../miCuenta';
+import { Notification } from '../../pages/private/dashboard/components/notification';
+import { api } from '../../services';
 
 const Nav = () => {
     const [shoppingCart, setShoppingCart] = useState(false);
@@ -24,6 +26,8 @@ const Nav = () => {
     const [verMenuPerfil, setVerMenuPerfil] = useState(false);
     const usuario = useSelector((store: AppStore) => store.user);
     const dispatch = useDispatch();
+    const [notification, setNotification] = useState(false);
+    const [tieneNotificacion, setTieneNotificacion] = useState(0);
 
     useEffect(() => {
         // Verificar si el usuario tiene un token en localStorage
@@ -36,18 +40,44 @@ const Nav = () => {
 
     const handleShoppingCart = () => {
         setShoppingCart(!shoppingCart);
+        setNotification(false);
     };
 
     const handleFavoritos = () => {
         setFavoritos(!favoritos);
+        setNotification(false);
     };
 
     const handleMenuPerfil = () => {
         setVerMenuPerfil(!verMenuPerfil);
+        setNotification(false);
     };
 
     const handleMiCuenta = () => {
         setVerMiCuenta(!verMiCuenta);
+        setNotification(false);
+    };
+
+    const handleNotification = () => {
+        setNotification(!notification);
+        setTieneNotificacion(0);
+    };
+
+
+    useEffect(() => {
+        hadleGetTieneNotificacion();
+        const intervalId = setInterval(hadleGetTieneNotificacion, 40000);
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [])
+
+    const hadleGetTieneNotificacion = async () => {
+        // Solicitud GET
+        api.get<any>('Notificacion/Get_CantidadNotifiaciones', { idUsuario: usuario.idUsuario }).then((response) => {
+            setTieneNotificacion(response.data);
+
+        })
     };
 
     const logOut = () => {
@@ -73,7 +103,15 @@ const Nav = () => {
                 <p>¿NECESITAS AYUDA?</p>
                 <Link to={'/Shop/0/TodasCategorias'}> <IonIcon className='icono' icon={searchOutline} /></Link>
 
-                <IonIcon className='icono' icon={notificationsOutline} />
+
+                <div className='Menu_right--icono' onClick={handleNotification} >
+                    <IonIcon className='icono' icon={notificationsOutline}  />
+                    {tieneNotificacion > 0 &&
+                        <div>
+                            <p>{tieneNotificacion}</p>
+                        </div>
+                    }
+                </div>
                 <IonIcon className='icono' icon={heartOutline} onClick={handleFavoritos} />
                 <div className='Menu_right--icono' onClick={handleShoppingCart} >
                     <IonIcon className='icono' icon={cartOutline} />
@@ -127,6 +165,7 @@ const Nav = () => {
             {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} mostrarInicio={() => setSesion(true)} />}
             {favoritos && <Favoritos onClose={() => setFavoritos(false)} filtros={{}} />}
             {verMiCuenta && <MiCuenta onClose={() => setVerMiCuenta(false)} />}
+            {notification && <Notification esAdmin={false}/>}
             {isSesion && (
                 <Login
                     onClose={() => setSesion(!isSesion)}

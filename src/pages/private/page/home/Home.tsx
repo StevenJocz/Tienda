@@ -86,7 +86,6 @@ const Home = () => {
                             />
                         </div>
                     </Grid>
-                  
                 </Grid>
             </div>
         </div>

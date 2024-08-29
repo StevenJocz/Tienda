@@ -42,6 +42,7 @@ export interface RegistrosPedido {
 export interface UsuarioPedido {
     idUsuario: number;
     nombre: string;
+    documento: string;
     correo: string;
     telefono: string;
     direccion: string;

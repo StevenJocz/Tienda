@@ -64,16 +64,14 @@
 
 
 .DynamicTable .iconoAprobar, .TableAsistencia .iconoAprobar {
-    color: #47b510;
+    color: #10b5b2;
     padding: 5px;
 }
 
 .DynamicTable .iconoAprobar:hover, .TableAsistencia .iconoAprobar:hover {
-    color: #1f7405;
-    background-color: #3fb51034;
+    color: #05746d;
+    background-color: #10b5aa34;
 }
-
-
 
 .DynamicTable_acciones {
     display: flex;
@@ -170,4 +168,10 @@
 .iconoEstado {
     font-size: 12px;
     margin-left: 7px;
+}
+
+.iconoContieneImagenes {
+    font-size: 25px;
+    text-align: center;
+    cursor: pointer;
 }

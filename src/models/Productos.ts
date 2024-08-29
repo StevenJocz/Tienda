@@ -59,7 +59,7 @@ export interface viewProducto {
     fechaFinDescuento: string;
     activo: boolean;
     idTercero: number;
-    stock?: number;
+    stock: number;
     precioBase?: number;
     tallas: Talla[];
     imagenes: ImagenData[];
@@ -77,4 +77,15 @@ export interface Favoritos {
     idProducto: number;
     idUsuario: number;
     fechaAgregado: string;
+}
+
+export interface ProductoSelect {
+    id: string;
+    foto: string;
+    producto: string;
+    categoría: string;
+    descuento: string;
+    Stock: number;
+    nuevo: boolean;
+    activo: boolean;
 }

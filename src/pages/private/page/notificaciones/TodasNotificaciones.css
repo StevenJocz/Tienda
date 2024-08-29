@@ -1,0 +1,145 @@
+
+.TodasNotificaciones {
+    width: 100%;
+    position: relative;
+}
+
+.TodasNotificaciones h2 {
+    color: #252b36;
+    font-size: 25px;
+    font-weight: 800;
+    margin: 20px 0;
+}
+
+.TodasNotificaciones_Content a {
+    text-decoration: none;
+}
+
+.TodasNotificaciones_Content h3 {
+    margin: 20px 0;
+}
+
+.TodasNotificaciones_content-items {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #eaeaea;
+    transition: background-color 0.3s ease;
+}
+
+.TodasNotificaciones_content-items:hover {
+    background-color: #afafafa1;
+}
+
+.TodasNotificaciones_content a {
+    text-decoration: none;
+}
+
+.TodasNotificaciones_content-items .icono {
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
+    border-radius: 50%;
+    padding: 6px;
+    color: white;
+}
+
+.TodasNotificaciones_content-items-content {
+    width: 100%;
+}
+
+.TodasNotificaciones_content-items-content p {
+    font-size: 15px;
+    color: #000000;
+}
+
+
+.TodasNotificaciones_content-items-content p span {
+    font-weight: 800;
+    color: #174164;
+}
+
+
+.TodasNotificaciones_content-items-content .items_fecha {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #888888;
+}
+
+/* Nuevo pedido */
+.TodasNotificaciones_1 .icono {
+    background-color: #4CAF50; /* Verde */
+}
+
+/* Pendiente */
+.TodasNotificaciones_2 .icono {
+    background-color: #FFEB3B; /* Amarillo */
+}
+
+/* Pagado */
+.TodasNotificaciones_3 .icono {
+    background-color: #2196F3; /* Azul */
+}
+
+/* Preparando el pedido */
+.TodasNotificaciones_4 .icono,
+.TodasNotificaciones_14 .icono  {
+    background-color: #FF9800; /* Naranja */
+}
+
+/* Enviado */
+.TodasNotificaciones_5 .icono {
+    background-color: #3f51b5; /* Azul oscuro */
+}
+
+/* Listo para recogida */
+.TodasNotificaciones_6 .icono {
+    background-color: #00BCD4; /* Cian */
+}
+
+/* Entregado */
+.TodasNotificaciones_7 .icono {
+    background-color: #8BC34A; /* Verde claro */
+}
+
+/* Cancelado */
+.TodasNotificaciones_8 .icono {
+    background-color: #f44336; /* Rojo */
+}
+
+/* Devuelto */
+.TodasNotificaciones_9 .icono {
+    background-color: #FF5722; /* Naranja oscuro */
+}
+
+/* Fallo en el pago */
+.TodasNotificaciones_10 .icono {
+    background-color: #FF5252; /* Rojo claro */
+}
+
+/* Revisión pendiente */
+.TodasNotificaciones_11 .icono {
+    background-color: #9E9E9E; /* Gris */
+}
+
+/* En espera de inventario */
+.TodasNotificaciones_12 .icono {
+    background-color: #FFC107; /* Ámbar */
+}
+
+/* Pendiente de aprobación */
+.TodasNotificaciones_13 .icono {
+    background-color: #673AB7; /* Púrpura */
+}
+
+.TodasNotificaciones_Nueva {
+    background-color:#2a578327; 
+}
+
+.TodasNotificaciones_Nueva:hover {
+    background-color: #2a578365;
+}

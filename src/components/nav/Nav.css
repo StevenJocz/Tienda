@@ -235,3 +235,9 @@
     margin-bottom: 10px;
 }
 
+.Menu .Notification {
+    top: 82px;
+    right: 200px;
+    z-index: 10001;
+}
+

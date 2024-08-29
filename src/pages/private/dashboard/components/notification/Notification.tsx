@@ -1,10 +1,72 @@
 import './Notification.css';
 import { IonIcon } from '@ionic/react';
-import {  timeOutline } from 'ionicons/icons';
+import { timeOutline } from 'ionicons/icons';
 import { Link } from 'react-router-dom';
 import { IconoComponet } from '../iconoComponet';
+import { useEffect, useState } from 'react';
+import { Notificacion } from '../../../../../models/Notificaciones';
+import { api } from '../../../../../services';
+import { AppStore } from '../../../../../redux/Store';
+import { useSelector } from 'react-redux';
 
-const Notification = () => {
+interface Props {
+  esAdmin: boolean;
+}
+
+
+const Notification: React.FC<Props> = (props) => {
+  const usuario = useSelector((store: AppStore) => store.user);
+  const [date, setDate] = useState<Notificacion[]>([]);
+
+  useEffect(() => {
+    hadleGetNotifiaciones();
+  }, [])
+
+  const hadleGetNotifiaciones = async () => {
+    // Solicitud GET
+
+    try {
+      const response = await api.get<Notificacion[]>('Notificacion/Get_Notifiaciones', {accion: 2, idUsuario: usuario.idUsuario });
+      if (response.data.length > 0) {
+        setDate(response.data)
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const hadlePutNotifiaciones = async (idNotificacion: number) => {
+    try {
+
+      const objeto: Notificacion = {
+        idNotificacion: idNotificacion,
+        idTipoNotificacion: 0,
+        deIdUsuario: 0,
+        paraIdUsuario: 0,
+        leida: false,
+        icono: '0',
+        notificacion: '0',
+        idRelacion: 0,
+        orden: 0,
+        fecha: "2024-08-26T19:29:02.117Z",
+        categoriaFecha: '0',
+      };
+      var response = await api.put<any>('Notificacion/Put_Actualizar_Estado', objeto);
+      const data = response.data as { resultado: boolean; mensaje: string };
+
+      if (data.resultado) {
+        hadleGetNotifiaciones();
+      }
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const linkTo = props.esAdmin
+    ? `/Dashboard/Pedidos/`
+    : `/MisPedidos/`;
+
   return (
     <div className='Notification'>
       <div className="Notification_header">
@@ -12,62 +74,35 @@ const Notification = () => {
       </div>
       <div className="Notification_content">
 
-        <Link to={`/Dashboard/Pedidos/${2}`}>
-          <div className="Notification_content-items items_Tipo_1 Notification_Pedidos">
-            <IconoComponet  name='giftOutline' />
-            <div className='Notification_content-items-content'>
-              <p><span>¡Nuevo Pedido!</span> Se ha realizado la <span>Orden #2</span></p>
-              <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
+        {date && date.map((notificacion, index) => (
+          <Link
+            to={notificacion.idTipoNotificacion != 14 ? (
+              linkTo + notificacion.idRelacion
+            ):(
+              "/Dashboard/Comentarios"
+            )}
+            key={index}
+            onClick={() => hadlePutNotifiaciones(notificacion.idNotificacion)
+            }
+          >
+            <div className={`Notification_content-items Notification_${notificacion.idTipoNotificacion} ${notificacion.leida == false ? ' Notification_Nueva' : ''}`}>
+              <IconoComponet name={notificacion.icono} />
+              <div className='Notification_content-items-content'>
+                <p>{notificacion.notificacion}<span> {notificacion.idTipoNotificacion != 14 ?  "Orden #" + notificacion.orden : "" }</span></p>
+                <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />{notificacion.fecha}</p>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
 
-        <Link to={`/Dashboard/Pedidos/${1}`}>
-          <div className="Notification_content-items items_Tipo_2 Notification_Error Notification_Nueva">
-          <IconoComponet  name='bagCheckOutline' />
-            <div className='Notification_content-items-content'>
-              <p><span>Error en el Pago</span> para la <span>Orden #7</span></p>
-              <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
-            </div>
-          </div>
-        </Link>
-
-        <div className="Notification_content-items items_Tipo_3 Notification_Soporte Notification_Nueva">
-          <IconoComponet  name='personAddOutline' />
-          <div className='Notification_content-items-content'>
-            <p><span>Solicitud de Soporte</span> de <span>María Camila</span></p>
-            <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
-          </div>
-        </div>
-
-        <div className="Notification_content-items items_Tipo_4 Notification_Comentario Notification_Nueva">
-          <IconoComponet  name='personAddOutline' />
-          <div className='Notification_content-items-content'>
-            <p><span>Nuevo Comentario</span> de <span>María Camila</span></p>
-            <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
-          </div>
-        </div>
-
-        <div className="Notification_content-items items_Tipo_5 Notification_Envio">
-        <IconoComponet  name='checkmarkCircleOutline' />
-          <div className='Notification_content-items-content'>
-            <p><span>Pedido Enviado:</span> La <span>Orden #6</span> ha sido despachada</p>
-            <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
-          </div>
-        </div>
-
-        <div className="Notification_content-items items_Tipo_6 Notification_Cancelacion">
-        <IconoComponet  name='closeCircleOutline' />
-          <div className='Notification_content-items-content'>
-            <p><span>Pedido Cancelado:</span> La <span>Orden #7</span> ha sido cancelada</p>
-            <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />22 de agosto de 2024, 8:20 AM</p>
-          </div>
-        </div>
+        ))}
 
       </div>
-      <div className="Notification_footer">
-        <button>Ver todas las notificaciones</button>
-      </div>
+      {props.esAdmin &&
+        <div className="Notification_footer">
+          <Link to={'/Dashboard/Notificaciones'}>Ver todas las notificaciones</Link>
+        </div>
+      }
+
     </div>
   );
 }

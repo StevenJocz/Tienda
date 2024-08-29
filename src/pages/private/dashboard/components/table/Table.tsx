@@ -6,9 +6,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useState } from 'react';
-import { Button, InputAdornment, Pagination, TextField, Tooltip } from '@mui/material';
+import { Button, InputAdornment, Pagination, Rating, TextField, Tooltip } from '@mui/material';
 import { IonIcon } from '@ionic/react';
-import { trashOutline, closeOutline, timeOutline, checkmarkOutline, createOutline, searchOutline, downloadOutline, constructOutline, addOutline, peopleOutline, eyeOutline, thumbsUpOutline, checkmarkDoneOutline, bonfireOutline } from 'ionicons/icons';
+import { trashOutline, imagesOutline, closeOutline, timeOutline, checkmarkOutline, createOutline, searchOutline, downloadOutline, constructOutline, addOutline, peopleOutline, eyeOutline, thumbsUpOutline, checkmarkDoneOutline, bonfireOutline } from 'ionicons/icons';
 import './Table.css';
 import { services } from '../../../../../models';
 
@@ -60,6 +60,8 @@ const StyledTableRow = styled(TableRow)(() => ({
     },
 }));
 
+
+
 interface Props {
     data: Array<{ [key: string]: any }>;
     mostrarRegistro?: (id: number) => void;
@@ -76,10 +78,28 @@ interface Props {
     verAsistencias?: boolean;
     botonEstado?: boolean;
     verBotonConfigurar?: boolean;
+    mostrarFotos?: (id: number) => void;
 
 }
 
-const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro, mostrarConfiguracion, eliminarRegistro, verBotonConfigurar, verBotonVer, verBotonEliminar, verBotonEditar, verBotonBuscador, verBotonExportar, mostrarLista, verListaEstudiantes, botonEstado, verAsistencias }) => {
+const DynamicTable: React.FC<Props> = ({
+    data,
+    mostrarRegistro,
+    verBotonRegistro,
+    mostrarConfiguracion,
+    eliminarRegistro,
+    verBotonConfigurar,
+    verBotonVer,
+    verBotonEliminar,
+    verBotonEditar,
+    verBotonBuscador,
+    verBotonExportar,
+    mostrarLista,
+    verListaEstudiantes,
+    botonEstado,
+    verAsistencias,
+    mostrarFotos
+}) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [page, setPage] = useState(0);
     const rowsPerPage = 10;
@@ -133,6 +153,12 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
     const DeleteRegistro = (id: number) => {
         if (eliminarRegistro) {
             eliminarRegistro(id);
+        }
+    };
+
+    const handleemostrarFotos = (id: number) => {
+        if (mostrarFotos) {
+            mostrarFotos(id);
         }
     };
 
@@ -389,6 +415,56 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
         }
     };
 
+    const renderStock = (cantidad: number) => {
+        if (cantidad == 0) {
+            return (
+                <div style={{
+                    color: '#c20c0c',
+                    backgroundColor: 'rgb(255, 241, 240)',
+                    borderColor: 'rgb(255, 163, 158)',
+                    width: '100%',
+                    padding: '0 20px',
+                    borderRadius: '4px',
+                    border: '1px solid',
+                    textAlign: 'center',
+                }}>
+                    {cantidad}
+                </div>
+            );
+        } else if (cantidad <= 20) {
+            return (
+                <div style={{
+                    color: '#c2b00c',
+                    backgroundColor: '#f6f6b4ea',
+                    borderColor: 'rgb(149, 222, 100)',
+                    width: '100%',
+                    padding: '0 20px',
+                    borderRadius: '4px',
+                    border: '1px solid',
+                    textAlign: 'center',
+                }}>
+                    {cantidad} 
+                </div>
+            );
+        } else {
+            return (
+                <div style={{
+                    color: '#0cc252',
+                    backgroundColor: '#bbf77f3d',
+                    borderColor: 'rgb(149, 222, 100)',
+                    width: '100%',
+                    padding: '0 20px',
+                    borderRadius: '4px',
+                    border: '1px solid',
+                    textAlign: 'center',
+                }}>
+                    {cantidad}
+                </div>
+            );
+        }
+    };
+
+
     const isBase64 = (str: string) => {
         return str.startsWith('data:image');
     };
@@ -406,6 +482,87 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
             </div>
         </div>
     );
+
+
+    const renderVistoAdmin = (boolean: boolean) => {
+        if (boolean) {
+            return (
+                <div style={{
+                    color: '#52c41a',
+                    backgroundColor: '#bbf77f3d',
+                    borderColor: 'rgb(149, 222, 100)',
+                    width: '100px',
+                    padding: '0 2px',
+                    borderRadius: '4px',
+                    border: '1px solid',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+
+                    Revisado
+                    <IonIcon
+                        className=' iconoEstado' icon={checkmarkOutline}
+                    />
+                </div>
+            );
+        } else {
+            return (
+                <div style={{
+                    color: 'rgb(255, 77, 79)',
+                    backgroundColor: 'rgb(255, 241, 240)',
+                    borderColor: 'rgb(255, 163, 158)',
+                    width: '100px',
+                    padding: '0 2px',
+                    borderRadius: '4px',
+                    border: '1px solid',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                    Sin Revisar
+                    <IonIcon
+                        className=' iconoEstado' icon={closeOutline}
+                    />
+                </div>
+            );
+        }
+    };
+
+    const renderContieneImagenes = (images: boolean) => {
+        if (images) {
+            return (
+                <div style={{
+                    color: '#1890ff',
+                    width: '60px',
+                }}>
+                    <IonIcon
+                        className=' iconoContieneImagenes' icon={imagesOutline}
+                    />
+                </div>
+            );
+        } else {
+            return (
+                <div style={{
+                    color: '#1890ff',
+                    width: '60px',
+                }}>
+                    -
+                </div>
+            );
+        }
+    };
+
+    const renderCalificacion = (valor: number) => {
+        return (
+            <Rating
+                name="size-small"
+                readOnly
+                precision={0.5}
+                value={valor}
+                size="small" />
+        );
+    };
 
     return (
         <div className='DynamicTable'>
@@ -500,6 +657,20 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                                     else if (column === 'color') {
                                         cellContent = renderColor(row[column]);
                                     }
+                                    else if (column === 'Visto') {
+                                        cellContent = renderVistoAdmin(row[column]);
+                                    }
+                                    else if (column === 'imagenes') {
+                                        cellContent = <div onClick={() => handleemostrarFotos(row.id)}>
+                                            {renderContieneImagenes(row[column])}
+                                        </div>;
+                                    }
+                                    else if (column === 'calificacion') {
+                                        cellContent = renderCalificacion(row[column]);
+                                    }
+                                    else if (column === 'Stock') {
+                                        cellContent = renderStock(row[column]);
+                                    }
                                     else {
                                         cellContent = row[column];
                                     }
@@ -531,6 +702,11 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                                             <IonIcon className='icono iconoLista' icon={peopleOutline} onClick={() => Verlista(row.id)} />
                                         </Tooltip>
                                     )}
+                                    {botonEstado && (
+                                        <Tooltip title="Revisado" disableInteractive>
+                                            <IonIcon className='icono iconoAprobar' icon={thumbsUpOutline} onClick={() => VerRegistro(row.id)} />
+                                        </Tooltip>
+                                    )}
                                     {verBotonEliminar && (
                                         <Tooltip title="Eliminar" disableInteractive>
                                             <IonIcon className='icono iconoTrash' icon={trashOutline} onClick={() => DeleteRegistro(row.id)} />
@@ -541,11 +717,7 @@ const DynamicTable: React.FC<Props> = ({ data, mostrarRegistro, verBotonRegistro
                                             <IonIcon className='icono iconoLista' icon={checkmarkDoneOutline} onClick={() => VerRegistro(row.id)} />
                                         </Tooltip>
                                     )}
-                                    {botonEstado && (
-                                        <Tooltip title="Aprobar/No aprobar" disableInteractive>
-                                            <IonIcon className='icono iconoAprobar' icon={thumbsUpOutline} onClick={() => VerRegistro(row.id)} />
-                                        </Tooltip>
-                                    )}
+
                                 </StyledTableCell>
                             </StyledTableRow>
                         ))}

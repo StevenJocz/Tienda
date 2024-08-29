@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { AppStore } from "../../../redux/Store";
 import img from '../../../assets/img/SinComentarios.png'
 import { ViewPedidos } from "../../private/page/pedidos";
+import { useParams } from "react-router-dom";
 
 const MisPedidos = () => {
     const [verPedido, setVerPedido] = useState(false);
@@ -15,12 +16,17 @@ const MisPedidos = () => {
     const [idPedido, setIdPedido] = useState(0);
     const [loading, setLoading] = useState(true);
     const usuario = useSelector((store: AppStore) => store.user);
+    const { idPedido: idPedidoParam } = useParams<{ idPedido?: string }>();
 
     useEffect(() => {
         if (loading) {
             hadleGetPedido();
         }
-    }, [loading]);
+        // Si existe un idPedido en la ruta, llama a hadleVerPedido con el id
+        if (idPedidoParam) {
+            hadleVerPedido(parseInt(idPedidoParam));
+        }
+    }, [loading, idPedidoParam]);
 
     const hadleGetPedido = async () => {
         // Solicitud GET
@@ -44,7 +50,7 @@ const MisPedidos = () => {
 
     const hadleVerPedido = (id: number) => {
         setIdPedido(id);
-        setVerPedido(!verPedido);
+        setVerPedido(true);
     };
 
     return (

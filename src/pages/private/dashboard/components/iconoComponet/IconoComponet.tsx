@@ -16,74 +16,20 @@
  */
 
 import { IonIcon } from '@ionic/react';
-import {
-    homeOutline,
-    layersOutline,
-    peopleOutline,
-    constructOutline,
-    readerOutline,
-    podiumOutline,
-    leafOutline,
-    schoolOutline,
-    giftOutline,
-    personAddOutline,
-    bagCheckOutline,
-    checkmarkCircleOutline,
-    closeCircleOutline
-} from 'ionicons/icons';
+import * as Ionicons from 'ionicons/icons';
 
 interface Props {
     name: string;
 }
 
-
-const IconoComponet: React.FC<Props> = (props) => {
-    let iconToRender;
-    switch (props.name) {
-        case 'homeOutline':
-            iconToRender = homeOutline;
-            break;
-        case 'layersOutline':
-            iconToRender = layersOutline;
-            break;
-        case 'peopleOutline':
-            iconToRender = peopleOutline;
-            break;
-        case 'constructOutline':
-            iconToRender = constructOutline;
-            break;
-        case 'readerOutline':
-            iconToRender = readerOutline;
-            break;
-        case 'podiumOutline':
-            iconToRender = podiumOutline;
-            break;
-        case 'schoolOutline':
-            iconToRender = schoolOutline;
-            break;
-        case 'giftOutline':
-            iconToRender = giftOutline;
-            break;
-        case 'personAddOutline':
-            iconToRender = personAddOutline;
-            break;
-        case 'bagCheckOutline':
-            iconToRender = bagCheckOutline;
-            break;
-        case 'checkmarkCircleOutline':
-            iconToRender = checkmarkCircleOutline;
-            break;
-        case 'closeCircleOutline':
-            iconToRender = closeCircleOutline;
-            break;
-        default:
-            iconToRender = leafOutline;
-            break;
-    }
+const IconoComponet: React.FC<Props> = ({ name }) => {
+    // Busca el ícono en los íconos importados usando el nombre proporcionado.
+    // Asegúrate de que el nombre es exactamente el mismo que el de las propiedades del objeto Ionicons.
+    const iconToRender = Ionicons[name as keyof typeof Ionicons] || Ionicons.leafOutline;
 
     return (
         <IonIcon className='icono' icon={iconToRender} />
-    )
+    );
 }
 
-export default IconoComponet
+export default IconoComponet;

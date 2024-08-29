@@ -50,7 +50,7 @@ function App() {
                     <Route path={`${PublicRoutes.public}/Shop/:view/*`} element={<Shop />} />
                     <Route path={`${PublicRoutes.public}/Shop/Checkout`} element={<Checkout />} />
                     <Route element={<AuthGuard privateValidation={true} />}>
-                      <Route path={`${PublicRoutes.Mispedidos}`} element={<MisPedidos />} />
+                      <Route path={`${PublicRoutes.Mispedidos}/:idPedido?`} element={<MisPedidos />} />
                       <Route element={<RoleGuard />}>
                         <Route path={`${PrivateRoutes.private}/*`} element={<Dashboard />} />
                       </Route>

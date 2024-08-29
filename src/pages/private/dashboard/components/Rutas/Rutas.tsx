@@ -8,6 +8,8 @@ import { Productos } from '../../../page/productos';
 import { Configuracion } from '../../../page/configuracion';
 import { Usuarios } from '../../../page/usuarios';
 import { Pedidos } from '../../../page/pedidos';
+import { TodasNotificaciones } from '../../../page/notificaciones';
+import { TodosComentarios } from '../../../page/comentarios';
 
 const Rutas = () => {
     const usuario = useSelector((store: AppStore) => store.user);
@@ -21,6 +23,8 @@ const Rutas = () => {
                     <Route path="/Configuracion/*" element={<Configuracion/>} />
                     <Route path="/Usuarios/*" element={<Usuarios/>} />
                     <Route path="/Pedidos/:idPedido?" element={<Pedidos/>} />
+                    <Route path="/Notificaciones" element={<TodasNotificaciones />} />
+                    <Route path="/Comentarios" element={<TodosComentarios />} />
                 </>
             ) : (
                 <>

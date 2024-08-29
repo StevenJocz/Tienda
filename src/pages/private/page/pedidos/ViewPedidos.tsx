@@ -58,20 +58,25 @@ const ViewPedidos: React.FC<Props> = (props) => {
 
 
     const handleActualizar = async (values: FormikValues) => {
+        
         try {
-            const objeto: EstadoPedidos = {
-                idPedido: props.idPedido,
-                idEstadoPedido: values.EstadoPedido,
-                idEstadoEnvio: values.EstadoEnvio,
-            };
-            var response = await api.put<any>('Pedido/Put_Actualizar_Estado', objeto);
-            const data = response.data as { resultado: boolean; mensaje: string; orden: number };
-
-            setMsg(data.mensaje);
-            if (props.actualizarDatos) {
-                props.actualizarDatos();
+            if (values.EstadoPedido == pedidos?.idEstadoPedido && values.EstadoEnvio ==  pedidos?.idEstadoEnvio) {
+                setMsg("Parece que no has cambiado el estado. Asegúrate de seleccionar una nueva opción antes de proceder");
+            }else {
+                const objeto: EstadoPedidos = {
+                    idPedido: props.idPedido,
+                    idEstadoPedido: values.EstadoPedido ==  pedidos?.idEstadoPedido ? 0 : values.EstadoPedido,
+                    idEstadoEnvio: values.EstadoEnvio ==  pedidos?.idEstadoEnvio ? 0 : values.EstadoEnvio,
+                };
+                var response = await api.put<any>('Pedido/Put_Actualizar_Estado', objeto);
+                const data = response.data as { resultado: boolean; mensaje: string; orden: number };
+                
+                setMsg(data.mensaje);
+                if (props.actualizarDatos) {
+                    props.actualizarDatos();
+                    hadleGetPedidos();
+                }
             }
-
         } catch (error) {
             setMsg('Estamos presentando inconvenientes. Por favor, vuelva a intentarlo más tarde.');
         }
@@ -151,6 +156,7 @@ const ViewPedidos: React.FC<Props> = (props) => {
                                 <div>
                                     <h3>Cliente</h3>
                                     <p>{pedidos?.usuarios.nombre}</p>
+                                    <p>{pedidos?.usuarios.documento}</p>
                                 </div>
                             </li>
                             <li>
@@ -220,7 +226,7 @@ const ViewPedidos: React.FC<Props> = (props) => {
                 </div>
 
                 <div className="ViewPedidos_Content_let">
-                    {pedidos?.idEstadoPedido == 2 &&
+                    {pedidos?.idEstadoPedido == 3 &&
                         <div className="AddCursos_Formulario-content">
                             <Button
                                 variant="contained"
@@ -231,9 +237,7 @@ const ViewPedidos: React.FC<Props> = (props) => {
                                 Descargar factura
                             </Button>
                         </div>
-
                     }
-
                     <div className="AddCursos_Formulario-content">
                         <h2>Estado del pedido</h2>
                         <Formik
@@ -318,7 +322,6 @@ const ViewPedidos: React.FC<Props> = (props) => {
                                                 </>
                                             }
                                         </div>
-
                                     </div>
                                 </Form>
                             )}

@@ -18,6 +18,7 @@ import { BorderLinearProgress } from '../../../utilities/SelectProps';
 import { useFavoritesContext } from '../../../context/Favoritos';
 import Comentarios from '../../../components/comentarios/Comentarios';
 import { Footer } from '../../../components/footer';
+import { calcularPrecioFinal } from '../../../utilities/CalcularPrecioFinal';
 
 
 const ViewProducto = () => {
@@ -72,7 +73,11 @@ const ViewProducto = () => {
         let cantidad = cantidadSeleccionada;
 
         if (accion == 1) {
-            cantidad = cantidad + 1
+            if (producto[0].stock) {
+                if (cantidad < producto[0].stock) {
+                    cantidad = cantidad + 1
+                }
+            }
         } else {
             if (cantidad != 0) {
                 cantidad = cantidad - 1
@@ -83,48 +88,39 @@ const ViewProducto = () => {
 
     const handleSelectImage = (index: number) => {
         const imagen = producto[0].imagenes[index];
-        setImagenSeleccionada(imagen)
-        haddleAplicarPrecios();
+        setImagenSeleccionada(imagen);
     }
 
     const handleSelectTalla = (index: number) => {
         const talla = producto[0].tallas[index];
         setTallaSeleccionada(talla);
-        haddleAplicarPrecios();
     }
 
     useEffect(() => {
         if (producto.length > 0) {
-            handleSelectImage(0); // Selecciona la primera imagen por defecto
-            handleSelectTalla(0); // Selecciona la primera talla por defecto
             haddleAplicarPrecios();
+            handleSelectImage(0);
+            handleSelectTalla(0);
         }
     }, [producto]);
 
 
-    const haddleAplicarPrecios = () => {
-        let descuento = 0;
-
-        const fechaActual = new Date();
-        const fechaLimite = new Date(producto[0].fechaFinDescuento);
-        // Verificar si la fecha actual está antes de la fecha límite para aplicar el descuento
-        if (fechaActual <= fechaLimite) {
-            descuento = producto[0].descuento;
-        } else {
-            descuento = 0
+    useEffect(() => {
+        if (imagenSeleccionada && tallaSeleccionada && producto.length > 0) {
+            haddleAplicarPrecios();
         }
+    }, [imagenSeleccionada, tallaSeleccionada, producto]);
 
-        const porcentajeImagen = imagenSeleccionada ? parseInt(imagenSeleccionada?.porcentajeValor) : 0;
-        const porcentajeTalla = tallaSeleccionada ? parseInt(tallaSeleccionada?.porcentaje) : 0;
+    const haddleAplicarPrecios = () => {
+        const { precioConDescuento, precioFinalSinDescuento } = calcularPrecioFinal(producto[0], imagenSeleccionada, tallaSeleccionada);
 
-        const precioFinalSinDescuento = producto.length > 0 && producto[0] && producto[0].precioBase !== undefined ? producto[0].precioBase * (1 + (porcentajeImagen + porcentajeTalla) / 100) : 0;
-
-        // Calcular el precio final con descuento
-        const precioConDescuento = precioFinalSinDescuento * (1 - descuento / 100);
         setPrecioFinal(precioFinalSinDescuento);
         setPrecio(precioConDescuento);
 
+        console.log(precioFinalSinDescuento);
+        console.log(precioConDescuento);
     }
+
 
     const haddleAddCart = () => {
         const id = getLastSavedId();
@@ -204,7 +200,12 @@ const ViewProducto = () => {
                                         {producto.descuento > 0
                                             && new Date(producto.fechaFinDescuento).getTime() - new Date().getTime() > 0
                                             &&
-                                            <span>${precioFinal.toLocaleString()}</span>}
+                                            <>
+                                                <span>${precioFinal.toLocaleString()} </span>
+                                                <span className='DescuentoVista'>Descuento del {producto.descuento}%</span>
+                                            </>
+
+                                        }
                                     </h4>
                                     <p>{producto.stock == 0 ? "" : "En stock"}</p>
                                 </div>
@@ -284,9 +285,12 @@ const ViewProducto = () => {
                                     </div>
                                 </Tooltip>
                             </div>
-                            <div className='Producto_main--Compra' onClick={haddleAddCart} >
-                                <span>Añadir al carrito </span>
-                            </div>
+
+                            {producto.stock > 0 && 
+                                <div className='Producto_main--Compra' onClick={haddleAddCart}>
+                                    <span>Añadir al carrito </span>
+                                </div>
+                            }
                             <div className='Producto_main--menu'>
                                 <ul>
                                     <li onClick={handleGuia}>Guía de tallas</li>

@@ -34,7 +34,6 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     // Función para obtener los favoritos desde la API
     const fetchFavorites = async () => {
-        console.log('usuario.idUsuario', usuario.idUsuario);
         try {
             const response = await api.get<Favoritos[]>('Producto/Get_Favoritos', {accion: 1, idUsuario: usuario.idUsuario  });
             
