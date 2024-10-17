@@ -15,6 +15,7 @@
 
 .AddComentario_Content {
     width: 30%;
+    max-height: 80vh;
     background-repeat: no-repeat;
     background-size: contain;
     background-color: #ffffff;
@@ -24,6 +25,26 @@
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.AddComentario_Content::-webkit-scrollbar {
+    width: 3px;
+}
+
+.AddComentario_Content::-webkit-scrollbar-thumb {
+    background-color: #00000069;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.AddComentario_Content::-webkit-scrollbar-track {
+    background-color: #262b3400;
 }
 
 .AddComentario_Content--encabezado {
@@ -134,4 +155,19 @@
 
 .AddComentario_Content_footer_left p {
     font-weight: 500;
+}
+
+
+@media screen and (max-width: 1024px) {}
+
+
+@media screen and (max-width: 700px) {
+    .AddComentario_Content {
+        width: 90%;
+    }
+
+    .AddComentario_Content_footer {
+        display: block;
+        text-align: center;
+    }
 }

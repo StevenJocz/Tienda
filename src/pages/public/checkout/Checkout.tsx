@@ -243,7 +243,7 @@ const Checkout = () => {
             }
 
             const response = await api.post('Pedido/Post_Registrar_Pedido', Pedido);
-            const data = response.data as { resultado: boolean; mensaje: string ; orden: number};
+            const data = response.data as { resultado: boolean; mensaje: string; orden: number };
 
             setMsg(data.mensaje);
             setOrden(data.orden);
@@ -323,29 +323,35 @@ const Checkout = () => {
                                                         </thead>
                                                         <tbody>
                                                             {cartItems.map((producto, index) => (
-                                                                <tr key={index} >
-                                                                    <td className='tdImagenes'><img src={`${services.url}/${producto.src}`} alt="" /><p>{producto.nombre}</p></td>
-                                                                    <td>${producto.valor.toLocaleString()}</td>
-                                                                    <td><div className='ShoppingCart_Producto--Content--Info-Cantidad'>
-                                                                        {producto.cantidad == 1 ? (
-                                                                            <Tooltip title='Remover producto' placement="top" disableInteractive >
-                                                                                <IonIcon className='iconoRemove' icon={trashOutline} onClick={() => removeFromCart(producto.id)} />
-                                                                            </Tooltip>
-                                                                        ) : (
-                                                                            <IonIcon className='icono' icon={removeOutline} onClick={() => handleSelectCantidad(0, producto.id, producto.cantidad)} />
-                                                                        )}
-                                                                        <p>{producto.cantidad}</p>
-                                                                        <IonIcon className='icono' icon={addOutline} onClick={() => handleSelectCantidad(1, producto.id, producto.cantidad)} />
-                                                                    </div></td>
-                                                                    <td>${(producto.valor * producto.cantidad).toLocaleString()}</td>
-                                                                    <td>
-                                                                        <Tooltip title='Remover producto' placement="top" disableInteractive >
+                                                                <tr key={index}>
+                                                                    <td className='tdImagenes' data-label="Producto">
+                                                                        <img src={`${services.url}/${producto.src}`} alt="" />
+                                                                        <p>{producto.nombre}</p>
+                                                                    </td>
+                                                                    <td data-label="Precio">${producto.valor.toLocaleString()}</td>
+                                                                    <td data-label="Cantidad">
+                                                                        <div className='ShoppingCart_Producto--Content--Info-Cantidad'>
+                                                                            {producto.cantidad === 1 ? (
+                                                                                <Tooltip title='Remover producto' placement="top" disableInteractive>
+                                                                                    <IonIcon className='iconoRemove' icon={trashOutline} onClick={() => removeFromCart(producto.id)} />
+                                                                                </Tooltip>
+                                                                            ) : (
+                                                                                <IonIcon className='icono' icon={removeOutline} onClick={() => handleSelectCantidad(0, producto.id, producto.cantidad)} />
+                                                                            )}
+                                                                            <p>{producto.cantidad}</p>
+                                                                            <IonIcon className='icono' icon={addOutline} onClick={() => handleSelectCantidad(1, producto.id, producto.cantidad)} />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td data-label="Total">${(producto.valor * producto.cantidad).toLocaleString()}</td>
+                                                                    <td data-label="Acciones">
+                                                                        <Tooltip title='Remover producto' placement="top" disableInteractive>
                                                                             <IonIcon className='iconoRemove' icon={trashOutline} onClick={() => removeFromCart(producto.id)} />
                                                                         </Tooltip>
                                                                     </td>
                                                                 </tr>
                                                             ))}
                                                         </tbody>
+
                                                     </table>
                                                 </div>
                                                 <div className='Boton_Continuar'>
@@ -756,7 +762,7 @@ const Checkout = () => {
                                     </div>
                                     <div className='Checkout_Content_Resumen_valores '>
                                         <h3><span>Descuento: </span></h3>
-                                        <h3 className={valorCupon > 0 ? 'valorDescuento': ''}>{valorCupon > 0 ? '-': ''}${valorCupon.toLocaleString()}</h3>
+                                        <h3 className={valorCupon > 0 ? 'valorDescuento' : ''}>{valorCupon > 0 ? '-' : ''}${valorCupon.toLocaleString()}</h3>
                                     </div>
                                     <div className='Checkout_Content_Resumen_Tvalores'>
                                         <h3><span>Total: </span></h3>
@@ -781,8 +787,8 @@ const Checkout = () => {
             ) : (
                 <div className=''>
                     {compraExitosa ? (
-                        objetoPedido && <CompraExitosa data={objetoPedido} orden={orden}/>
-                        
+                        objetoPedido && <CompraExitosa data={objetoPedido} orden={orden} />
+
                     ) : (
                         <div className='Checkout_Content_Resumen-null'>
                             <IonIcon className='icono' icon={cartOutline} />

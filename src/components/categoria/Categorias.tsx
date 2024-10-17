@@ -42,8 +42,6 @@ const Categorias = () => {
                                 <h3>{cat.titulo}</h3>
                                 <h2>{cat.descripcion}</h2>
                                 <h1>{cat.nombre}</h1>
-
-
                                 <img src={Imagenes_URL + '/' + cat.imagen} alt="" />
                             </Link>
                         </div>

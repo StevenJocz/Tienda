@@ -49,10 +49,10 @@ const Header = () => {
       <div className="Header_Iconos">
         <div className='Header_Iconos_content' onClick={handleNotification} >
           <IonIcon className='icono' icon={notificationsOutline} />
-          {tieneNotificacion > 0 &&  
-          <div>
-            <p>{tieneNotificacion}</p>
-          </div>
+          {tieneNotificacion > 0 &&
+            <div>
+              <p>{tieneNotificacion}</p>
+            </div>
           }
         </div>
         {/* <div className='Header_Iconos_content' onClick={handleMail} >
@@ -68,7 +68,10 @@ const Header = () => {
         <img src={img} alt="" />
         <h2>{usuario.nombre}</h2>
       </div>
-      {notification && <Notification esAdmin={true} />}
+      {notification && <Notification
+        esAdmin={true}
+        mostrarRegistro={() => setNotification(false)}
+      />}
       {mail && <Mail />}
     </div>
   );

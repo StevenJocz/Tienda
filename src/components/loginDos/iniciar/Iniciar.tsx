@@ -12,6 +12,7 @@ import { createUser } from "../../../redux/states/User";
 
 interface Props {
   mostrarRegistro: () => void;
+  recordarme: () => void;
   IniciosSesion: () => void;
   onClose: () => void;
 }
@@ -110,7 +111,7 @@ const Iniciar: React.FC<Props> = (props) => {
                   <ErrorMessage name='contraseña' component={() => <p className='Error'>{errors.contraseña}</p>} />
                 </div>
                 <div className="Login_content_body-olvido">
-                  <a href="http://" target="_blank">¿Olvidé mi contraseña?</a>
+                  <p onClick={props.recordarme}>¿Olvidé mi contraseña?</p>
                 </div>
               </>
               

@@ -17,6 +17,7 @@ import { Shop } from './pages/public/shop';
 import Checkout from './pages/public/checkout/Checkout';
 import { FavoritesProvider } from './context/Favoritos';
 import { MisPedidos } from './pages/public/misPedidos';
+import Pago from './components/pago/Pago';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
                     <Route path={`${PublicRoutes.public}/Producto/:idProducto/*`} element={<ViewProducto />} />
                     <Route path={`${PublicRoutes.public}/Shop/:view/*`} element={<Shop />} />
                     <Route path={`${PublicRoutes.public}/Shop/Checkout`} element={<Checkout />} />
+                    <Route path={`${PublicRoutes.public}/Pago`} element={<Pago />} />
                     <Route element={<AuthGuard privateValidation={true} />}>
                       <Route path={`${PublicRoutes.Mispedidos}/:idPedido?`} element={<MisPedidos />} />
                       <Route element={<RoleGuard />}>

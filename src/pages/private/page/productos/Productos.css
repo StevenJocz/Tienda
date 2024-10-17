@@ -247,3 +247,18 @@
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
 }
+
+
+@media screen and (max-width: 1024px) {}
+
+
+@media screen and (max-width: 700px) {
+
+    .AddProductos_Encabezado {
+        display: block;
+    }
+
+    .AddProductos_Encabezado div button {
+        margin: 10px 0 ;
+    }
+}

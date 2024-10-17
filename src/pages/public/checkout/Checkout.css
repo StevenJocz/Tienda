@@ -73,16 +73,19 @@
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    overflow-x: auto;
 }
 
 .Checkout_Carrito_Content table {
     width: 100%;
+    border-collapse: collapse;
 }
 
 .Checkout_Carrito_Content table th,
 .Checkout_Carrito_Content table td {
     text-align: center;
     margin-top: 20px;
+    position: relative;
 }
 
 
@@ -437,11 +440,13 @@
     background-color: #000000;
     color: #fff;
 }
+
 .Boton_FinalizarCompra p {
     margin-top: 20px;
     text-align: center;
     color: #07940e;
 }
+
 .Boton_finalizar {
     width: 100%;
     display: flex;
@@ -475,8 +480,7 @@
 }
 
 .Boton_finalizar button:nth-child(1),
-.Boton_finalizar a
- {
+.Boton_finalizar a {
     background-color: #ffffff;
     color: #000000;
     border: 1px solid #494949;
@@ -787,7 +791,7 @@ button:nth-child(2) {
     padding: 0 35%;
 }
 
-.Checkout_Content_Resumen-null .icono{
+.Checkout_Content_Resumen-null .icono {
     font-size: 80px;
     opacity: 0.5;
 }
@@ -901,4 +905,123 @@ button:nth-child(2) {
 .order-confirmation img {
     width: 40px !important;
     height: 40px !important;
+}
+
+
+@media screen and (max-width: 1024px) {}
+
+
+@media screen and (max-width: 700px) {
+
+    .Checkout {
+        width: 100%;
+        display: block;
+    }
+
+    .Checkout_Menu_p {
+        font-size: 15px;
+    }
+
+    .Checkout_Menu {
+        width: 100%;
+    }
+
+    .Checkout_Menu ul {
+        display: block;
+    }
+
+    .Checkout_Menu ul li {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+
+    .Checkout_Carrito_Content table, 
+    .Checkout_Carrito_Content table thead, 
+    .Checkout_Carrito_Content table tbody, 
+    .Checkout_Carrito_Content table th, 
+    .Checkout_Carrito_Content table td, 
+    .Checkout_Carrito_Content table tr {
+        display: block;
+    }
+
+    .Checkout_Carrito_Content table tr {
+        margin-bottom: 15px; 
+        border-bottom: 1px solid #000000; 
+    }
+
+    .Checkout_Carrito_Content table td {
+        text-align: left;
+        padding-left: 50%;
+        border-bottom: none;
+        border-right: 1px solid #00000013; 
+    }
+
+    .Checkout_Carrito_Content table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 45%;
+        padding-left: 10px;
+        font-weight: bold;
+        z-index: 1; 
+        background-color: #f5f5f5;
+        border-right: 1px solid #00000013; 
+    }
+
+    .Checkout_Carrito_Content table th {
+        display: none; 
+    }
+
+    .Checkout_Content_Resumen {
+        width: 100%;
+        position: initial;
+    }
+
+    .Checkout_Envio_Direccion_Usuario {
+        display: block;
+    }
+
+    .Checkout_Envio_Direccion_Usuario span{
+        margin-top: 20px;
+    }
+
+    .Checkout_Envio_Direccion_Usuario h2 {
+        font-size: 18px;
+    }
+    
+    .Checkout_Envio_Direccion_Usuario h4 {
+        font-size: 15px;
+    }
+    
+    .Checkout_Envio_Direccion_Usuario div h3 {
+        font-size: 15px;
+    }
+
+    .Checkout_Envio_Recoger_horarios table tr td {
+        font-size: 12px;
+    }
+
+    .Checkout_Envio_Recoger_Responsable {
+        display: block;
+    }
+
+    .Checkout_Content_Finalizar {
+        display: block;
+    
+    }
+
+    .Checkout_Content_Producto {
+        width: 100%;
+        max-height: 60vh;
+        margin-top: 20px;
+        padding-top: 20px;
+        padding-right: 10px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 10px;
+        overflow: hidden;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
 }

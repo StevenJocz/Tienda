@@ -23,3 +23,33 @@
     font-size: 15px;
     opacity: 0.5;
 }
+
+@media screen and (max-width: 1024px) {}
+
+
+@media screen and (max-width: 700px) {
+
+    .Garantia {
+        width: 100%;
+        margin-top: 10px;
+        display: block;
+    }
+
+    .Garantia_Content {
+        margin-top: 20px;
+    }
+
+    .Garantia_Content .icono {
+        font-size: 40px;
+        color: var(--text-unac);
+        margin-right: 10px;
+        opacity: 0.5;
+    }
+
+    .Garantia_Content--text p {
+        font-size: 15px;
+        opacity: 0.5;
+    }
+
+
+}

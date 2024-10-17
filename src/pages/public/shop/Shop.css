@@ -20,8 +20,8 @@
 }
 
 .Shop_Categoria3 {
-    background: rgb(255,255,255);
-    background: linear-gradient(0deg, rgb(254, 209, 111) 0%, rgba(245,168,0,1) 40%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgb(254, 209, 111) 0%, rgba(245, 168, 0, 1) 40%);
 }
 
 .Shop_Categoria3 img {
@@ -33,13 +33,13 @@
 }
 
 .Shop_Categoria4 {
-    background: rgb(255,255,255);
-    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgb(131, 131, 131) 82%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgb(131, 131, 131) 82%);
 }
 
 .Shop_Categoria5 {
-    background: rgb(255,255,255);
-    background: linear-gradient(0deg, rgb(238, 238, 238) 0%, rgba(213,213,213,1) 100%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgb(238, 238, 238) 0%, rgba(213, 213, 213, 1) 100%);
 }
 
 .Shop_Categoria6 {
@@ -47,7 +47,7 @@
 }
 
 .Shop_Categoria7 {
-   background-color: #f42c37;
+    background-color: #f42c37;
 }
 
 .Shop_Categoria--titulo {
@@ -143,8 +143,8 @@
     list-style: none;
 }
 
-.Shop_body--filter-Categoria ul  a {
-text-decoration: none;
+.Shop_body--filter-Categoria ul a {
+    text-decoration: none;
 }
 
 .Shop_body--filter-Categoria ul a li {
@@ -165,7 +165,7 @@ text-decoration: none;
 }
 
 .Shop_body--filter-Categoria ul a li:hover {
-    background-color:#f5b52b;
+    background-color: #f5b52b;
     color: #2A5783;
     font-weight: 500;
 }
@@ -186,7 +186,54 @@ text-decoration: none;
     cursor: e-resize;
 }
 
+
 .Shop_body--card {
     width: 80%;
 }
 
+@media screen and (max-width: 700px) {
+
+    .Shop_Categoria {
+        height: auto;
+        display: block;
+    }
+
+    .Shop_Categoria--titulo {
+        width: 100%;
+        display: block;
+
+    }
+
+    .Shop_Categoria--titulo h1 {
+        font-size: 50px;
+        line-height: 40px;
+        letter-spacing: 0px;
+        text-align: center;
+    }
+
+    .Shop_Categoria--titulo img {
+        width: 200px;
+        margin-left: 40px;
+    }
+
+    .Shop_Categoria--info {
+        width: 100%;
+        margin-left: 0px;
+        text-align: center;
+    }
+
+    .Shop_body {
+        width: 100%;
+        display: block;
+        margin-top: 40px;
+    }
+
+    .Shop_body--filter {
+        width: 100%;
+    }
+
+    .Shop_body--card {
+        width: 100%;
+    }
+
+}

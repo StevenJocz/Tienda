@@ -25,6 +25,7 @@ const Cupones = () => {
                 cupon: cupones.textoCupon,
                 valor: '$'+(cupones.valorCupon).toLocaleString() ,
                 Fecha_Limite: new Date(cupones.fechaLimite).toISOString().split('T')[0],
+                "veces utilizado" : cupones.vecesUtilizado,
                 activo: cupones.activo,
             }));
             setData(CuponFiltradas);

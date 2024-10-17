@@ -18,7 +18,9 @@ const CambioClave = () => {
 
             const objecto =
             {
+                accion: 1,
                 idUsuario: user.idUsuario,
+                correo: "0",
                 password: values.contraseña
             };
             // Solicitud POST
@@ -115,7 +117,8 @@ const CambioClave = () => {
                         <p className='Login_Respuesta'>{msg}</p>
                     </Form>
                 )}
-            </Formik></div>
+            </Formik>
+        </div>
     )
 }
 

@@ -76,7 +76,6 @@ const ViewUsuarios: React.FC<Props> = (props) => {
         // Solicitud GET
         api.get<any>('Producto/Get_Favoritos_Usuario', { idUsuario: props.idUsuario }).then((response) => {
 
-            console.log(response.data);
             const FavoritosFiltrados = response.data.map((producto: any) => ({
                 id: producto.idProducto,
                 foto: producto.imagen,

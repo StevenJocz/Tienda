@@ -76,3 +76,19 @@
     color: firebrick;
     font-size: 25px;
 }
+
+
+
+@media screen and (max-width: 1024px) {}
+
+
+@media screen and (max-width: 700px) {
+    .Favoritos--cerrar {
+        width: 0%;
+    }
+    
+    .Favoritos_Content {
+        width: 100%;
+    }
+    
+}

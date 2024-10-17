@@ -13,8 +13,28 @@
     z-index: 1001;
 }
 
-.MiCuenta_Content{
+.MiCuenta .Favoritos_Content {
     padding: 20px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.MiCuenta .Favoritos_Content::-webkit-scrollbar {
+    width: 3px;
+}
+
+.MiCuenta .Favoritos_Content::-webkit-scrollbar-thumb {
+    background-color: #00000069;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.MiCuenta .Favoritos_Content::-webkit-scrollbar-track {
+    background-color: #262b3400;
 }
 
 .MiCuenta_Content_input {
@@ -68,7 +88,7 @@
     -o-transition: .35s cubic-bezier(.25, .1, .25, 1);
 }
 
-.MiCuenta_Content  .MiCuenta_Content_CambiarDireccion .icono {
+.MiCuenta_Content .MiCuenta_Content_CambiarDireccion .icono {
     margin-right: 10px;
 }
 
@@ -85,7 +105,7 @@
     margin-top: 20px;
 }
 
-.MiCuenta_Content .MiCuenta_Content_Direccion_Cambio  button {
+.MiCuenta_Content .MiCuenta_Content_Direccion_Cambio button {
     width: 250px;
     height: 40px;
     display: flex;
@@ -107,10 +127,21 @@
     -moz-transition: .35s cubic-bezier(.25, .1, .25, 1);
     -ms-transition: .35s cubic-bezier(.25, .1, .25, 1);
     -o-transition: .35s cubic-bezier(.25, .1, .25, 1);
-   
+
 
 }
 
-.MiCuenta_Content .MiCuenta_Content_Direccion_Cambio  button .icono {
+.MiCuenta_Content .MiCuenta_Content_Direccion_Cambio button .icono {
     margin-right: 10px;
+}
+
+@media screen and (max-width: 700px) {
+
+    .MiCuenta ul {
+        margin-bottom: 20px;
+    }
+
+    .MiCuenta ul li {
+        font-size: 15px;
+    }
 }

@@ -22,7 +22,7 @@ import { calcularPrecioFinal } from '../../../utilities/CalcularPrecioFinal';
 
 
 const ViewProducto = () => {
-    const { addToCart, getLastSavedId } = useCartContext();
+    const { addToCart, getLastSavedId, getCartItemQuantity } = useCartContext();
     const { addToFavorites, isFavorite, removeFromFavorites } = useFavoritesContext();
     const [shoppingCart, setShoppingCart] = useState(false);
     const [menu, setMenu] = useState(1);
@@ -64,8 +64,21 @@ const ViewProducto = () => {
     const hadleGetId = async (idProducto: number) => {
         const response = await api.get<viewProducto[]>('Producto/Get_Id_Producto', { idProducto: idProducto });
         if (response.data) {
-            await setProducto(response.data);
-        };
+            await setProducto(response.data); 
+            
+        }
+
+        setProducto(prevProducto => {
+            const cantidadEnCarrito = getCartItemQuantity(idProducto);
+            const nuevoStock = prevProducto[0].stock - cantidadEnCarrito;
+
+            return [
+                {
+                    ...prevProducto[0],
+                    stock: nuevoStock < 0 ? 0 : nuevoStock
+                }
+            ];
+        });
 
     }
 
@@ -105,6 +118,9 @@ const ViewProducto = () => {
     }, [producto]);
 
 
+   
+
+
     useEffect(() => {
         if (imagenSeleccionada && tallaSeleccionada && producto.length > 0) {
             haddleAplicarPrecios();
@@ -116,14 +132,21 @@ const ViewProducto = () => {
 
         setPrecioFinal(precioFinalSinDescuento);
         setPrecio(precioConDescuento);
-
-        console.log(precioFinalSinDescuento);
-        console.log(precioConDescuento);
     }
 
 
     const haddleAddCart = () => {
         const id = getLastSavedId();
+
+        const nuevoStock = producto[0].stock - cantidadSeleccionada;
+        setProducto(prevProducto => [
+            {
+                ...prevProducto[0],
+                stock: nuevoStock < 0 ? 0 : nuevoStock
+            }
+        ]);
+
+
         const mensaje = addToCart({
             id: id + 1,
             idProducto: parseInt(idProducto),
@@ -142,8 +165,19 @@ const ViewProducto = () => {
         setOpenSnackbar(true);
 
     }
+
     useEffect(() => {
-        // Aquí se cargan los comentarios nuevamente cuando cambia el idProducto
+        if (producto.length > 0) {
+            const cantidadEnCarrito = getCartItemQuantity(producto[0].id);
+            const nuevoStock = producto[0].stock - cantidadEnCarrito;
+    
+            setProducto(prevProducto => [
+                {
+                    ...prevProducto[0],
+                    stock: nuevoStock < 0 ? 0 : nuevoStock
+                }
+            ]);
+        }
     }, [idProducto]);
 
     const handleMenu = (opcion: number) => {
@@ -286,7 +320,7 @@ const ViewProducto = () => {
                                 </Tooltip>
                             </div>
 
-                            {producto.stock > 0 && 
+                            {producto.stock > 0 &&
                                 <div className='Producto_main--Compra' onClick={haddleAddCart}>
                                     <span>Añadir al carrito </span>
                                 </div>

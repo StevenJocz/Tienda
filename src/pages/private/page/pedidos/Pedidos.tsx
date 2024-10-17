@@ -85,6 +85,7 @@ const Pedidos = () => {
             ) : addPedido == true ? (
                 <AddPedido  
                     mostrarRegistro={() => setAddPedido(false)}
+                    actualizarDatos={hadleGetPedido}
                 />
             ): (
                 <>

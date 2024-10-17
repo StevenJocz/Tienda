@@ -38,3 +38,20 @@
     margin-top: 20px;
     font-weight: 100;
 }
+
+@media screen and (max-width: 1024px) {}
+
+
+@media screen and (max-width: 700px) {
+
+    
+    .Informativo {
+        display: block;
+        height: auto;
+    }
+
+    .Informativo img {
+        width: 100%;
+    }
+    
+}

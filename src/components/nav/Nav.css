@@ -209,8 +209,8 @@
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
     -webkit-box-shadow: 0px 8px 11px 1px rgba(0, 0, 0, 0.219);
-    -moz-box-shadow: 0px 8px 11px 1px rgba(0,0,0,0.219);
-    box-shadow: 0px 8px 11px 1px rgba(0,0,0,0.219);
+    -moz-box-shadow: 0px 8px 11px 1px rgba(0, 0, 0, 0.219);
+    box-shadow: 0px 8px 11px 1px rgba(0, 0, 0, 0.219);
 }
 
 .Menu_right_Perfil_Content ul {
@@ -224,13 +224,13 @@
 
 .Menu_right_Perfil_Content ul li {
     color: #00000085;
-    
+
     padding: 5px 0;
     cursor: pointer;
     font-size: 12px;
 }
 
-.Menu_right_Perfil_Content ul li:nth-child(1){
+.Menu_right_Perfil_Content ul li:nth-child(1) {
     border-bottom: 1px solid #92929218;
     margin-bottom: 10px;
 }
@@ -241,3 +241,98 @@
     z-index: 10001;
 }
 
+.iconoMenu .icono {
+    display: none;
+}
+
+.iconoUsuario {
+    display: none;
+}
+
+
+.Menu_right_Menu_Content {
+    position: absolute;
+    top: 12%;
+    left: 10px;
+    display: none;
+}
+
+
+@media screen and (max-width: 1024px) {}
+
+
+@media screen and (max-width: 700px) {
+
+    .Menu {
+        margin-top: 10px;
+        padding: 20px;
+    }
+
+    .Menu_left img {
+        width: 80px;
+    }
+
+    .Menu_right_Perfil h4 {
+        display: none;
+    }
+
+    .Menu_left ul {
+        display: none;
+
+    }
+
+    .Menu_right .Menu_right_ayuda {
+        display: none;
+    }
+
+    .Menu_right .icono {
+        font-size: 25px;
+        margin: 0 5px;
+    }
+
+    .Menu_right_buscar {
+        display: none;
+    }
+
+    .iconoMenu .icono {
+        display: block;
+    }
+
+    .iconoUsuario {
+        display: block;
+    }
+
+
+
+    .Menu_right--icono div {
+        width: 14px;
+        height: 14px;
+        top: -10px;
+        right: 0px;
+        border-radius: 100% 100% 100% 1px;
+        -webkit-border-radius: 100% 100% 100% 1px;
+        -moz-border-radius: 100% 100% 100% 1px;
+        -ms-border-radius: 100% 100% 100% 1px;
+        -o-border-radius: 100% 100% 100% 1px;
+    }
+
+    .Menu_right--icono div p {
+        font-size: 10px;
+    }
+
+    .Menu_right_Menu_Content {
+        display: block;
+    }
+
+    .Menu_right button {
+        width: 100px;
+        height: 35px;
+        padding: 5px 10px;
+        margin-left: 0px;
+    }
+
+    .Menu_right button .icono {
+        font-size: 15px;
+        margin-right: 5px;
+    }
+}

@@ -233,7 +233,7 @@
     margin-top: -10px;
 }
 
-.SelectImagen ,
+.SelectImagen,
 .SelectImagenColor {
     display: flex;
     align-items: center;
@@ -267,7 +267,7 @@
     font-weight: 600;
 }
 
-.SelectImagen .pocoStock{
+.SelectImagen .pocoStock {
     margin-left: 10px;
     color: #c2b00c;
     font-weight: 600;
@@ -307,13 +307,13 @@
     margin-top: 20px;
 }
 
-.AddPedido_Productos_Content_table  table .tdImagenes {
+.AddPedido_Productos_Content_table table .tdImagenes {
     width: 100%;
     display: flex;
     align-items: center;
 }
 
-.AddPedido_Productos_Content_table .tdImagenes img{
+.AddPedido_Productos_Content_table .tdImagenes img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -327,7 +327,7 @@
 
 .AddPedido_Productos_Total {
     width: 30%;
-    height: 300px;
+    height: 400px;
     background-color: #ffffff;
     border-radius: 8px;
     -webkit-border-radius: 8px;
@@ -336,4 +336,46 @@
     -o-border-radius: 8px;
     padding: 20px;
     margin-top: 7%;
+}
+
+.AddPedido_Productos_Total button {
+    width: 100%;
+    margin-top: 40px;
+}
+
+
+@media screen and (max-width: 1024px) {}
+
+
+@media screen and (max-width: 700px) {
+    .ViewPedidos_Content {
+        display: block;
+    }
+
+    .ViewPedidos_Content_right p {
+        font-size: 15px;
+    }
+
+    .ViewPedidos_Content_right p span {
+        font-size: 15px;
+    }
+
+    .ViewPedidos_Content_right {
+        width: 100%;
+    }
+
+    .ViewPedidos_Content_right_informacionUsuario {
+        display: block;
+    }
+
+    .ViewPedidos_Content_right_informacionUsuario ul h2 {
+        margin: 20px 0;
+    }
+
+    .ViewPedidos_Content_let {
+        width: 100%;
+        height: auto;
+        margin-left: -15px;
+    }
+
 }

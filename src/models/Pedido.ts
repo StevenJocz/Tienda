@@ -30,6 +30,7 @@ export interface Pedido {
 
 export interface RegistrosPedido {
     idProducto: number;
+    idInventario: number;
     foto: string;
     nombre: string;
     color: string;

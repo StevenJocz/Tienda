@@ -93,3 +93,69 @@
     -ms-transform: rotate(10deg);
     -o-transform: rotate(10deg);
 }
+
+
+@media screen and (max-width: 1024px) {}
+
+
+@media screen and (max-width: 700px) {
+
+    .Header_Content {
+        width: 95%;
+        height: 90vh;
+    }
+
+    .Header_Content--text {
+        text-align: center;
+    }
+
+    .Header_Content--text h3 {
+        font-size: 1.5em;
+    }
+
+    .Header_Content--text h2 {
+        font-size: 3em;
+    }
+
+    .Header_Content--text h1 {
+        font-size: 60px;
+        top: 25%;
+        left: 5%;
+    }
+
+    .Header_Content--description {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        margin-top: 0;
+    }
+
+    .Header_Content--description div {
+        text-align: center;
+        width: 300px;
+        display: none;
+    }
+
+    .Header_Content--description button {
+        width: 250px;
+        height: 50px;
+        font-size: 15px;
+        margin-bottom: 20px;
+        margin-top: 120%;
+    }
+
+    .Header_Content img {
+        width: 400px;
+        position: absolute;
+        top: 45%;
+        left: -5%;
+        transform: rotate(18deg);
+        -webkit-transform: rotate(18deg);
+        -moz-transform: rotate(18deg);
+        -ms-transform: rotate(18deg);
+        -o-transform: rotate(18deg);
+    }
+
+   
+
+}

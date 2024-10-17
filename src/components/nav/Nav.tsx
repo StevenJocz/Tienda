@@ -1,6 +1,6 @@
 import './Nav.css'
 import { IonIcon } from '@ionic/react';
-import { notificationsOutline, cartOutline, searchOutline, personOutline, heartOutline } from 'ionicons/icons';
+import { notificationsOutline, cartOutline, searchOutline, personOutline, heartOutline, menuOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import ShoppingCart from '../cart/shoppingCart/ShoppingCart';
 import { useCartContext } from '../../context/CartContext';
@@ -28,6 +28,7 @@ const Nav = () => {
     const dispatch = useDispatch();
     const [notification, setNotification] = useState(false);
     const [tieneNotificacion, setTieneNotificacion] = useState(0);
+    const [menu, setMenu] = useState(false);
 
     useEffect(() => {
         // Verificar si el usuario tiene un token en localStorage
@@ -41,27 +42,39 @@ const Nav = () => {
     const handleShoppingCart = () => {
         setShoppingCart(!shoppingCart);
         setNotification(false);
+        setMenu(false);
     };
 
     const handleFavoritos = () => {
         setFavoritos(!favoritos);
         setNotification(false);
+        setMenu(false);
     };
 
     const handleMenuPerfil = () => {
         setVerMenuPerfil(!verMenuPerfil);
         setNotification(false);
+        setMenu(false);
     };
 
     const handleMiCuenta = () => {
         setVerMiCuenta(!verMiCuenta);
         setNotification(false);
+        setMenu(false);
     };
 
     const handleNotification = () => {
         setNotification(!notification);
         setTieneNotificacion(0);
+        setMenu(false);
+        setVerMiCuenta(false);
     };
+
+    const handleMenu = () => {
+        setMenu(!menu);
+        setShoppingCart(false);
+        setNotification(false);
+    }
 
 
     useEffect(() => {
@@ -93,33 +106,44 @@ const Nav = () => {
     return (
         <div className='Menu'>
             <div className='Menu_left'>
-                <img src="http://tienda.unac.edu.co/wp-content/uploads/cropped-LOGO_UNAC-1.webp" alt="" />
+                <Link to={'/'}>
+                    <img src="http://tienda.unac.edu.co/wp-content/uploads/cropped-LOGO_UNAC-1.webp" alt="" />
+                </Link>
                 <ul>
                     <Link to={'/'}> <li className="">Home</li></Link>
                     <Link to={'/Shop/0/TodasCategorias'}> <li className="">Shop</li></Link>
                 </ul>
             </div>
             <div className='Menu_right'>
-                <p>¿NECESITAS AYUDA?</p>
-                <Link to={'/Shop/0/TodasCategorias'}> <IonIcon className='icono' icon={searchOutline} /></Link>
-
+                <p className='Menu_right_ayuda'>¿NECESITAS AYUDA?</p>
+                <Link to={'/Shop/0/TodasCategorias'}> <IonIcon className='icono Menu_right_buscar' icon={searchOutline} /></Link>
+                <div className='iconoMenu'>
+                    <IonIcon className='icono' icon={menuOutline} onClick={handleMenu} />
+                </div>
 
                 <div className='Menu_right--icono' onClick={handleNotification} >
-                    <IonIcon className='icono' icon={notificationsOutline}  />
+                    <IonIcon className='icono' icon={notificationsOutline} />
                     {tieneNotificacion > 0 &&
                         <div>
                             <p>{tieneNotificacion}</p>
                         </div>
                     }
                 </div>
-                <IonIcon className='icono' icon={heartOutline} onClick={handleFavoritos} />
+                <div className='Menu_right--icono'  >
+                    <IonIcon className='icono' icon={heartOutline} onClick={handleFavoritos} />
+                </div>
+
                 <div className='Menu_right--icono' onClick={handleShoppingCart} >
                     <IonIcon className='icono' icon={cartOutline} />
                     {cartItems.length > 0 && <div>
                         <p>{cartItems.length}</p>
                     </div>}
                 </div>
-
+                {isLogin &&
+                    <div className='Menu_right--icono'  >
+                        <IonIcon className='icono iconoUsuario' onClick={handleMenuPerfil} icon={personOutline} />
+                    </div>
+                }
                 {isLogin ? (
                     <>
                         <div className='Menu_right_Perfil'>
@@ -154,6 +178,7 @@ const Nav = () => {
                                 </div>
                             }
                         </div>
+
                     </>
                 ) : (
                     <button onClick={() => setSesion(!isSesion)}>
@@ -162,10 +187,20 @@ const Nav = () => {
                     </button>
                 )}
             </div>
+            {menu &&
+                <div className='Menu_right_Menu_Content Menu_right_Perfil_Content'>
+                    <ul>
+                        <Link to={'/'}> <li className="">Home</li></Link>
+                        <Link to={'/Shop/0/TodasCategorias'}> <li className="">Shop</li></Link>
+                    </ul>
+                </div>
+
+            }
+
             {shoppingCart && <ShoppingCart onClose={() => setShoppingCart(false)} mostrarInicio={() => setSesion(true)} />}
             {favoritos && <Favoritos onClose={() => setFavoritos(false)} filtros={{}} />}
             {verMiCuenta && <MiCuenta onClose={() => setVerMiCuenta(false)} />}
-            {notification && <Notification esAdmin={false}/>}
+            {notification && <Notification esAdmin={false} mostrarRegistro={() => setNotification(false)} />}
             {isSesion && (
                 <Login
                     onClose={() => setSesion(!isSesion)}

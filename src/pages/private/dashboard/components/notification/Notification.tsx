@@ -1,6 +1,6 @@
 import './Notification.css';
 import { IonIcon } from '@ionic/react';
-import { timeOutline } from 'ionicons/icons';
+import { timeOutline, closeOutline } from 'ionicons/icons';
 import { Link } from 'react-router-dom';
 import { IconoComponet } from '../iconoComponet';
 import { useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ import { AppStore } from '../../../../../redux/Store';
 import { useSelector } from 'react-redux';
 
 interface Props {
+  mostrarRegistro: () => void;
   esAdmin: boolean;
 }
 
@@ -26,7 +27,7 @@ const Notification: React.FC<Props> = (props) => {
     // Solicitud GET
 
     try {
-      const response = await api.get<Notificacion[]>('Notificacion/Get_Notifiaciones', {accion: 2, idUsuario: usuario.idUsuario });
+      const response = await api.get<Notificacion[]>('Notificacion/Get_Notifiaciones', { accion: 2, idUsuario: usuario.idUsuario });
       if (response.data.length > 0) {
         setDate(response.data)
       }
@@ -71,6 +72,7 @@ const Notification: React.FC<Props> = (props) => {
     <div className='Notification'>
       <div className="Notification_header">
         <h3>Notificaciones</h3>
+        <IonIcon className='icono' icon={closeOutline} onClick={props.mostrarRegistro} />
       </div>
       <div className="Notification_content">
 
@@ -78,17 +80,16 @@ const Notification: React.FC<Props> = (props) => {
           <Link
             to={notificacion.idTipoNotificacion != 14 ? (
               linkTo + notificacion.idRelacion
-            ):(
+            ) : (
               "/Dashboard/Comentarios"
             )}
             key={index}
-            onClick={() => hadlePutNotifiaciones(notificacion.idNotificacion)
-            }
+            onClick={() => { hadlePutNotifiaciones(notificacion.idNotificacion); props.mostrarRegistro(); }}
           >
             <div className={`Notification_content-items Notification_${notificacion.idTipoNotificacion} ${notificacion.leida == false ? ' Notification_Nueva' : ''}`}>
               <IconoComponet name={notificacion.icono} />
               <div className='Notification_content-items-content'>
-                <p>{notificacion.notificacion}<span> {notificacion.idTipoNotificacion != 14 ?  "Orden #" + notificacion.orden : "" }</span></p>
+                <p>{notificacion.notificacion}<span> {notificacion.idTipoNotificacion != 14 ? "Orden #" + notificacion.orden : ""}</span></p>
                 <p className='items_fecha'> <IonIcon className='iconoFecha' icon={timeOutline} />{notificacion.fecha}</p>
               </div>
             </div>
@@ -99,7 +100,7 @@ const Notification: React.FC<Props> = (props) => {
       </div>
       {props.esAdmin &&
         <div className="Notification_footer">
-          <Link to={'/Dashboard/Notificaciones'}>Ver todas las notificaciones</Link>
+          <Link to={'/Dashboard/Notificaciones'} onClick={props.mostrarRegistro}>Ver todas las notificaciones</Link>
         </div>
       }
 

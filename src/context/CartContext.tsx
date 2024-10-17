@@ -11,6 +11,7 @@ interface CartContextProps {
     clearCart: () => void;
     getTotalCartValue: () => number;
     updateCartItemQuantity: (productId: number, newQuantity: number) => void;
+    getCartItemQuantity: (productId: number) => number;
 }
 
 // Crea el contexto
@@ -55,6 +56,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } else {
             return cartItems.reduce((maxId, item) => (item.id > maxId ? item.id : maxId), 0);
         }
+    };
+
+    const getCartItemQuantity = (idProducto: number): number => {
+        const item = cartItems.find(existingItem =>
+            existingItem.idProducto === idProducto
+        );
+        return item ? item.cantidad : 0;
     };
 
     // Función para agregar un elemento al carrito o actualizar la cantidad si ya existe
@@ -121,7 +129,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         removeFromCart,
         clearCart,
         getTotalCartValue,
-        updateCartItemQuantity
+        updateCartItemQuantity,
+        getCartItemQuantity
     };
 
     // Renderiza el proveedor del contexto con los hijos proporcionados
