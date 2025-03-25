@@ -14,7 +14,9 @@
 
 .ViewPedidos_Content_right {
     width: 70%;
+    margin-top: 20px;
 }
+
 
 
 .ViewPedidos_Content_right p {
@@ -149,6 +151,43 @@
     font-weight: 600;
     margin-top: 0;
     font-size: 17px;
+}
+
+
+
+.AddPedido_Content_Resumen_valores,
+.AddPedido_Content_Resumen_Tvalores {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.AddPedido_Content_Resumen_valores h3 span {
+    margin-top: 14px;
+    font-weight: 400;
+}
+
+.AddPedido_Content_Resumen_valores h3 {
+    margin-top: 14px;
+    font-weight: 200;
+}
+
+.AddPedido_Content_Resumen_Tvalores span {
+    margin-top: 17px;
+    font-weight: 600;
+}
+
+.AddPedido_Content_Resumen_Tvalores h3 {
+    margin-top: 17px;
+    font-weight: 500;
+}
+
+.AddPedido_Content_Resumen_valores_P {
+    text-align: right;
+    font-weight: 200;
+    font-size: 12px;
+    font-style: italic;
 }
 
 .AddCursos_Formulario-content_Totales {

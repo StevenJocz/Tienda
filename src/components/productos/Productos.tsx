@@ -41,13 +41,16 @@ const Productos: React.FC<Props> = (props) => {
     };
 
     const filtrarProductos = (productos: Producto[]) => {
-        return productos.filter(producto => {
+        const filtrados = productos.filter(producto => {
             const { categoria, nuevo, enOferta } = props.filtros;
             const cumpleCategoria = categoria ? producto.categorias.includes(categoria) : true;
             const cumpleNuevo = nuevo !== undefined && nuevo !== false ? producto.nuevo === nuevo : true;
             const cumpleEnOferta = enOferta !== undefined && enOferta !== false ? producto.aplicaDescuento === enOferta : true;
             return cumpleCategoria && cumpleNuevo && cumpleEnOferta;
         });
+
+        // Ordenar productos (por ejemplo, de mayor a menor ID)
+        return filtrados.sort((a, b) => b.id - a.id); 
     };
 
     const productosFiltrados = filtrarProductos(productos);
@@ -70,9 +73,6 @@ const Productos: React.FC<Props> = (props) => {
                     <div className='Productos_Card' key={index}>
                         <Link to={`/Producto/${producto.id}/${encodeURIComponent(producto.nombre.toLowerCase().replace(/ /g, '-'))}`}>
                             <div className='Productos_Card--img'>
-                                {producto.aplicaDescuento &&
-                                    <h5>En oferta</h5>
-                                }
                                 {producto.nuevo &&
                                     <h6>Nuevo</h6>
                                 }
@@ -87,6 +87,7 @@ const Productos: React.FC<Props> = (props) => {
                                 }
                             </div>
                         </Link>
+                        <a href=""></a>
                         <div className='Productos_Card--info'>
                             <Link to={'/Producto/1'}>
                                 <h3>{producto.nombre}</h3>

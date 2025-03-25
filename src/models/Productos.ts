@@ -61,6 +61,7 @@ export interface viewProducto {
     idTercero: number;
     stock: number;
     precioBase?: number;
+    iva: number
     tallas: Talla[];
     imagenes: ImagenData[];
 }

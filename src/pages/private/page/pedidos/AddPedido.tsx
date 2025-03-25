@@ -13,7 +13,7 @@ import './Pedidos.css'
 import { ProductoSelect, viewProducto } from "../../../../models/Productos";
 import { RegistrosPedido } from "../../../../models/Pedido";
 import { calcularPrecioFinal } from "../../../../utilities/CalcularPrecioFinal";
-import { Pedido } from '../../../../models/Pedido';
+// import { Pedido } from '../../../../models/Pedido';
 
 interface Props {
     mostrarRegistro: () => void;
@@ -231,53 +231,55 @@ const AddPedido: React.FC<Props> = (props) => {
     }
 
     const handdleEnviarPedido = async (idUsuario: number) => {
-        setIsLoading(true);
-        try {
-            const Pedido: Pedido = {
-                idUsuario: idUsuario,
-                subTotal: subTotal,
-                valorEnvio: 0,
-                idCupon: idCupon,
-                valorDescuento: valorCupon,
-                valorTotal: parseFloat(valorTotal.toFixed(2)),
-                tipoEntrega: "Recogida en el campus",
-                direccion: "",
-                complemento: "",
-                barrio: "",
-                destinatario: "",
-                responsable: "",
-                registros: productosSeleccionado.map((producto, index) => ({
-                    idPedido_Registro: index + 1,
-                    idPedido: 0,
-                    idProducto: producto.idProducto,
-                    idInventario: producto.idInventario,
-                    cantidad: producto.cantidad,
-                    nombre: producto.nombre,
-                    color: producto.color,
-                    talla: producto.talla,
-                    ValorUnidad: parseFloat(producto.precio.toFixed(2)),
-                    imagen: producto.foto
-                }
-                ))
-            }
+        console.log(idUsuario);
+        console.log(idCupon)
+        // setIsLoading(true);
+        // try {
+        //     const Pedido: Pedido = {
+               
+        //         subTotal: subTotal,
+        //         valorEnvio: 0,
+        //         idCupon: idCupon,
+        //         valorDescuento: valorCupon,
+        //         valorTotal: parseFloat(valorTotal.toFixed(2)),
+        //         tipoEntrega: "Recogida en el campus",
+               
+        //         complemento: "",
+        //         barrio: "",
+        //         destinatario: "",
+        //         responsable: "",
+        //         registros: productosSeleccionado.map((producto, index) => ({
+        //             idPedido_Registro: index + 1,
+        //             idPedido: 0,
+        //             idProducto: producto.idProducto,
+        //             idInventario: producto.idInventario,
+        //             cantidad: producto.cantidad,
+        //             nombre: producto.nombre,
+        //             color: producto.color,
+        //             talla: producto.talla,
+        //             ValorUnidad: parseFloat(producto.precio.toFixed(2)),
+        //             imagen: producto.foto
+        //         }
+        //         ))
+        //     }
 
-            const response = await api.post('Pedido/Post_Registrar_Pedido', Pedido);
-            const data = response.data as { resultado: boolean; mensaje: string; orden: number };
+        //     const response = await api.post('Pedido/Post_Registrar_Pedido', Pedido);
+        //     const data = response.data as { resultado: boolean; mensaje: string; orden: number };
 
-            setMsg(data.mensaje);
-            setIsLoading(false);
-            if (data.resultado == true) {
-                if (props.actualizarDatos) {
-                    props.actualizarDatos();
-                    handleNavigation();
-                }
+        //     setMsg(data.mensaje);
+        //     setIsLoading(false);
+        //     if (data.resultado == true) {
+        //         if (props.actualizarDatos) {
+        //             props.actualizarDatos();
+        //             handleNavigation();
+        //         }
                 
-            }
+        //     }
 
-        } catch (error) {
-            setMsg('Estamos presentando inconvenientes. Por favor, vuelva a intentarlo más tarde.');
-            setIsLoading(false);
-        }
+        // } catch (error) {
+        //     setMsg('Estamos presentando inconvenientes. Por favor, vuelva a intentarlo más tarde.');
+        //     setIsLoading(false);
+        // }
 
     }
 
@@ -743,14 +745,14 @@ const AddPedido: React.FC<Props> = (props) => {
                     </div>
                     <div className="AddPedido_Productos_Total">
                         <h2>Resumen</h2>
-                        <div className='Checkout_Content_Resumen_Cupon'>
+                        <div className='AddPedido_Content_Resumen_Cupon'>
                             {aplicaCupon == false ? (
-                                <div className='Checkout_Content_Resumen_Cupon_usar' onClick={() => setAplicaCupon(true)}>
+                                <div className='AddPedido_Content_Resumen_Cupon_usar' onClick={() => setAplicaCupon(true)}>
                                     <h4>Usar un código promocional</h4>
                                     <IonIcon className="icono" icon={chevronDownOutline} />
                                 </div>
                             ) : (
-                                <div className='Checkout_Content_Resumen_Cupon_input'>
+                                <div className='AddPedido_Content_Resumen_Cupon_input'>
                                     <StyledTextField
                                         name='cupon'
                                         variant="outlined"
@@ -761,7 +763,7 @@ const AddPedido: React.FC<Props> = (props) => {
                                         value={cupon}
                                     />
 
-                                    <div className='Checkout_Content_Resumen_Cupon_botones'>
+                                    <div className='AddPedido_Content_Resumen_Cupon_botones'>
                                         <button onClick={() => { setAplicaCupon(false); setCupon(''); setTextCupon('') }}>Cancelar</button>
                                         <button onClick={() => handleDescuento()}>Aplicar</button>
                                     </div>
@@ -769,15 +771,15 @@ const AddPedido: React.FC<Props> = (props) => {
                                 </div>
                             )}
                         </div>
-                        <div className="Checkout_Content_Resumen_valores">
+                        <div className="AddPedido_Content_Resumen_valores">
                             <h3><span>Subtotal:</span></h3>
                             <h3>${subTotal.toLocaleString()}</h3>
                         </div>
-                        <div className="Checkout_Content_Resumen_valores">
+                        <div className="AddPedido_Content_Resumen_valores">
                             <h3><span>Descuento:</span></h3>
                             <h3 className={valorCupon > 0 ? 'valorDescuento' : ''}>{valorCupon > 0 ? '-' : ''}${valorCupon.toLocaleString()}</h3>
                         </div>
-                        <div className="Checkout_Content_Resumen_Tvalores AddCursos_Formulario-content_Totales">
+                        <div className="AddPedido_Content_Resumen_Tvalores AddCursos_Formulario-content_Totales">
                             <h3><span>Total:</span></h3>
                             <h3><span>${valorTotal.toLocaleString()}</span></h3>
                         </div>

@@ -10,6 +10,7 @@ interface CartContextProps {
     removeFromCart: (itemId: number) => void;
     clearCart: () => void;
     getTotalCartValue: () => number;
+    getTotalIva: () => number;
     updateCartItemQuantity: (productId: number, newQuantity: number) => void;
     getCartItemQuantity: (productId: number) => number;
 }
@@ -45,7 +46,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (cartItems.length > 0) {
             persistLocalStorage('cartItems', cartItems);
         } else {
-            clearLocalStorage('cartItems'); 
+            clearLocalStorage('cartItems');
         }
     }, [cartItems]);
 
@@ -80,12 +81,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
             setCartItems(prevItems => {
                 const updatedCartItems = [...prevItems];
                 updatedCartItems[existingItemIndex].cantidad += item.cantidad;
+                // Redondear el valor total del producto actualizado
+                updatedCartItems[existingItemIndex].valor = Math.round(updatedCartItems[existingItemIndex].valor);
                 return updatedCartItems;
             });
             message = 'La cantidad del producto se ha actualizado en el carrito.';
         } else {
             // Si el producto no existe en el carrito, agrégalo
-            setCartItems(prevItems => [...prevItems, item]);
+            setCartItems(prevItems => [
+                ...prevItems,
+                { ...item, valor: Math.round(item.valor) } // Redondear el valor del producto al agregarlo
+            ]);
             message = 'El producto se ha añadido al carrito.';
         }
 
@@ -115,10 +121,21 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setCartItems([]);
     };
 
-    // Función para obtener el valor total de todos los productos en el carrito
+    // Función para obtener el valor total de todos los productos en el carrito sin decimales
     const getTotalCartValue = () => {
-        // Utilizamos el método reduce para sumar los valores de todos los productos en el carrito
-        return cartItems.reduce((total, item) => total + item.valor * item.cantidad, 0);
+        return Math.round(
+            cartItems.reduce((total, item) => total + item.valor * item.cantidad, 0)
+        );
+    };
+
+    // Función para obtener el total del IVA sin decimales
+    const getTotalIva = () => {
+        return Math.round(
+            cartItems.reduce((totalIva, item) => {
+                const ivaProducto = (item.valor * item.cantidad * item.iva) / 100;
+                return totalIva + ivaProducto;
+            }, 0)
+        );
     };
 
     // Objeto de contexto
@@ -130,7 +147,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         clearCart,
         getTotalCartValue,
         updateCartItemQuantity,
-        getCartItemQuantity
+        getCartItemQuantity,
+        getTotalIva
     };
 
     // Renderiza el proveedor del contexto con los hijos proporcionados

@@ -1,9 +1,7 @@
 import './Header.css'
-import img1 from '../../assets/img/camiseta1.png'
-import { Link } from 'react-router-dom'
+import img1 from '../../assets/img/right-img.webp'
 
 const Header = () => {
-
     return (
         <div className='Header'>
             <div className='Header_Content'>
@@ -12,16 +10,8 @@ const Header = () => {
                     <h2>Universitario</h2>
                     <h1>Tienda unac</h1>
                 </div>
-                <div className='Header_Content--description'>
-                    <Link to={'/Shop/0/TodasCategorias'}>
-                        <button>Shop Now Category</button>
-                    </Link>
-                    <div>
-                        <h4>Description</h4>
-                        <p>Descubre una experiencia de compra única en Tienda UNAC. Con una amplia selección de productos, facilidades de compra,  Explora nuestro catálogo y benefíciate de ofertas exclusivas.</p>
-                    </div>
-                </div>
-                <img src={img1} alt="" />
+                <img src={img1} alt="Tienda UNAC" />
+                <img className='svg' src="https://congreso.unac.edu.co/assets/bg_dots-CqYKVHww.svg" alt="" />
             </div>
         </div>
     )

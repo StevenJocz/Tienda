@@ -122,9 +122,7 @@ const Iniciar: React.FC<Props> = (props) => {
         </Formik>
         <div className="Login_content_body-registro">
           <p>¿No tienes cuenta?</p>
-          <button onClick={() => props.mostrarRegistro()}>
-            Registrate
-          </button>
+          <span>Tu usuario será creado automáticamente cuando realices una compra.</span>
         </div>
       </div>
     </>

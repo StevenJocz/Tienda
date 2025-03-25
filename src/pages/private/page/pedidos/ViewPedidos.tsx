@@ -329,19 +329,19 @@ const ViewPedidos: React.FC<Props> = (props) => {
                     </div>
                     <div className="AddCursos_Formulario-content">
                         <h2>Resumen</h2>
-                        <div className="Checkout_Content_Resumen_valores">
+                        <div className="AddPedido_Content_Resumen_valores">
                             <h3><span>Subtotal:</span></h3>
                             <h3>${pedidos?.subTotal.toLocaleString()}</h3>
                         </div>
-                        <div className="Checkout_Content_Resumen_valores">
+                        <div className="AddPedido_Content_Resumen_valores">
                             <h3><span>Envío:</span></h3>
                             <h3>${pedidos?.valorEnvio.toLocaleString()}</h3>
                         </div>
-                        <div className="Checkout_Content_Resumen_valores">
+                        <div className="AddPedido_Content_Resumen_valores">
                             <h3><span>Descuento:</span></h3>
                             <h3>${pedidos?.descuento.toLocaleString()}</h3>
                         </div>
-                        <div className="Checkout_Content_Resumen_Tvalores AddCursos_Formulario-content_Totales">
+                        <div className="AddPedido_Content_Resumen_Tvalores AddCursos_Formulario-content_Totales">
                             <h3><span>Total:</span></h3>
                             <h3><span>${pedidos?.total.toLocaleString()}</span></h3>
                         </div>

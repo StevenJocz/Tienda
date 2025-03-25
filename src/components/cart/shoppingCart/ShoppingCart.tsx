@@ -5,9 +5,6 @@ import { closeOutline, rocketOutline, addOutline, removeOutline, trashOutline, c
 import { useCartContext } from '../../../context/CartContext';
 import { Link } from 'react-router-dom';
 import { services } from '../../../models';
-import { useSelector } from 'react-redux';
-import { AppStore } from '../../../redux/Store';
-import { useNavigate } from 'react-router-dom';
 import { api } from '../../../services';
 import { useEffect, useState } from 'react';
 
@@ -18,18 +15,17 @@ interface Props {
 
 const ShoppingCart: React.FC<Props> = (props) => {
     const { cartItems, removeFromCart, getTotalCartValue, updateCartItemQuantity } = useCartContext();
-    const usuario = useSelector((store: AppStore) => store.user);
-    const navigate = useNavigate();
+
     const [monto, setMonto] = useState(0);
 
     useEffect(() => {
         hadleGetMonto();
     }, [monto]);
-    
+
     const hadleGetMonto = async () => {
         // Solicitud GET
         const response = await api.get<[any]>('Generales/Get_Monto', { IdMonto: 1 });
-        setMonto(response.data[0].valorMonto )
+        setMonto(response.data[0].valorMonto)
     };
     const handleSelectCantidad = (accion: number, id: number, Cantidad: number) => {
 
@@ -82,16 +78,6 @@ const ShoppingCart: React.FC<Props> = (props) => {
     };
 
 
-    const handleFinalizarCompra = ()=> {
-        if (usuario.idUsuario == 0) {
-            if (props.mostrarInicio) {
-                props.mostrarInicio();
-            }
-            props.onClose();
-        }else{
-            navigate('/Shop/Checkout');
-        }
-    }
 
     return (
         <div className='ShoppingCart'>
@@ -161,7 +147,9 @@ const ShoppingCart: React.FC<Props> = (props) => {
                                 </div>
 
                                 <div className='ShoppingCart_Botones'>
-                                    <a onClick={handleFinalizarCompra}>FINALIZAR COMPRA</a>
+                                    <Link to={"/Shop/Checkout"}>
+                                        FINALIZAR
+                                    </Link>
                                     <button onClick={props.onClose}>SEGUIR COMPRANDO</button>
                                 </div>
                             </div>

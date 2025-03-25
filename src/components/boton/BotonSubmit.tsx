@@ -25,7 +25,7 @@ const BotonSubmit: React.FC<BotonSubmitProps> = ({ isLoading = false, texto = ''
 
     const hexadecimalColor = colores[color.toLowerCase()];
     return (
-        <button type="submit" className="Iniciar_Boton" onClick={onClick} disabled={isSubmitting} style={{ backgroundColor: hexadecimalColor }}>
+        <button type="submit" className={`${texto=='Pagar ahora' ? 'PagarAhora' : 'Iniciar_Boton'}`} onClick={onClick} disabled={isSubmitting} style={{ backgroundColor: hexadecimalColor }}>
             {isLoading ? (
                 <div className="Iniciar_spinner">
                     <div className="spinner">

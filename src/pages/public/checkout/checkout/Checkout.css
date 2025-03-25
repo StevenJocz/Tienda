@@ -1,0 +1,691 @@
+.Checkout_Encabezado_Aplica {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--bg-unac);
+    color: var(--text-blanco);
+    font-weight: 300;
+}
+
+.Checkout_Encabezado {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 10%;
+    border: 1px solid #0000001e;
+}
+
+.Checkout_Encabezado img {
+    width: 200px;
+}
+
+.Checkout_Encabezado .icono {
+    font-size: 25px;
+    color: var(--text-unac);
+}
+
+.Checkout_Body {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+}
+
+.Checkout_Body_Info {
+    width: 50%;
+    padding: 30px 30px 50px 12%;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.Checkout_Body_Info::-webkit-scrollbar {
+    width: 3px;
+}
+
+.Checkout_Body_Info::-webkit-scrollbar-thumb {
+    background-color: #00000069;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.Checkout_Body_Info::-webkit-scrollbar-track {
+    background-color: #262b3400;
+}
+
+.Checkout_Body_Info h3 {
+    font-size: 20px;
+    color: #000000e0;
+    font-weight: 500;
+}
+
+.Checkout_Formulario {
+    width: 100%;
+}
+
+.Checkout_Formulario_Resumen {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #eeeeee;
+    padding: 10px;
+    border-radius: 0.4rem;
+    -webkit-border-radius: 0.4rem;
+    -moz-border-radius: 0.4rem;
+    -ms-border-radius: 0.4rem;
+    -o-border-radius: 0.4rem;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.Checkout_Formulario_Resumen_texto {
+    width: 40%;
+}
+
+.Checkout_Formulario_Resumen_texto div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.Checkout_Formulario_Resumen_texto h3{
+    font-size: 14px;
+    color: var(--text-unac);
+    margin-bottom: 20px;
+}
+
+.Checkout_Formulario_Resumen_texto .icono{
+    font-size: 14px;
+    color: var(--text-unac);
+}
+
+.Checkout_Formulario_Resumen_texto span  {
+    width: 100%;
+    font-size: 12px;
+    margin-top: 20px;
+    color: #07940e;
+}
+
+.Checkout_Formulario_Resumen_Total h4 {
+    font-size: 14px;
+}
+
+.Checkout_Formulario_Resumen_Total h3 {
+    font-size: 25px;
+    color: var(--text-unac);
+}
+
+
+
+
+
+.Checkout_Formulario_Dos {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.Checkout_Formulario_Dos div {
+    width: 100%;
+}
+
+.Checkout_Formulario_Titulo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.Checkout_Formulario_Titulo span {
+    width: 150px;
+    height: 30px;
+    background-color: var(--bg-unac);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.Checkout_Formulario_Titulo button:hover {
+    background-color: #0000001e;
+}
+
+.Checkout_Formulario_Radio {
+    width: 100%;
+    height: 40px;
+    border: solid 1px #0000002c;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+    margin-bottom: 20px;
+    background-color: #2e609159;
+}
+
+.Checkout_Formulario_Radio:hover {
+    background-color: #2e60918a;
+}
+
+
+.Checkout_Formulario_Radio img {
+    width: 30px;
+    height: 30px;
+}
+
+.Checkout_Formulario_Radio .icono {
+    font-size: 30px;
+}
+
+.Checkout_Formulario_Radio_Envio {
+    width: 100%;
+    border-left: 1px solid #0000002c;
+    border-right: 1px solid #0000002c;
+    border-bottom: 1px solid #0000002c;
+    margin: -20px 0 20px 0;
+    padding: 10px;
+}
+
+.Checkout_Formulario_Radio_Envio p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.Checkout_Formulario_Radio_Envio p span {
+    font-size: 18px;
+    color: #6d2323;
+    font-weight: 500;
+}
+
+.Checkout_Envio_Recoger_Info h4 {
+    font-size: 17px;
+    line-height: 20px;
+    color: #000000;
+}
+
+.Checkout_Envio_Recoger_Info h5 {
+    font-size: 15px;
+    line-height: 20px;
+
+}
+
+.Checkout_Envio_Recoger_Info p {
+    margin-top: 0;
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: #4d5959;
+}
+
+
+.Checkout_Formulario_Radio_Envio h3 {
+    font-size: 18px;
+    color: #4d5959;
+}
+
+
+.Checkout_Formulario_Radio_Envio span {
+    font-size: 18px;
+    font-weight: 600;
+    color: #037c13;
+}
+
+.Checkout_Formulario_Radio_Envio table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.Checkout_Formulario_Radio_Envio table tr {
+    width: 100%;
+    height: 40px;
+}
+
+.Checkout_Formulario_Radio_Envio table tr td {
+    width: 50%;
+    border-bottom: 1px solid #0000001c;
+}
+
+.Checkout_Formulario_MetodosPago {
+    width: 100%;
+}
+
+.Checkout_Formulario_MetodosPago div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.Checkout_Formulario_MetodosPago div img {
+    width: 20%;
+}
+
+.Checkout_Formulario_DatosPersonales {
+    color: var(--text-unac);
+    font-size: 16px;
+}
+
+.Checkout_Formulario_DatosPersonales a {
+    color: #4db134;
+    font-size: 16px;
+}
+
+
+.PreguntasFrecuentes_Div {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.PreguntasFrecuentes_Div a {
+    color: var(--text-unac);
+    font-size: 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.Checkout_Body_Items {
+    width: 50%;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgb(228, 227, 227) 82%);
+    padding: 40px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.Checkout_Body_Items::-webkit-scrollbar {
+    width: 3px;
+}
+
+.Checkout_Body_Items::-webkit-scrollbar-thumb {
+    background-color: #00000069;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.Checkout_Body_Items::-webkit-scrollbar-track {
+    background-color: #262b3400;
+}
+
+.Checkout_Body_Items_header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    display: none;
+}
+
+.Checkout_Body_Items_header .icono {
+    font-size: 30px;
+}
+
+.Items {
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.Totales_Responsibe {
+    display: none;
+}
+
+.Items_Imagen {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #0000001c;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+
+.Items_Imagen img {
+    width: 90%;
+}
+
+.Items_Imagen span {
+    width: 22px;
+    height: 22px;
+    background-color: var(--bg-unac);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+}
+
+.Items_Texto {
+    width: 50%;
+    margin-top: 10px;
+}
+
+.Items_Texto h4 {
+    font-weight: 500;
+}
+
+.Items_Texto p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0000006b;
+}
+
+.Items h3 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+.Items_Cupon {
+    width: 65%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.Items_Cupon button {
+    width: auto;
+    height: 40px;
+    padding: 5px 30px;
+    border: solid 1px #4e4e4e2d;
+    border-radius: 20px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+    transition: .35s cubic-bezier(.25, .1, .25, 1);
+    margin-top: -20px;
+}
+
+.textCupon {
+    font-size: 17px;
+    color: #ff0000;
+    font-weight: 400;
+    margin-top: -15px;
+    margin-left: 10px;
+}
+
+.textCuponExitoso {
+    color: #07940e;
+    font-size: 17px;
+    font-weight: 400;
+    margin-top: -15px;
+    margin-left: 10px;
+}
+
+.Checkout_Content_Resumen p {
+    font-weight: 400;
+    font-size: 15px;
+    margin-top: 10px;
+    color: #6d6c6c;
+}
+
+
+.Checkout_Content_Resumen_valores,
+.Checkout_Content_Resumen_Tvalores {
+    width: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Checkout_Content_Resumen_valores h3 span {
+    margin-top: 14px;
+    font-weight: 400;
+}
+
+.Checkout_Content_Resumen_valores h3 {
+    margin-top: 14px;
+    font-weight: 200;
+}
+
+.Checkout_Content_Resumen_Tvalores span {
+    margin-top: 17px;
+    font-weight: 600;
+}
+
+.Checkout_Content_Resumen_Tvalores h3 {
+    margin-top: 17px;
+    font-weight: 500;
+}
+
+.Checkout_Content_Resumen_valores_P {
+    text-align: right;
+    font-weight: 200;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.valorDescuento {
+    color: rgb(194, 9, 9);
+    font-weight: 500 !important;
+}
+
+
+.Error {
+    font-size: 13px;
+    color: rgb(194, 9, 9);
+    font-weight: 300 !important;
+    font-style: italic;
+    text-align: right;
+    margin-top: -13px;
+    margin-bottom: 20px;
+}
+
+
+.Mensaje {
+    font-size: 15px;
+    color: rgb(194, 9, 9);
+    font-weight: 400 !important;
+    font-style: italic;
+    text-align: right;
+    margin-top: 20px;
+}
+
+.Referencia_Pendiente {
+    font-size: 18px;
+    color: rgb(194, 129, 9);
+    font-weight: 400 !important;
+    font-style: italic;
+    text-align: right;
+    margin-top: 20px;
+}
+
+
+@media screen and (max-width: 1024px) {}
+
+
+@media screen and (max-width: 700px) {
+
+    .Checkout_Body {
+        width: 100%;
+        height: 100vh;
+        display: block;
+        overflow: hidden;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .Checkout_Body_Info::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    .Checkout_Body_Info::-webkit-scrollbar-thumb {
+        background-color: #00000069;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+    }
+
+    .Checkout_Body_Info::-webkit-scrollbar-track {
+        background-color: #262b3400;
+    }
+
+    .Checkout_Formulario {
+        width: 100%;
+    }
+
+    .Checkout_Formulario_Dos {
+        width: 100%;
+        display: block;
+    }
+
+    .Checkout_Formulario_Dos_Responsive {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+    }
+
+    .Checkout_Body_Info {
+        width: 100%;
+        height: 100vh;
+        padding: 15px 15px 60px 15px;
+        overflow: hidden;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .mostrar-items {
+        display: none;
+    }
+
+    .Checkout_Body_Items {
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        background: rgb(255, 255, 255);
+        background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgb(255, 255, 255) 82%);
+        z-index: 1;
+        overflow: hidden;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .Checkout_Body_Items::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    .Checkout_Body_Items::-webkit-scrollbar-thumb {
+        background-color: #00000069;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+    }
+
+    .Checkout_Body_Items::-webkit-scrollbar-track {
+        background-color: #262b3400;
+    }
+
+    .Items {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 20px 0 10px;
+        border-bottom: 1px solid #0000001e;
+    }
+
+    .Items_Imagen {
+        width: 60px;
+        height: 60px;
+        border: none;
+    }
+    
+    .Items_Imagen img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .Items_Imagen span {
+        width: 17px;
+        height: 17px;
+    }
+    
+    .Items_Texto {
+        width: 40%;
+        margin-top: 10px;
+    }
+    
+    .Items_Texto h4 {
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    .Items_Texto p {
+        font-size: 12px;
+    }
+    
+    .Items h3 {
+        font-size: 18px;
+        font-weight: 400;
+        margin-top: 15px;
+    }
+
+    .Items_Cupon {
+        width: 100%;
+    }
+
+    .Checkout_Content_Resumen_valores,
+    .Checkout_Content_Resumen_Tvalores {
+        width: 100%;
+    }
+
+    .Checkout_Formulario_Resumen {
+        display: flex;
+    }
+
+    .Totales_Responsibe {
+        display: block;
+    }
+
+    .Checkout_Body_Items_header {
+        display: flex;
+    }
+}

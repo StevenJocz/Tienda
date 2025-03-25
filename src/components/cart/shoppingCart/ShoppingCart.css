@@ -15,6 +15,7 @@
 .ShoppingCart--cerrar {
     width: 77%;
     height: 100vh;
+    cursor: pointer;
 }
 
 .ShoppingCart_Content {
@@ -266,6 +267,11 @@
     border: none;
     cursor: pointer;
     text-decoration: none;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 }
 
 .ShoppingCart_Botones button {
@@ -279,6 +285,11 @@
     cursor: pointer;
     background-color: #ffffff;
     border: solid 1px var(--bg-menu);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 }
 
 .ShoppingCart_Producto-null {
@@ -310,6 +321,11 @@
     color: var(--text-blanco);
     border: none;
     cursor: pointer;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
 }
 
 @media screen and (max-width: 1024px) {}

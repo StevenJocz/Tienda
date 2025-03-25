@@ -12,21 +12,35 @@ export interface PedidoRegistro {
 }
 
 export interface Pedido {
-    idUsuario: number;
+    cliente: Cliente
     subTotal: number;
     valorEnvio: number;
     idCupon: number;
     valorDescuento: number;
     valorTotal: number;
     tipoEntrega: string;
-    direccion: string;
-    complemento: string;
-    barrio: string;
-    destinatario: string;
-    responsable: string;
     registros: PedidoRegistro[];
 }
 
+export interface Cliente {
+    correo: string;
+    apellidos: string;
+    nombres: string;
+    tipoDocumento: number;
+    documento: string;
+    celular: string;
+    genero: number;
+    pais: number;
+    departamento: number;
+    ciudad: number;
+    tipoVia: number;
+    numero1: string;
+    numero2: string;
+    numero3: string;
+    complementario: string;
+    barrio: string;
+  }
+  
 
 export interface RegistrosPedido {
     idProducto: number;
@@ -69,6 +83,8 @@ export interface PedidoVista {
     valorEnvio: number;
     descuento: number;
     total: number;
+    estadoPago: string;
+    formaPago: string;
     registros: RegistrosPedido[];
     usuarios: UsuarioPedido;
     envio: EnvioPedido;
@@ -78,4 +94,18 @@ export interface EstadoPedidos {
     idPedido: number;
     idEstadoPedido: number;
     idEstadoEnvio: number;
+}
+
+export interface EstadoPago {
+    idEstado: number;
+    estado: string;
+    requestId: number;
+    idReferencia: number;
+    fecha: string;
+    valor: number;
+    moneda: string;
+    formaPago: string;
+    razon: string;
+    mensaje: string;
+    correo: string;
 }

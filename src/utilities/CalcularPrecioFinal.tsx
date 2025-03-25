@@ -5,6 +5,7 @@ interface Producto {
     descuento: number;
     fechaFinDescuento: string;
     precioBase?: number;
+    iva: number;
     imagenes: Imagen[];
     tallas: Talla[];
 }
@@ -46,11 +47,18 @@ const calcularPrecioConDescuento = (
     return precio * (1 - descuento / 100);
 };
 
+const redondear = (valor: number): number => {
+    return Math.round(valor); // Redondear a entero
+};
+
 export const calcularPrecioFinal = (
     producto: Producto,
     imagenSeleccionada?: Imagen,
     tallaSeleccionada?: Talla
-): { precioFinalSinDescuento: number; precioConDescuento: number } => {
+): { 
+    precioFinalSinDescuento: number;
+    precioConDescuento: number;
+} => {
     if (producto.precioBase === undefined) {
         throw new Error("El precio base del producto no está definido.");
     }
@@ -63,23 +71,25 @@ export const calcularPrecioFinal = (
         descuento = producto.descuento;
     }
 
-   
     const porcentajeImagen = imagenSeleccionada ? parsePercentage(imagenSeleccionada.porcentajeValor) : 0;
     const porcentajeTalla = tallaSeleccionada ? parsePercentage(tallaSeleccionada.porcentaje) : 0;
 
-    const precioFinalSinDescuento = calcularPrecioBase(
+    // Precio base con porcentajes de imagen y talla
+    let precioFinalSinDescuento = calcularPrecioBase(
         producto.precioBase,
         porcentajeImagen,
         porcentajeTalla
     );
 
-    const precioConDescuento = calcularPrecioConDescuento(
+    // Precio con descuento aplicado
+    let precioConDescuento = calcularPrecioConDescuento(
         precioFinalSinDescuento,
         descuento
     );
 
+
     return {
-        precioFinalSinDescuento,
-        precioConDescuento,
+        precioFinalSinDescuento: redondear(precioFinalSinDescuento),
+        precioConDescuento: redondear(precioConDescuento),
     };
 };

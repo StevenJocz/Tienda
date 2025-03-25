@@ -31,7 +31,44 @@
     margin-left: 10px;
 }
 
-.Iniciar_spinner{
+
+.PagarAhora {
+    color: #fcfcfc;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    font-size: 1em;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    margin-top: 5%;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.PagarAhora span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff !important;
+}
+
+.PagarAhora:hover {
+    background-color: #2a5783d7 !important;
+}
+
+
+.PagarAhora span .icono {
+    display: none;
+}
+
+.Iniciar_spinner {
     display: flex;
     justify-content: center;
 }

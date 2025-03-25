@@ -4,7 +4,7 @@ import { services } from '../models';
 const API_URL = services.PasarelaPago;
 
 
-export const api = {
+export const apiPasarela = {
 
     // Método genérico para realizar cualquier tipo de solicitud HTTP
     request: async <T>(
@@ -43,16 +43,16 @@ export const api = {
         path: string,
         data?: any,
         config?: AxiosRequestConfig
-    ): Promise<AxiosResponse<T>> => api.request<T>('post', path, data, config),
+    ): Promise<AxiosResponse<T>> => apiPasarela.request<T>('post', path, data, config),
 
     put: async <T>(
         path: string,
         data?: any,
         config?: AxiosRequestConfig
-    ): Promise<AxiosResponse<T>> => api.request<T>('put', path, data, config),
+    ): Promise<AxiosResponse<T>> => apiPasarela.request<T>('put', path, data, config),
 
     delete: async <T>(
         path: string,
         config?: AxiosRequestConfig
-    ): Promise<AxiosResponse<T>> => api.request<T>('delete', path, undefined, config),
+    ): Promise<AxiosResponse<T>> => apiPasarela.request<T>('delete', path, undefined, config),
 };

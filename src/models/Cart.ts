@@ -9,4 +9,5 @@ export interface ShoppingCart {
     color: string;
     nombreColor: string;
     talla: string;
+    iva: number;
 }

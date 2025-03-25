@@ -117,10 +117,6 @@ const ViewProducto = () => {
         }
     }, [producto]);
 
-
-   
-
-
     useEffect(() => {
         if (imagenSeleccionada && tallaSeleccionada && producto.length > 0) {
             haddleAplicarPrecios();
@@ -157,7 +153,8 @@ const ViewProducto = () => {
             src: imagenSeleccionada?.imagen || '',
             color: imagenSeleccionada?.color || '',
             nombreColor: imagenSeleccionada?.nombreColor || '',
-            talla: tallaSeleccionada?.nombre || ''
+            talla: tallaSeleccionada?.nombre || '',
+            iva: producto[0].iva
         });
 
         setMensajeAddProducto(mensaje);

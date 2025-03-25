@@ -51,6 +51,7 @@ const AddProductos: React.FC<Props> = (props) => {
     const mainContainer = document.getElementById('main');
     if (mainContainer) {
       mainContainer.scrollTop = 0;
+      
     }
   }, []);
 
@@ -287,14 +288,16 @@ const AddProductos: React.FC<Props> = (props) => {
         descripcion: values.descripcion,
         informacion: values.informacion,
         tags: selectedValues.toString(),
-        descuento: parseInt(values.porcentajeDescuento),
-        fechaFinDescuento: values.fechaDescuento,
+        descuento:  values.porcentajeDescuento === "" ? 0 : values.porcentajeDescuento,
+        fechaFinDescuento: values.fechaDescuento == null ? "2000-01-01T00:00:00.514Z" : values.fechaDescuento,
         idTercero: 42066,
         activo: values.activo,
         imagenes: jsonImagenes,
         tallas: Tallas,
       };
 
+      // console.log(Addproducto)
+      // setIsSubmitting(false)
 
       if (props.idProducto > 0) {
         console.log(Addproducto);
@@ -475,7 +478,7 @@ const AddProductos: React.FC<Props> = (props) => {
                       <Editor
                         value={values.informacion}
                         onEditorChange={(content) => setFieldValue('informacion', content)}
-                        apiKey='tuezbpkp2ehsxvmrxtl2szjjtayo5yx9fm90xwbjrpbvopkv'
+                        apiKey='bwo0pi4uyss3z9mhpqjesq2su8wxh5jsn2el6l1eohqiwwho'
                         init={{
                           height: 350,
                           content_style: "font-size: 16px; font-family: 'Roboto', sans-serif;",

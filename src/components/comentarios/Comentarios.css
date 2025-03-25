@@ -36,13 +36,13 @@
 
 .Comentarios_buton  button {
     width: 250px;
-    height: 30px;
+    height: 40px;
     background-color: var(--bg-unac);
-    border-radius: 30px;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    -ms-border-radius: 30px;
-    -o-border-radius: 30px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
     color: var(--text-blanco);
     cursor: pointer;
     border: none;

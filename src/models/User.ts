@@ -6,10 +6,20 @@ export interface InicioSesion {
 export interface UsuarioLogin {
   idUsuario: number;
   nombre: string;
+  apellido: string;
+  tipoDocumento: string;
+  documento: string;
   correo: string;
   telefono: string;
-  direccion: string;
+  genero: number;
   tipoUsuario: number;
+  pais: number;
+  departamento: number;
+  ciudad: number;
+  tipoVia: number;
+  numero1: string;
+  numero2: string;
+  numero3:string;
   exp: string;
   iat: string;
   nbf: string;

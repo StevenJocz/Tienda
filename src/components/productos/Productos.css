@@ -25,22 +25,22 @@
 
 .Productos_Card {
     width: 100%;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
     overflow: hidden;
 }
 
 .Productos_Card--img {
     width: 100%;
-    height: 400px;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    height: 350px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
     overflow: hidden;
     position: relative;
     cursor: pointer;
@@ -56,7 +56,7 @@
 
 .Productos_Card--img img {
     width: 100%;
-    height: 400px;
+    height: 350px;
 }
 
 .Productos_Card--img .Productos_Card--img-Uno {
@@ -70,54 +70,40 @@
 .Productos_Card--img h6 {
     position: absolute;
     top: 20px;
-    right: 0;
-    transform: rotate(270deg);
-    -webkit-transform: rotate(270deg);
-    -moz-transform: rotate(270deg);
-    -ms-transform: rotate(270deg);
-    -o-transform: rotate(270deg);
-    font-weight: 200;
-    font-size: 20px;
-    background-color: #e6e5e5;
-    padding: 5px 10px;
-    border-radius: 12px 0 0 12px;
-    -webkit-border-radius: 12px 0 0 12px;
-    -moz-border-radius: 12px 0 0 12px;
-    -ms-border-radius: 12px 0 0 12px;
-    -o-border-radius: 12px 0 0 12px;
-    color: black;
-}
-
-.Productos_Card--img h5 {
-    position: absolute;
-    top: 30px;
     left: -20px;
     transform: rotate(270deg);
     -webkit-transform: rotate(270deg);
     -moz-transform: rotate(270deg);
     -ms-transform: rotate(270deg);
     -o-transform: rotate(270deg);
-    font-weight: 800;
-    font-size: 15px;
-    background-color: #ffcb5b;
-    color: var(--text-blanco);
+    font-weight: 300;
+    font-size: 20px;
+    background-color: var(--bg-unac);
     padding: 5px 10px;
-    text-transform: uppercase;
     border-radius: 12px 0 0 12px;
     -webkit-border-radius: 12px 0 0 12px;
     -moz-border-radius: 12px 0 0 12px;
     -ms-border-radius: 12px 0 0 12px;
     -o-border-radius: 12px 0 0 12px;
+    color: #fff;
 }
+
+
 
 .Productos_Card--img h3 {
     position: absolute;
-    bottom: 0;
+    top: 0;
     right: 0;
-    font-size: 17px;
-    padding: 5px;
-    background-color: var(--bg-unac);
+    font-weight: 800;
+    font-size: 15px;
+    background-color: #ffcb5b;
     color: var(--text-blanco);
+    padding: 5px;
+    border-radius: 0 0 0 12px;
+    -webkit-border-radius: 0 0 0 12px;
+    -moz-border-radius: 0 0 0 12px;
+    -ms-border-radius: 0 0 0 12px;
+    -o-border-radius: 0 0 0 12px;
 }
 
 

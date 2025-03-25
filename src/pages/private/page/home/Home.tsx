@@ -40,8 +40,8 @@ const Home = () => {
             const data = response.data;
 
             if (data) {
-                setPData(data.series.find(serie => serie.label === '2023')?.data || []);
-                setUData(data.series.find(serie => serie.label === '2024')?.data || []);
+                setPData(data.series.find(serie => serie.label === '2024')?.data || []);
+                setUData(data.series.find(serie => serie.label === '2025')?.data || []);
                 setMonths(data.months);
             }
         } catch (error) {
@@ -79,8 +79,8 @@ const Home = () => {
                             <LineChart
                                 height={400}
                                 series={[
-                                    { data: pData, label: '2023' },
-                                    { data: uData, label: '2024' },
+                                    { data: pData, label: '2024' },
+                                    { data: uData, label: '2025' },
                                 ]}
                                 xAxis={[{ scaleType: 'point', data: months }]}
                             />

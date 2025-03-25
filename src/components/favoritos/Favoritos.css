@@ -79,6 +79,38 @@
 
 
 
+.Favoritos_Producto_null {
+    text-align: center;
+    margin-top: 40%;
+}
+
+.Favoritos_Producto_null .icono {
+    font-size: 80px;
+    opacity: 0.5;
+}
+
+.Favoritos_Producto_null p {
+    font-size: 16px;
+    opacity: 0.8;
+    margin-top: 10px;
+
+}
+
+.Favoritos_Producto_null button {
+    width: 80%;
+    height: 50px;
+    background-color: var(--bg-unac);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10%;
+    margin-top: 20px;
+    color: var(--text-blanco);
+    border: none;
+    cursor: pointer;
+}
+
+
 @media screen and (max-width: 1024px) {}
 
 

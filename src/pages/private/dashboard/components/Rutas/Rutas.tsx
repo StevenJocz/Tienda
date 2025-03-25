@@ -1,15 +1,18 @@
-
+import { lazy } from 'react';
 import { Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import RoutesWithNotFound from '../../../../../utilities/RoutesWithNotFound';
 import { AppStore } from '../../../../../redux/Store';
-import { Home } from '../../../page/home';
-import { Productos } from '../../../page/productos';
-import { Configuracion } from '../../../page/configuracion';
-import { Usuarios } from '../../../page/usuarios';
-import { Pedidos } from '../../../page/pedidos';
-import { TodasNotificaciones } from '../../../page/notificaciones';
-import { TodosComentarios } from '../../../page/comentarios';
+
+// Lazy-loaded components
+const Home = lazy(() => import('../../../page/home/Home'));
+const Productos = lazy(() => import('../../../page/productos/Productos'));
+const Configuracion = lazy(() => import('../../../page/configuracion/Configuracion'));
+const Usuarios = lazy(() => import('../../../page/usuarios/Usuarios'));
+const Pedidos = lazy(() => import('../../../page/pedidos/Pedidos'));
+const TodasNotificaciones = lazy(() => import('../../../page/notificaciones/TodasNotificaciones'));
+const TodosComentarios = lazy(() => import('../../../page/comentarios/TodosComentarios'));
+
 
 const Rutas = () => {
     const usuario = useSelector((store: AppStore) => store.user);

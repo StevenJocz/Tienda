@@ -124,7 +124,7 @@ const Favoritos: React.FC<Props> = (props) => {
                     </div>
 
                 ) : (
-                    <div className='ShoppingCart_Producto-null'>
+                    <div className='Favoritos_Producto_null'>
                     <IonIcon className='icono' icon={eyeOffOutline} />
                     <p>Aun no tiene productos añadidos en tu lista de deseos.</p>
                     <button onClick={props.onClose}>Volver a la tienda</button>

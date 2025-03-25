@@ -1,20 +1,23 @@
-import './Nav.css'
+import { useEffect, useState } from 'react';
 import { IonIcon } from '@ionic/react';
 import { notificationsOutline, cartOutline, searchOutline, personOutline, heartOutline, menuOutline } from 'ionicons/icons';
-import { useEffect, useState } from 'react';
-import ShoppingCart from '../cart/shoppingCart/ShoppingCart';
-import { useCartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
-import { Favoritos } from '../favoritos';
-import { Login } from '../loginDos';
-import { AppStore } from '../../redux/Store';
+import { useCartContext } from '../../context/CartContext';
 import { useDispatch, useSelector } from 'react-redux';
+import { AppStore } from '../../redux/Store';
 import { clearLocalStorage } from '../../utilities';
 import { TokenKey, UserKey, resetUser } from '../../redux/states/User';
 import { PrivateRoutes, PublicRoutes } from '../../models';
-import { MiCuenta } from '../miCuenta';
-import { Notification } from '../../pages/private/dashboard/components/notification';
+import './Nav.css';
 import { api } from '../../services';
+import ShoppingCart from '../cart/shoppingCart/ShoppingCart';
+import { Favoritos } from '../favoritos';
+import { MiCuenta } from '../miCuenta';
+import { Login } from '../loginDos';
+import { Notification } from '../../pages/private/dashboard/components/notification';
+
+
+
 
 const Nav = () => {
     const [shoppingCart, setShoppingCart] = useState(false);
@@ -107,7 +110,7 @@ const Nav = () => {
         <div className='Menu'>
             <div className='Menu_left'>
                 <Link to={'/'}>
-                    <img src="http://tienda.unac.edu.co/wp-content/uploads/cropped-LOGO_UNAC-1.webp" alt="" />
+                    <img src="https://www.unac.edu.co/wp-content/uploads/2023/06/Logo_UNAC_svg.svg" alt="" />
                 </Link>
                 <ul>
                     <Link to={'/'}> <li className="">Home</li></Link>

@@ -1,0 +1,36 @@
+.Preguntas {
+    width: 100%;
+    display: flex;
+    padding: 2% 5%;
+
+}
+
+.Preguntas_Texto {
+    width: 50%;
+}
+
+.Preguntas_Texto h2 {
+    font-size: 20px;
+    color: #000000;
+    font-weight: 500;
+    margin: 10px 0;
+}
+
+.Preguntas_Texto p {
+    font-size: 15px;
+    color: #000000e0;
+    font-weight: 400;
+}
+
+.Preguntas_Texto span {
+    color: #000000;
+    font-weight: 500;
+}
+
+.Preguntas_Imagen {
+    width: 50%;
+}
+
+.Preguntas_Imagen img{
+    width: 90%;
+}

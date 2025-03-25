@@ -1,4 +1,5 @@
 import './MiCuenta.css'
+import '../favoritos/Favoritos.css'
 import { IonIcon } from "@ionic/react";
 import { closeOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";

@@ -11,3 +11,8 @@
     fecha: string;
     categoriaFecha: string; 
   }
+
+  export interface PagoPendiente {
+    idReferencia: string;
+    valor: number;
+  }
